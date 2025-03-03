@@ -18,7 +18,14 @@ class Block : public Entity{
     Collider& getTopCollider(){
         return topCollider;
     }
+    Block* getChild(){
+        return child;
+    }
+    void setChild(Block* p_child){
+        child = p_child;
+    }
     private:
     Collider bottomCollider;
     Collider topCollider;
+    Block* child;
 };
