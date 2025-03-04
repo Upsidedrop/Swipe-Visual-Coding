@@ -1,2 +1,4 @@
 *.o
-/bin
+/bin/debug/main
+/bin/release/main
+

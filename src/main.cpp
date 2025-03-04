@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 #include <iostream>
 #include <vector>
 
@@ -19,10 +20,19 @@ int main(int agrv, char* args[]) {
     if(!(IMG_Init(IMG_INIT_PNG))){
         cout << "IMG_Init HAS FAILED. ERROR:" << SDL_GetError() << endl;
     }
+    if(Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0){
+        cout << "SDL_MIXER HAS FAILED. ERROR:" << SDL_GetError() << endl;
+    }
     cout << "Init Passed" << endl;
     RenderWindow window("hi", 1280, 720);
 
     SDL_Texture* blockTexture = window.loadTexture("res/gfx/DefaultBlock.png");
+    
+    Mix_Music* gMusic = Mix_LoadMUS("res/dev/death-odyssey.mp3");
+
+    Mix_VolumeMusic(50);
+
+    Mix_PlayMusic(gMusic, -1);
 
     vector<vector<Collider*>> colliderFlags = vector<vector<Collider*>>(2);
 
@@ -96,7 +106,12 @@ int main(int agrv, char* args[]) {
     }
     std::cout << "exit" << "\n";
     window.cleanUp();
+
+    Mix_FreeMusic(gMusic);
+
     SDL_Quit();
+    IMG_Quit();
+    Mix_Quit();
 
     return 0;
 }
