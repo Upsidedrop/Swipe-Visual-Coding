@@ -46,10 +46,6 @@ int main(int agrv, char* args[]) {
 
     cout << "Game Start" << endl;
     while(gameRunning){
-        if(heldObject != nullptr){
-            cout << (heldObject -> getTopCollider().CheckForCollisions({1}) == nullptr) << endl;
-            heldObject -> getPos().print();
-        }
         while(SDL_PollEvent(&event)){
             if(event.type == SDL_QUIT){
                 gameRunning = false;
@@ -78,6 +74,12 @@ int main(int agrv, char* args[]) {
                         }
                         iterator = iterator -> getNextNode();
                     }
+                    cout << heldObject << endl;
+                    cout << heldObject -> getParent() << endl;
+                    if(heldObject != nullptr && heldObject -> getParent() != nullptr){
+                        heldObject -> getParent() -> setChild(nullptr);
+                        heldObject -> setParent(nullptr);
+                    }
                 }
             }
             if(event.type == SDL_MOUSEBUTTONUP){
@@ -87,6 +89,7 @@ int main(int agrv, char* args[]) {
                         neighbor = heldObject -> getTopCollider().CheckForCollisions({1});
                         if(neighbor != nullptr){
                             heldObject->setPos(neighbor->GetParent() -> getPos() + Vector2f(0, 48));
+                            neighbor -> GetParent() -> setChild(heldObject);
                         }
                         heldObject = nullptr;
                     }
@@ -106,6 +109,8 @@ int main(int agrv, char* args[]) {
     }
     std::cout << "exit" << "\n";
     window.cleanUp();
+
+    delete blockTexture;
 
     Mix_FreeMusic(gMusic);
 

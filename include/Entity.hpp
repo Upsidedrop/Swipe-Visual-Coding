@@ -11,8 +11,7 @@ class Entity{
     {
         return pos;
     }
-    void setPos(Vector2f p_pos)
-    {
+    virtual void setPos(Vector2f p_pos){
         pos = p_pos;
     }
     void setScale(Vector2f p_scale){
@@ -23,6 +22,7 @@ class Entity{
     }
     SDL_Texture* getTex();
     SDL_Rect getCurrentFrame();
+    
     protected:
     Vector2f pos;
     SDL_Rect currentFrame;

@@ -3,7 +3,7 @@
 using namespace std;
 
 Block::Block(Vector2f p_pos, SDL_Texture* p_tex, vector<vector<Collider*>>* colliderFlags, Vector2f p_scale, uint p_w, uint p_h)
-:Entity(p_pos, p_tex, p_scale, p_w, p_h)
+:Entity(p_pos, p_tex, p_scale, p_w, p_h), parent(nullptr), child(nullptr)
 {
     SDL_FRect topColFrame;
     topColFrame.x = 0;

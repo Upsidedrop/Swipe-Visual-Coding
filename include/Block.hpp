@@ -24,8 +24,23 @@ class Block : public Entity{
     void setChild(Block* p_child){
         child = p_child;
     }
+    Block* getParent(){
+        return parent;
+    }
+    void setParent(Block* p_parent){
+        parent = p_parent;
+    }
+    void setPos(Vector2f p_pos) override
+    {
+        pos = p_pos;
+        if(child != nullptr)
+        {
+            child-> setPos(p_pos +Vector2f(0, 48));
+        }
+    }
     private:
     Collider bottomCollider;
     Collider topCollider;
     Block* child;
+    Block* parent;
 };
