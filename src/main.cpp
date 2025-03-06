@@ -77,9 +77,7 @@ int main(int agrv, char* args[]) {
                         }
                         iterator = iterator -> getNextNode();
                     }
-                    cout << heldObject << endl;
                     if(heldObject != nullptr){
-                        cout << heldObject -> getChild() << endl;
                         if(heldObject -> getParent() != nullptr){
                             heldObject -> getParent() -> setChild(nullptr);
                             heldObject -> setParent(nullptr);

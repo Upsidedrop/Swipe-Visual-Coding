@@ -20,7 +20,7 @@ Block::Block(Vector2f p_pos, SDL_Texture* p_tex, vector<vector<Collider*>>* coll
     bottomColFrame.y = 48;
     bottomColFrame.w = 128;
     bottomColFrame.h = 32;
-    p_pos.print();
+    
     bottomCollider = Collider(bottomColFrame, this, colliderFlags);
 
     ((colliderFlags -> data()) + 1) -> push_back(&bottomCollider);

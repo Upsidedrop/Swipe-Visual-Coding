@@ -13,7 +13,6 @@ public:
         nextNode = p_nextNode;
     }
     void DestroyNode(){
-        cout << "deleted node" << endl;
         if(nextNode != nullptr){
             nextNode -> DestroyNode();
         }
