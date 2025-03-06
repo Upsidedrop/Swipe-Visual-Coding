@@ -27,6 +27,7 @@ class Block : public Entity{
     Block* getParent(){
         return parent;
     }
+
     void setParent(Block* p_parent){
         parent = p_parent;
     }
