@@ -37,7 +37,10 @@ int main(int agrv, char* args[]) {
     vector<vector<Collider*>> colliderFlags = vector<vector<Collider*>>(2);
 
     LinkedList<Block> blocks(new Block(Vector2f(0,0), blockTexture, &colliderFlags, Vector2f(4, 4), 64, 14));
-    blocks.Add(new Block(Vector2f(0,250), blockTexture, &colliderFlags, Vector2f(4, 4), 64, 14));
+    for (size_t i = 0; i < 15; i++)
+    {
+        blocks.Add(new Block(Vector2f(0,250), blockTexture, &colliderFlags, Vector2f(4, 4), 64, 14));
+    }
 
     bool gameRunning = true;
     SDL_Event event;
@@ -90,8 +93,16 @@ int main(int agrv, char* args[]) {
                         Collider* neighbor;
                         neighbor = heldObject -> getTopCollider().CheckForCollisions({1});
                         if(neighbor != nullptr){
-                            heldObject->setPos(neighbor->GetParent() -> getPos() + Vector2f(0, 48));
+                            if(neighbor -> GetParent() -> getChild() != nullptr){
+                                Block* iterator = heldObject;
+                                while(iterator -> getChild() != nullptr){
+                                    iterator = iterator -> getChild();
+                                }
+                                iterator -> setChild(neighbor -> GetParent() -> getChild());
+                                iterator -> getChild() -> setParent(iterator);
+                            }
                             neighbor -> GetParent() -> setChild(heldObject);
+                            heldObject->setPos(neighbor->GetParent() -> getPos() + Vector2f(0, 48));
                             heldObject -> setParent(neighbor -> GetParent());
                         }
                         heldObject = nullptr;
