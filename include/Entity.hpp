@@ -1,12 +1,14 @@
 #pragma once
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <map>
+#include <unordered_set>
 
 #include "Math.hpp"
 
 class Entity{
     public:
-    Entity(Vector2f p_pos, SDL_Texture* p_tex, Vector2f p_scale = Vector2f(1,1), uint p_w = 32, uint p_h = 32);
+    Entity(Vector2f p_pos, SDL_Texture* p_tex, std::map<int, std::unordered_set<Entity*>>* p_layers, Vector2f p_scale = Vector2f(1,1), uint p_w = 32, uint p_h = 32);
     Vector2f& getPos()
     {
         return pos;
@@ -20,10 +22,13 @@ class Entity{
     Vector2f& getScale(){
         return scale;
     }
+    virtual void SetLayer(int p_layer);
     SDL_Texture* getTex();
     SDL_Rect getCurrentFrame();
     
     protected:
+    int layer = 0;
+    std::map<int, std::unordered_set<Entity*>>* layers;
     Vector2f pos;
     SDL_Rect currentFrame;
     Vector2f scale;

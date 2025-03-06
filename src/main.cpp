@@ -3,6 +3,8 @@
 #include <SDL2/SDL_mixer.h>
 #include <iostream>
 #include <vector>
+#include <unordered_set>
+#include <map>
 
 #include "RenderWindow.hpp"
 #include "Block.hpp"
@@ -36,10 +38,12 @@ int main(int agrv, char* args[]) {
 
     vector<vector<Collider*>> colliderFlags = vector<vector<Collider*>>(2);
 
-    LinkedList<Block> blocks(new Block(Vector2f(0,0), blockTexture, &colliderFlags, Vector2f(4, 4), 64, 14));
+    map<int, unordered_set<Entity*>> renderLayers;
+
+    LinkedList<Block> blocks(new Block(Vector2f(0,0), blockTexture, &renderLayers, &colliderFlags, Vector2f(4, 4), 64, 14));
     for (size_t i = 0; i < 15; i++)
     {
-        blocks.Add(new Block(Vector2f(0,250), blockTexture, &colliderFlags, Vector2f(4, 4), 64, 14));
+        blocks.Add(new Block(Vector2f(0,250), blockTexture, &renderLayers, &colliderFlags, Vector2f(4, 4), 64, 14));
     }
 
     bool gameRunning = true;
@@ -82,6 +86,7 @@ int main(int agrv, char* args[]) {
                             heldObject -> getParent() -> setChild(nullptr);
                             heldObject -> setParent(nullptr);
                         }
+                        heldObject -> SetLayer(1);
                     }
                 }
             }
@@ -103,6 +108,7 @@ int main(int agrv, char* args[]) {
                             heldObject->setPos(neighbor->GetParent() -> getPos() + Vector2f(0, 48));
                             heldObject -> setParent(neighbor -> GetParent());
                         }
+                        heldObject -> SetLayer(0);
                         heldObject = nullptr;
                     }
                     
@@ -111,10 +117,10 @@ int main(int agrv, char* args[]) {
         }
         window.clear();
 
-        Node<Block>* iterator = blocks.getFirstNode();
-        while(iterator != nullptr){
-            window.render(*(iterator -> getValue()));
-            iterator = iterator -> getNextNode();
+        for(auto layer : renderLayers){
+            for(Entity* entity : layer.second){
+                window.render(*entity);
+            }
         }
 
         window.display();
