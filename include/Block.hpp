@@ -39,6 +39,7 @@ class Block : public Entity{
             child-> setPos(p_pos +Vector2f(0, 48));
         }
     }
+    virtual ~Block() {}
     private:
     Collider bottomCollider;
     Collider topCollider;
