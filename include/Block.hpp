@@ -36,7 +36,7 @@ class Block : public Entity{
         pos = p_pos;
         if(child != nullptr)
         {
-            child-> setPos(p_pos +Vector2f(0, 48));
+            child-> setPos(p_pos + Vector2f(0, 48));
         }
     }
     void SetLayer(int p_layer) override{
