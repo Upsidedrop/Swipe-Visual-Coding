@@ -65,7 +65,7 @@ int main(int agrv, char* args[]) {
             }
             if(event.type == SDL_MOUSEBUTTONDOWN){
                 if(event.button.button == SDL_BUTTON_LEFT){
-                    auto lambda = [&clickedPos, event, &heldObject](Block* block){
+                    /*auto lambda = [&clickedPos, event, &heldObject](Block* block){
                         clickedPos = Vector2f(event.button.x - block -> getPos().x, event.button.y - block -> getPos().y);
                         if(clickedPos.x > 0 && clickedPos.x < block -> getCurrentFrame().w * block -> getScale().x
                             && clickedPos.y > 0 && clickedPos.y < block -> getCurrentFrame().h * block -> getScale().y){
@@ -73,13 +73,11 @@ int main(int agrv, char* args[]) {
                                 return true;
                         }
                         return false;
-                    };
-                    Node<Block>* iterator = blocks.getFirstNode();
-                    while(iterator != nullptr){
-                        if(lambda(iterator -> getValue())){
-                            break;
-                        }
-                        iterator = iterator -> getNextNode();
+                    };*/
+                    Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), &colliderFlags, {0});
+                    if(collision != nullptr){
+                        heldObject = collision->GetParent();
+                        clickedPos = Vector2f(event.button.x - heldObject -> getPos().x, event.button.y - heldObject -> getPos().y);
                     }
                     if(heldObject != nullptr){
                         if(heldObject -> getParent() != nullptr){
