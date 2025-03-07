@@ -36,7 +36,7 @@ int main(int agrv, char* args[]) {
 
     Mix_PlayMusic(gMusic, -1);
 
-    vector<vector<Collider*>> colliderFlags = vector<vector<Collider*>>(2);
+    vector<vector<Collider*>> colliderFlags = vector<vector<Collider*>>(3);
 
     map<int, unordered_set<Entity*>> renderLayers;
 
@@ -65,16 +65,7 @@ int main(int agrv, char* args[]) {
             }
             if(event.type == SDL_MOUSEBUTTONDOWN){
                 if(event.button.button == SDL_BUTTON_LEFT){
-                    /*auto lambda = [&clickedPos, event, &heldObject](Block* block){
-                        clickedPos = Vector2f(event.button.x - block -> getPos().x, event.button.y - block -> getPos().y);
-                        if(clickedPos.x > 0 && clickedPos.x < block -> getCurrentFrame().w * block -> getScale().x
-                            && clickedPos.y > 0 && clickedPos.y < block -> getCurrentFrame().h * block -> getScale().y){
-                                heldObject = block;
-                                return true;
-                        }
-                        return false;
-                    };*/
-                    Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), &colliderFlags, {0});
+                    Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), &colliderFlags, {2});
                     if(collision != nullptr){
                         heldObject = collision->GetParent();
                         clickedPos = Vector2f(event.button.x - heldObject -> getPos().x, event.button.y - heldObject -> getPos().y);

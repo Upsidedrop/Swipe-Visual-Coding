@@ -58,6 +58,7 @@ class Block : public Entity{
     private:
     Collider bottomCollider;
     Collider topCollider;
+    Collider mainCollider;
     Block* child;
     Block* parent;
 };
