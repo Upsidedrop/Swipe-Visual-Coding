@@ -1,5 +1,4 @@
 *.o
 /bin/debug/main
 /bin/release/main
-/vscode/tasks.json
-/vscode/c_cpp_properties.json
+/vscode/~tasks.json
