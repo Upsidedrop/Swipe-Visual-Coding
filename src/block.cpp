@@ -15,9 +15,9 @@ Block::Block(Vector2f p_pos, SDL_Texture* p_tex, map<int, unordered_set<Entity*>
 
     SDL_FRect topColFrame;
     topColFrame.x = 0;
-    topColFrame.y = -12;
-    topColFrame.w = 128;
-    topColFrame.h = 32;
+    topColFrame.y = -3;
+    topColFrame.w = 32;
+    topColFrame.h = 8;
 
     topCollider = Collider(topColFrame, this, colliderFlags);
 
@@ -25,9 +25,9 @@ Block::Block(Vector2f p_pos, SDL_Texture* p_tex, map<int, unordered_set<Entity*>
 
     SDL_FRect bottomColFrame;
     bottomColFrame.x = 0;
-    bottomColFrame.y = 48;
-    bottomColFrame.w = 128;
-    bottomColFrame.h = 32;
+    bottomColFrame.y = 12;
+    bottomColFrame.w = 32;
+    bottomColFrame.h = 8;
     
     bottomCollider = Collider(bottomColFrame, this, colliderFlags);
 

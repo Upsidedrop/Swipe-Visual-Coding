@@ -23,7 +23,7 @@ SDL_Rect Entity::getCurrentFrame(){
     return currentFrame;
 }
 void Entity::SetLayer(int p_layer){
-    std::cout << layers -> find(layer) -> second.erase(this) << std::endl;
+    layers -> find(layer) -> second.erase(this);
 
     layer = p_layer;
 

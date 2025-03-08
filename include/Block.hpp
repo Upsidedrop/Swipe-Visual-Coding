@@ -36,14 +36,14 @@ class Block : public Entity{
         pos = p_pos;
         if(child != nullptr)
         {
-            child-> setPos(p_pos + Vector2f(0, 48));
+            child-> setPos(p_pos + Vector2f(0, 12 * scale.y));
         }
     }
     void SetLayer(int p_layer) override{
         if(child != nullptr){
             child -> SetLayer(p_layer);
         }
-        std::cout << layers -> find(layer) -> second.erase(this) << std::endl;
+        layers -> find(layer) -> second.erase(this);
 
         layer = p_layer;
     

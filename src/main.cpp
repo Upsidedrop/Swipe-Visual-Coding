@@ -41,9 +41,9 @@ int main(int agrv, char* args[]) {
     map<int, unordered_set<Entity*>> renderLayers;
 
     LinkedList<Block> blocks(new Block(Vector2f(0,0), blockTexture, &renderLayers, &colliderFlags, Vector2f(4, 4), 64, 14));
-    for (size_t i = 0; i < 15; i++)
+    for (size_t i = 0; i < 8; i++)
     {
-        blocks.Add(new Block(Vector2f(0,250), blockTexture, &renderLayers, &colliderFlags, Vector2f(4, 4), 64, 14));
+        blocks.Add(new Block(Vector2f(0,(i+1) * 70), blockTexture, &renderLayers, &colliderFlags, Vector2f(i + 1, 4), 64, 14));
     }
 
     bool gameRunning = true;
@@ -75,6 +75,7 @@ int main(int agrv, char* args[]) {
                             heldObject -> getParent() -> setChild(nullptr);
                             heldObject -> setParent(nullptr);
                         }
+                        cout << "1" << endl;
                         heldObject -> SetLayer(1);
                     }
                 }
@@ -94,7 +95,7 @@ int main(int agrv, char* args[]) {
                                 iterator -> getChild() -> setParent(iterator);
                             }
                             neighbor -> GetParent() -> setChild(heldObject);
-                            heldObject->setPos(neighbor->GetParent() -> getPos() + Vector2f(0, 48));
+                            heldObject->setPos(neighbor->GetParent() -> getPos() + Vector2f(0, 12 * neighbor -> GetParent() -> getScale().y));
                             heldObject -> setParent(neighbor -> GetParent());
                         }
                         heldObject -> SetLayer(0);
