@@ -11,7 +11,7 @@ using namespace std;
 
 class Block : public Entity{
     public:
-    Block(Vector2f p_pos, SDL_Texture* p_tex, map<int, unordered_set<Entity*>>* p_layers, vector<vector<Collider*>>* colliderFlags, Vector2f p_scale = Vector2f(1,1), uint p_w = 32, uint p_h = 32);
+    Block(Vector2f p_pos, SDL_Texture* p_tex, map<int, unordered_set<Entity*>>* p_layers, vector<vector<Collider*>>* colliderFlags, SDL_Rect p_frame, Vector2f p_scale = Vector2f(1,1));
     Collider& getBottomCollider(){
         return bottomCollider;
     }

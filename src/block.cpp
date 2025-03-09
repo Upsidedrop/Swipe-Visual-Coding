@@ -1,13 +1,13 @@
 #include "Block.hpp"
 
-Block::Block(Vector2f p_pos, SDL_Texture* p_tex, map<int, unordered_set<Entity*>>* p_layers, vector<vector<Collider*>>* colliderFlags, Vector2f p_scale, uint p_w, uint p_h)
-:Entity(p_pos, p_tex, p_layers, p_scale, p_w, p_h), child(nullptr), parent(nullptr)
+Block::Block(Vector2f p_pos, SDL_Texture* p_tex, map<int, unordered_set<Entity*>>* p_layers, vector<vector<Collider*>>* colliderFlags, SDL_Rect p_frame, Vector2f p_scale)
+:Entity(p_pos, p_tex, p_layers, p_frame, p_scale), child(nullptr), parent(nullptr)
 {
     SDL_FRect mainColFrame;
     mainColFrame.x = 0;
     mainColFrame.y = 0;
-    mainColFrame.w = p_w;
-    mainColFrame.h = p_h;
+    mainColFrame.w = currentFrame.w;
+    mainColFrame.h = currentFrame.h;
 
     mainCollider = Collider(mainColFrame, this, colliderFlags);
     

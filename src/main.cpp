@@ -39,11 +39,15 @@ int main(int agrv, char* args[]) {
     vector<vector<Collider*>> colliderFlags = vector<vector<Collider*>>(3);
 
     map<int, unordered_set<Entity*>> renderLayers;
-
-    LinkedList<Block> blocks(new Block(Vector2f(0,0), blockTexture, &renderLayers, &colliderFlags, Vector2f(4, 4), 64, 14));
+    SDL_Rect blockSize;
+    blockSize.x = 0;
+    blockSize.y = 0;
+    blockSize.w = 64;
+    blockSize.h = 14;
+    LinkedList<Block> blocks(new Block(Vector2f(0,0), blockTexture, &renderLayers, &colliderFlags, blockSize, Vector2f(4, 4)));
     for (size_t i = 0; i < 8; i++)
     {
-        blocks.Add(new Block(Vector2f(0,(i+1) * 70), blockTexture, &renderLayers, &colliderFlags, Vector2f(i + 1, 4), 64, 14));
+        blocks.Add(new Block(Vector2f(0,(i+1) * 70), blockTexture, &renderLayers, &colliderFlags, blockSize, Vector2f(i + 1, 4)));
     }
 
     bool gameRunning = true;

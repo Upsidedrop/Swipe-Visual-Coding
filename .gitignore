@@ -1,4 +1,5 @@
 *.o
 /bin/debug/main
 /bin/release/main
-/vscode/~tasks.json
+.vscode/*
+    !/tasks.json

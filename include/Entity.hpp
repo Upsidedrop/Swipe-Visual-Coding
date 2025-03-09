@@ -8,7 +8,7 @@
 
 class Entity{
     public:
-    Entity(Vector2f p_pos, SDL_Texture* p_tex, std::map<int, std::unordered_set<Entity*>>* p_layers, Vector2f p_scale = Vector2f(1,1), uint p_w = 32, uint p_h = 32, int p_layer = 0);
+    Entity(Vector2f p_pos, SDL_Texture* p_tex, std::map<int, std::unordered_set<Entity*>>* p_layers, SDL_Rect p_frame, Vector2f p_scale = Vector2f(1,1), int p_layer = 0);
     Vector2f& getPos()
     {
         return pos;
@@ -25,12 +25,12 @@ class Entity{
     virtual void SetLayer(int p_layer);
     SDL_Texture* getTex();
     SDL_Rect getCurrentFrame();
-    
+    virtual ~Entity(){}
     protected:
     int layer = 0;
     std::map<int, std::unordered_set<Entity*>>* layers;
     Vector2f pos;
-    SDL_Rect currentFrame;
     Vector2f scale;
+    SDL_Rect currentFrame;
     SDL_Texture* tex;
 };
