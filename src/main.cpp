@@ -10,6 +10,7 @@
 #include "Block.hpp"
 #include "Utils.hpp"
 #include "LinkedList.hpp"
+#include "Loop.hpp"
 
 using namespace std;
 
@@ -29,6 +30,7 @@ int main(int agrv, char* args[]) {
     RenderWindow window("hi", 1280, 720);
 
     SDL_Texture* blockTexture = window.loadTexture("res/gfx/DefaultBlock.png");
+    SDL_Texture* loopTexture = window.loadTexture("res/gfx/Loop.png");
     
     Mix_Music* gMusic = Mix_LoadMUS("res/dev/death-odyssey.mp3");
 
@@ -42,13 +44,14 @@ int main(int agrv, char* args[]) {
     SDL_Rect blockSize;
     blockSize.x = 0;
     blockSize.y = 0;
-    blockSize.w = 64;
-    blockSize.h = 14;
+    blockSize.w = 63;
+    blockSize.h = 12;
     LinkedList<Block> blocks(new Block(Vector2f(0,0), blockTexture, &renderLayers, &colliderFlags, blockSize, Vector2f(4, 4)));
     for (size_t i = 0; i < 8; i++)
     {
         blocks.Add(new Block(Vector2f(0,(i+1) * 70), blockTexture, &renderLayers, &colliderFlags, blockSize, Vector2f(i + 1, 4)));
     }
+    Loop loop(Vector2f(300,300), Vector2f(1,1), loopTexture, &renderLayers);
 
     bool gameRunning = true;
     SDL_Event event;
@@ -99,7 +102,7 @@ int main(int agrv, char* args[]) {
                                 iterator -> getChild() -> setParent(iterator);
                             }
                             neighbor -> GetParent() -> setChild(heldObject);
-                            heldObject->setPos(neighbor->GetParent() -> getPos() + Vector2f(0, 12 * neighbor -> GetParent() -> getScale().y));
+                            heldObject->setPos(neighbor->GetParent() -> getPos() + Vector2f(0, 10 * neighbor -> GetParent() -> getScale().y));
                             heldObject -> setParent(neighbor -> GetParent());
                         }
                         heldObject -> SetLayer(0);
