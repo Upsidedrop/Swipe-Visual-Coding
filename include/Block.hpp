@@ -55,7 +55,7 @@ class Block : public Entity{
         layers -> find(layer) -> second.insert(this);
     }
     virtual ~Block() {}
-    private:
+    protected:
     Collider bottomCollider;
     Collider topCollider;
     Collider mainCollider;

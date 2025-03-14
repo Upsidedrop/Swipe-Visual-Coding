@@ -1,12 +1,7 @@
 #include "Loop.hpp"
 
-Loop::Loop(Vector2f p_pos, Vector2f p_scale, SDL_Texture* p_tex, std::map<int, std::unordered_set<Entity*>>* p_layers)
-:pos(p_pos), scale(p_scale){
-    SDL_Rect headFrame;
-    headFrame.x = 0;
-    headFrame.y = 0;
-    headFrame.w = 63;
-    headFrame.h = 12;
+Loop::Loop(Vector2f p_pos, Vector2f p_scale, SDL_Texture* p_tex, std::map<int, std::unordered_set<Entity*>>* p_layers, vector<vector<Collider*>>* colliderFlags, SDL_Rect p_frame)
+:Block(p_pos, p_tex, p_layers, colliderFlags, p_frame, p_scale) {
     SDL_Rect bodyFrame;
     bodyFrame.x = 0;
     bodyFrame.y = 11;
@@ -17,12 +12,12 @@ Loop::Loop(Vector2f p_pos, Vector2f p_scale, SDL_Texture* p_tex, std::map<int, s
     footFrame.y = 12;
     footFrame.w = 63;
     footFrame.h = 6;
-    head = new Entity(p_pos, p_tex, p_layers, headFrame, p_scale);
-    body = new Entity(p_pos + Vector2f(0, 12), p_tex, p_layers, bodyFrame, Vector2f(p_scale.x, 8));
-    foot = new Entity(p_pos + Vector2f(0, 20), p_tex, p_layers, footFrame, p_scale);
+    body = new Entity(p_pos + Vector2f(0, 12 * p_scale.y), p_tex, p_layers, bodyFrame, Vector2f(p_scale.x, 10 * p_scale.y));
+    foot = new Entity(p_pos + Vector2f(0, 22 * p_scale.y), p_tex, p_layers, footFrame, p_scale);
+
+    bottomCollider.GetFrame().y += 16;
 }
 Loop::~Loop(){
-    delete head;
-    delete body;
-    delete foot;
+   delete body;
+   delete foot;
 }

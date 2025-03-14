@@ -51,7 +51,7 @@ int main(int agrv, char* args[]) {
     {
         blocks.Add(new Block(Vector2f(0,(i+1) * 70), blockTexture, &renderLayers, &colliderFlags, blockSize, Vector2f(i + 1, 4)));
     }
-    Loop loop(Vector2f(300,300), Vector2f(1,1), loopTexture, &renderLayers);
+    Loop loop(Vector2f(300,300), Vector2f(4,4), loopTexture, &renderLayers, &colliderFlags, blockSize);
 
     bool gameRunning = true;
     SDL_Event event;
