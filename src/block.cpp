@@ -25,7 +25,7 @@ Block::Block(Vector2f p_pos, SDL_Texture* p_tex, map<int, unordered_set<Entity*>
 
     SDL_FRect bottomColFrame;
     bottomColFrame.x = 0;
-    bottomColFrame.y = 12;
+    bottomColFrame.y = 11;
     bottomColFrame.w = 32;
     bottomColFrame.h = 8;
     

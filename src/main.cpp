@@ -102,7 +102,7 @@ int main(int agrv, char* args[]) {
                                 iterator -> getChild() -> setParent(iterator);
                             }
                             neighbor -> GetParent() -> setChild(heldObject);
-                            heldObject->setPos(neighbor->GetParent() -> getPos() + Vector2f(0, 10 * neighbor -> GetParent() -> getScale().y));
+                            heldObject->setPos(neighbor->GetParent() -> getPos() + Vector2f(neighbor -> GetFrame().x * neighbor -> GetParent() -> getScale().x, neighbor -> GetFrame().y * neighbor -> GetParent() -> getScale().y));
                             heldObject -> setParent(neighbor -> GetParent());
                         }
                         heldObject -> SetLayer(0);
