@@ -55,6 +55,14 @@ class Loop : Block{
             innerChild = p_child;
         }
     }
+    void RemoveChild(Block* p_child) override{
+        if(p_child == child){
+            child = nullptr;
+        }
+        else{
+            innerChild = nullptr;
+        }
+    }
     private:
     Entity* body;
     Entity* foot;

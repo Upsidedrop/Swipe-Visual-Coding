@@ -86,10 +86,10 @@ int main(int agrv, char* args[]) {
                             cout << "had parent" << "\n";
                             if(heldObject -> getParent() -> GetType() == BlockType::DEFAULTLOOP){
                                 cout << "parent was loop" << "\n";
-                                heldObject -> getParent() -> setChild(nullptr, collision);
+                                heldObject -> getParent() -> RemoveChild(heldObject);
                             }
                             else{
-                                heldObject -> getParent() -> setChild(nullptr);
+                                heldObject -> getParent() -> RemoveChild();
                             }
                             heldObject -> setParent(nullptr);
                         }

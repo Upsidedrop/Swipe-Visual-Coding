@@ -32,6 +32,12 @@ class Block : public Entity{
     virtual void setChild(Block* p_child, Collider* p_col){
         std::cout << "ERROR: DEFAULT BLOCKS ONLY HAVE ONE COLLIDER" << "\n";
     }
+    virtual void RemoveChild(Block* p_child){
+        std::cout << "ERROR: DEFAULT BLOCKS ONLY HAVE ONE CHILD" << "\n";
+    }
+    void RemoveChild(){
+        child = nullptr;
+    }
     Block* getParent(){
         return parent;
     }
