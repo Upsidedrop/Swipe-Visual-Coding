@@ -13,10 +13,10 @@ class Block : public Entity{
     public:
     Block(Vector2f p_pos, SDL_Texture* p_tex, map<int, unordered_set<Entity*>>* p_layers, vector<vector<Collider*>>* colliderFlags, SDL_Rect p_frame, Vector2f p_scale = Vector2f(1,1));
     Collider& getBottomCollider(){
-        return bottomCollider;
+        return *bottomCollider;
     }
     Collider& getTopCollider(){
-        return topCollider;
+        return *topCollider;
     }
     Block* getChild(){
         return child;
@@ -54,11 +54,11 @@ class Block : public Entity{
         }
         layers -> find(layer) -> second.insert(this);
     }
-    virtual ~Block() {}
+    virtual ~Block();
     protected:
-    Collider bottomCollider;
-    Collider topCollider;
-    Collider mainCollider;
+    Collider* bottomCollider;
+    Collider* topCollider;
+    Collider* mainCollider;
     Block* child;
     Block* parent;
 };

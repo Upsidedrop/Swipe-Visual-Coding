@@ -8,6 +8,7 @@ using namespace std;
 Collider* Collider::CheckForCollisions(vector<int> masks){
     for(int i : masks){
         for(Collider* other : *(flags -> data() + i)){
+            cout << "Collision Frame: " << other << " -> x: " << other -> GetFrame().x << " y: " << other -> GetFrame().y << " w: " << other -> GetFrame().w << " h: " << other -> GetFrame().h <<"\n";
             if((other -> GetParent() -> getPos().x + (other -> GetFrame().w + other -> GetFrame().x) * other -> GetParent() -> getScale().x) < (parent -> getPos().x) + frame.x * parent -> getScale().x){
                 continue;
             }

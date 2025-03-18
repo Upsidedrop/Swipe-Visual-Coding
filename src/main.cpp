@@ -5,6 +5,7 @@
 #include <vector>
 #include <unordered_set>
 #include <map>
+#include <SDL2/SDL_filesystem.h>
 
 #include "RenderWindow.hpp"
 #include "Block.hpp"
@@ -17,6 +18,7 @@ using namespace std;
 
 int main(int agrv, char* args[]) {
     cout << "Program Start" << endl;
+    cout << SDL_GetPrefPath("Oddity", "Swipe") << "\n";
     if(SDL_Init(SDL_INIT_VIDEO) > 0){
         cout << "SDL_Init HAS FAILED. SDL_ERROR: " << SDL_GetError() << endl;
     }
@@ -32,11 +34,11 @@ int main(int agrv, char* args[]) {
     SDL_Texture* blockTexture = window.loadTexture("res/gfx/DefaultBlock.png");
     SDL_Texture* loopTexture = window.loadTexture("res/gfx/Loop.png");
     
-    Mix_Music* gMusic = Mix_LoadMUS("res/dev/death-odyssey.mp3");
+    //Mix_Music* gMusic = Mix_LoadMUS("res/dev/death-odyssey.mp3"); UNCOMMENT MEMORY CLEANUP
 
-    Mix_VolumeMusic(50);
+    //Mix_VolumeMusic(50);
 
-    Mix_PlayMusic(gMusic, -1);
+    //Mix_PlayMusic(gMusic, -1);
 
     vector<vector<Collider*>> colliderFlags = vector<vector<Collider*>>(3);
 
@@ -52,6 +54,8 @@ int main(int agrv, char* args[]) {
         blocks.Add(new Block(Vector2f(0,(i+1) * 70), blockTexture, &renderLayers, &colliderFlags, blockSize, Vector2f(i + 1, 4)));
     }
     Loop loop(Vector2f(300,300), Vector2f(4,4), loopTexture, &renderLayers, &colliderFlags, blockSize);
+
+    cout << "Loop Address: " << loop.GetInnerCollider() << "\n";
 
     bool gameRunning = true;
     SDL_Event event;
@@ -82,7 +86,6 @@ int main(int agrv, char* args[]) {
                             heldObject -> getParent() -> setChild(nullptr);
                             heldObject -> setParent(nullptr);
                         }
-                        cout << "1" << endl;
                         heldObject -> SetLayer(1);
                     }
                 }
@@ -93,6 +96,7 @@ int main(int agrv, char* args[]) {
                         Collider* neighbor;
                         neighbor = heldObject -> getTopCollider().CheckForCollisions({1});
                         if(neighbor != nullptr){
+                            cout << "huzzah" << "\n";
                             if(neighbor -> GetParent() -> getChild() != nullptr){
                                 Block* iterator = heldObject;
                                 while(iterator -> getChild() != nullptr){
@@ -127,7 +131,7 @@ int main(int agrv, char* args[]) {
 
     SDL_DestroyTexture(blockTexture);
 
-    Mix_FreeMusic(gMusic);
+    //Mix_FreeMusic(gMusic);
 
     SDL_Quit();
     IMG_Quit();
