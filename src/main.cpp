@@ -48,12 +48,12 @@ int main(int agrv, char* args[]) {
     blockSize.y = 0;
     blockSize.w = 63;
     blockSize.h = 12;
-    LinkedList<Block> blocks(new Block(Vector2f(0,0), blockTexture, &renderLayers, &colliderFlags, blockSize, Vector2f(4, 4)));
+    LinkedList<Block> blocks(new Block(Vector2f(0,0), blockTexture, &renderLayers, &colliderFlags, blockSize, BlockType::DEFAULT ,Vector2f(4, 4)));
     for (size_t i = 0; i < 8; i++)
     {
-        blocks.Add(new Block(Vector2f(0,(i+1) * 70), blockTexture, &renderLayers, &colliderFlags, blockSize, Vector2f(i + 1, 4)));
+        blocks.Add(new Block(Vector2f(0,(i+1) * 70), blockTexture, &renderLayers, &colliderFlags, blockSize, BlockType::DEFAULT, Vector2f(i + 1, 4)));
     }
-    Loop loop(Vector2f(300,300), Vector2f(4,4), loopTexture, &renderLayers, &colliderFlags, blockSize);
+    Loop loop(Vector2f(300,300), Vector2f(4,4), loopTexture, &renderLayers, &colliderFlags, BlockType::DEFAULTLOOP, blockSize);
 
     cout << "Loop Address: " << loop.GetInnerCollider() << "\n";
 
@@ -105,8 +105,13 @@ int main(int agrv, char* args[]) {
                                 iterator -> setChild(neighbor -> GetParent() -> getChild());
                                 iterator -> getChild() -> setParent(iterator);
                             }
-                            neighbor -> GetParent() -> setChild(heldObject);
-                            heldObject->setPos(neighbor->GetParent() -> getPos() + Vector2f(neighbor -> GetFrame().x * neighbor -> GetParent() -> getScale().x, neighbor -> GetFrame().y * neighbor -> GetParent() -> getScale().y));
+                            if(neighbor -> GetParent() -> GetType() == BlockType::DEFAULTLOOP){
+                                neighbor -> GetParent() -> setChild(heldObject, neighbor);
+                            }
+                            else{
+                                neighbor -> GetParent() -> setChild(heldObject);
+                            }
+                            heldObject -> setPos(neighbor->GetParent() -> getPos() + Vector2f(neighbor -> GetFrame().x * neighbor -> GetParent() -> getScale().x, neighbor -> GetFrame().y * neighbor -> GetParent() -> getScale().y));
                             heldObject -> setParent(neighbor -> GetParent());
                         }
                         heldObject -> SetLayer(0);

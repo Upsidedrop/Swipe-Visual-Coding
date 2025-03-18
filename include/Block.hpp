@@ -9,9 +9,14 @@
 
 using namespace std;
 
+enum BlockType{
+    DEFAULT = 1,
+    DEFAULTLOOP = 2
+};
+
 class Block : public Entity{
     public:
-    Block(Vector2f p_pos, SDL_Texture* p_tex, map<int, unordered_set<Entity*>>* p_layers, vector<vector<Collider*>>* colliderFlags, SDL_Rect p_frame, Vector2f p_scale = Vector2f(1,1));
+    Block(Vector2f p_pos, SDL_Texture* p_tex, map<int, unordered_set<Entity*>>* p_layers, vector<vector<Collider*>>* colliderFlags, SDL_Rect p_frame, BlockType p_type, Vector2f p_scale = Vector2f(1,1));
     Collider& getBottomCollider(){
         return *bottomCollider;
     }
@@ -24,8 +29,14 @@ class Block : public Entity{
     void setChild(Block* p_child){
         child = p_child;
     }
+    virtual void setChild(Block* p_child, Collider* p_col){
+        std::cout << "ERROR: DEFAULT BLOCKS ONLY HAVE ONE COLLIDER" << "\n";
+    }
     Block* getParent(){
         return parent;
+    }
+    BlockType GetType(){
+        return type;
     }
 
     void setParent(Block* p_parent){
@@ -61,4 +72,5 @@ class Block : public Entity{
     Collider* mainCollider;
     Block* child;
     Block* parent;
+    BlockType type;
 };

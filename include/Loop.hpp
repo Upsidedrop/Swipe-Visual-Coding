@@ -6,7 +6,7 @@
 
 class Loop : Block{
     public:
-    Loop(Vector2f p_pos, Vector2f p_scale, SDL_Texture* p_tex, std::map<int, std::unordered_set<Entity*>>* p_layers, vector<vector<Collider*>>* colliderFlags, SDL_Rect p_frame);
+    Loop(Vector2f p_pos, Vector2f p_scale, SDL_Texture* p_tex, std::map<int, std::unordered_set<Entity*>>* p_layers, vector<vector<Collider*>>* colliderFlags, BlockType p_type , SDL_Rect p_frame);
     ~Loop();
     Collider* GetInnerCollider(){
         return innerCollider;
@@ -40,8 +40,24 @@ class Loop : Block{
         }
         layers -> find(layer) -> second.insert(this);
     }
+    Block* GetInnerChild(){
+        return innerChild;
+    }
+    void SetInnerChild(Block* p_child){
+        innerChild = p_child;
+    }
+    void setChild(Block* p_child, Collider* p_col) override{
+        if(p_col == bottomCollider){
+            child = p_child;
+        }
+        else
+        {
+            innerChild = p_child;
+        }
+    }
     private:
     Entity* body;
     Entity* foot;
     Collider* innerCollider;
+    Block* innerChild;
 };
