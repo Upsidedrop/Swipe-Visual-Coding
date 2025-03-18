@@ -19,7 +19,10 @@ class Loop : Block{
         foot -> setPos(p_pos + Vector2f(0, 22 * scale.y));
         if(child != nullptr)
         {
-            child-> setPos(p_pos + Vector2f(0, 27 * scale.y));
+            child -> setPos(p_pos + Vector2f(bottomCollider->GetFrame().x * scale.x, bottomCollider->GetFrame().y * scale.y));
+        }
+        if(innerChild != nullptr){
+            innerChild -> setPos(p_pos + Vector2f(innerCollider->GetFrame().x * scale.x, innerCollider->GetFrame().y * scale.y));
         }
     }
     void SetLayer(int p_layer) override{
@@ -42,9 +45,6 @@ class Loop : Block{
     }
     Block* GetInnerChild(){
         return innerChild;
-    }
-    void SetInnerChild(Block* p_child){
-        innerChild = p_child;
     }
     void setChild(Block* p_child, Collider* p_col) override{
         if(p_col == bottomCollider){

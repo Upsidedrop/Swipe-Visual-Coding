@@ -83,7 +83,14 @@ int main(int agrv, char* args[]) {
                     }
                     if(heldObject != nullptr){
                         if(heldObject -> getParent() != nullptr){
-                            heldObject -> getParent() -> setChild(nullptr);
+                            cout << "had parent" << "\n";
+                            if(heldObject -> getParent() -> GetType() == BlockType::DEFAULTLOOP){
+                                cout << "parent was loop" << "\n";
+                                heldObject -> getParent() -> setChild(nullptr, collision);
+                            }
+                            else{
+                                heldObject -> getParent() -> setChild(nullptr);
+                            }
                             heldObject -> setParent(nullptr);
                         }
                         heldObject -> SetLayer(1);
@@ -96,7 +103,6 @@ int main(int agrv, char* args[]) {
                         Collider* neighbor;
                         neighbor = heldObject -> getTopCollider().CheckForCollisions({1});
                         if(neighbor != nullptr){
-                            cout << "huzzah" << "\n";
                             if(neighbor -> GetParent() -> getChild() != nullptr){
                                 Block* iterator = heldObject;
                                 while(iterator -> getChild() != nullptr){
