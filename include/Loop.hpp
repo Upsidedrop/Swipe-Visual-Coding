@@ -56,6 +56,10 @@ class Loop : Block{
             innerChild = p_child;
         }
     }
+    void setBodySize(float p_size) override{
+        body -> setScale(Vector2f(scale.x, scale.y * p_size));
+        foot -> setPos(Vector2f(foot -> getPos().x, pos.y + scale.y * (p_size + 12)));
+    }
     void RemoveChild(Block* p_child) override{
         if(p_child == child){
             child = nullptr;
@@ -69,4 +73,5 @@ class Loop : Block{
     Entity* foot;
     Collider* innerCollider;
     Block* innerChild;
+    float bodySize;
 };

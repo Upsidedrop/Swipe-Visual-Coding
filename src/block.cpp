@@ -32,3 +32,6 @@ Block::~Block(){
     delete topCollider;
     delete bottomCollider;
 }
+float Block::GetBottom(){
+    return pos.y + currentFrame.y;
+}

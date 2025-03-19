@@ -7,7 +7,9 @@
 #include "Collider.hpp"
 #include "Entity.hpp"
 
-using std::map, std::unordered_set, std::vector;
+using std::map;
+using std::unordered_set;
+using std::vector;
 
 enum BlockType{
     DEFAULT = 1,
@@ -26,8 +28,22 @@ class Block : public Entity{
     Block* getChild(){
         return child;
     }
+    virtual float GetBottom();
     void setChild(Block* p_child){
         child = p_child;
+        if(contained){
+            Block* it = this;
+            while(it -> getParent() -> GetType() > 1 && it -> getParent() -> getChild() == it){
+                it = it -> getParent();
+                if(it == nullptr){
+                    std::cout << "something wicked this way comes" << "\n";
+                }
+            }
+            it -> getParent() -> setBodySize(this->getChild() -> GetBottom() - it -> getPos().y);
+        }
+    }
+    virtual void setBodySize(float p_size){
+        std::cout << "ERROR: DEFAULT BLOCKS DON'T HAVE BODY" << "\n";
     }
     virtual void setChild(Block* p_child, Collider* p_col){
         std::cout << "ERROR: DEFAULT BLOCKS ONLY HAVE ONE COLLIDER" << "\n";
@@ -79,4 +95,5 @@ class Block : public Entity{
     Block* child;
     Block* parent;
     BlockType type;
+    bool contained = false;
 };

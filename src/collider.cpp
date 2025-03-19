@@ -3,8 +3,6 @@
 #include "Collider.hpp"
 #include "Block.hpp"
 
-using namespace std;
-
 Collider* Collider::CheckForCollisions(vector<int> masks){
     for(int i : masks){
         for(Collider* other : *(flags -> data() + i)){
