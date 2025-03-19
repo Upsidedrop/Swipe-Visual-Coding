@@ -7,7 +7,7 @@
 #include "Collider.hpp"
 #include "Entity.hpp"
 
-using namespace std;
+using std::map, std::unordered_set, std::vector;
 
 enum BlockType{
     DEFAULT = 1,

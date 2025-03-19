@@ -25,6 +25,7 @@ class Loop : Block{
             innerChild -> setPos(p_pos + Vector2f(innerCollider->GetFrame().x * scale.x, innerCollider->GetFrame().y * scale.y));
         }
     }
+    
     void SetLayer(int p_layer) override{
         if(child != nullptr){
             child -> SetLayer(p_layer);

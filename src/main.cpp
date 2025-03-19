@@ -13,22 +13,24 @@
 #include "LinkedList.hpp"
 #include "Loop.hpp"
 
-using namespace std;
-
+using std::cout;
 
 int main(int agrv, char* args[]) {
-    cout << "Program Start" << endl;
-    cout << SDL_GetPrefPath("Oddity", "Swipe") << "\n";
+    cout << "Program Start" << "\n";
+    
     if(SDL_Init(SDL_INIT_VIDEO) > 0){
-        cout << "SDL_Init HAS FAILED. SDL_ERROR: " << SDL_GetError() << endl;
+        cout << "SDL_Init HAS FAILED. SDL_ERROR: " << SDL_GetError() << "\n";
     }
     if(!(IMG_Init(IMG_INIT_PNG))){
-        cout << "IMG_Init HAS FAILED. ERROR:" << SDL_GetError() << endl;
+        cout << "IMG_Init HAS FAILED. ERROR:" << SDL_GetError() << "\n";
     }
     if(Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0){
-        cout << "SDL_MIXER HAS FAILED. ERROR:" << SDL_GetError() << endl;
+        cout << "SDL_MIXER HAS FAILED. ERROR:" << SDL_GetError() << "\n";
     }
-    cout << "Init Passed" << endl;
+    cout << "Init Passed" << "\n";
+    
+    cout << SDL_GetPrefPath("Oddity", "Swipe") << "\n";
+
     RenderWindow window("hi", 1280, 720);
 
     SDL_Texture* blockTexture = window.loadTexture("res/gfx/DefaultBlock.png");
@@ -62,7 +64,7 @@ int main(int agrv, char* args[]) {
     Block* heldObject = nullptr;
     Vector2f clickedPos;
 
-    cout << "Game Start" << endl;
+    cout << "Game Start" << "\n";
     while(gameRunning){
         while(SDL_PollEvent(&event)){
             if(event.type == SDL_QUIT){
