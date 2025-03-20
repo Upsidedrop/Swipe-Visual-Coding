@@ -33,5 +33,40 @@ Block::~Block(){
     delete bottomCollider;
 }
 float Block::GetBottom(){
-    return pos.y + currentFrame.y;
+    return pos.y / scale.y + currentFrame.h;
+}
+void Block::ToggleIsContained(bool p_contained){
+    contained = p_contained;
+    if(child != nullptr){
+        child -> ToggleIsContained(p_contained);
+    }
+}
+void Block::setChild(Block* p_child){
+    child = p_child;
+    child -> ToggleIsContained(contained);
+    if(contained){
+        Block* it = this;
+        while(it -> getParent() -> GetType() < 2 && it -> getParent() -> getChild() == it){
+            it = it -> getParent();
+            if(it == nullptr){
+                std::cout << "something wicked this way comes" << "\n";
+            }
+        }
+        it -> getParent() -> setBodySize(child -> GetBottom() - it -> getPos().y / it -> getScale().y - getScale().y);
+    }
+}
+void Block::RemoveChild(){
+    if(contained){
+        Block* it = this;
+        while(it -> getParent() -> GetType() < 2 && it -> getParent() -> getChild() == it){
+            it = it -> getParent();
+            if(it == nullptr){
+                std::cout << "something wicked this way comes" << "\n";
+            }
+        }
+        it -> getParent() -> setBodySize(GetBottom() - it -> getPos().y / it -> getScale().y - getScale().y);
+
+        child -> ToggleIsContained(false);
+    }
+    child = nullptr;
 }

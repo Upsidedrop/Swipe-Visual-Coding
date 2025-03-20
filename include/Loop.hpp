@@ -50,10 +50,12 @@ class Loop : Block{
     void setChild(Block* p_child, Collider* p_col) override{
         if(p_col == bottomCollider){
             child = p_child;
+            child -> ToggleIsContained(contained);
         }
         else
         {
             innerChild = p_child;
+            innerChild -> ToggleIsContained(true);
         }
     }
     void setBodySize(float p_size) override{

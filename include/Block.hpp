@@ -28,20 +28,9 @@ class Block : public Entity{
     Block* getChild(){
         return child;
     }
+    void ToggleIsContained(bool p_contained);
     virtual float GetBottom();
-    void setChild(Block* p_child){
-        child = p_child;
-        if(contained){
-            Block* it = this;
-            while(it -> getParent() -> GetType() > 1 && it -> getParent() -> getChild() == it){
-                it = it -> getParent();
-                if(it == nullptr){
-                    std::cout << "something wicked this way comes" << "\n";
-                }
-            }
-            it -> getParent() -> setBodySize(this->getChild() -> GetBottom() - it -> getPos().y);
-        }
-    }
+    void setChild(Block* p_child);
     virtual void setBodySize(float p_size){
         std::cout << "ERROR: DEFAULT BLOCKS DON'T HAVE BODY" << "\n";
     }
@@ -51,9 +40,7 @@ class Block : public Entity{
     virtual void RemoveChild(Block* p_child){
         std::cout << "ERROR: DEFAULT BLOCKS ONLY HAVE ONE CHILD" << "\n";
     }
-    void RemoveChild(){
-        child = nullptr;
-    }
+    void RemoveChild();
     Block* getParent(){
         return parent;
     }
