@@ -55,7 +55,16 @@ class Loop : Block{
         else
         {
             innerChild = p_child;
+            
+            Block* childIt = innerChild;
+            while(childIt -> getChild() != nullptr){
+                childIt = childIt -> getChild();
+            }
+            std::cout << "found" << "\n";
+            setBodySize(childIt -> GetBottom() - pos.y / scale.y - childIt -> getScale().y);
+            std::cout << "set size" << "\n";
             innerChild -> ToggleIsContained(true);
+            std::cout << "toggled" << "\n";
         }
     }
     void setBodySize(float p_size) override{

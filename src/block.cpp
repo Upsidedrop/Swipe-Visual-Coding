@@ -45,14 +45,18 @@ void Block::setChild(Block* p_child){
     child = p_child;
     child -> ToggleIsContained(contained);
     if(contained){
-        Block* it = this;
-        while(it -> getParent() -> GetType() < 2 && it -> getParent() -> getChild() == it){
-            it = it -> getParent();
-            if(it == nullptr){
+        Block* loopIt = this;
+        while(loopIt -> getParent() -> GetType() < 2 && loopIt -> getParent() -> getChild() == loopIt){
+            loopIt = loopIt -> getParent();
+            if(loopIt == nullptr){
                 std::cout << "something wicked this way comes" << "\n";
             }
         }
-        it -> getParent() -> setBodySize(child -> GetBottom() - it -> getPos().y / it -> getScale().y - getScale().y);
+        Block* childIt = this;
+        while(childIt -> getChild() != nullptr){
+            childIt = childIt -> getChild();
+        }
+        loopIt -> getParent() -> setBodySize(childIt -> GetBottom() - loopIt -> getPos().y / loopIt -> getScale().y - getScale().y);
     }
 }
 void Block::RemoveChild(){
