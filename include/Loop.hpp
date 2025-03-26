@@ -57,11 +57,15 @@ class Loop : Block{
             innerChild = p_child;
             
             Block* childIt = innerChild;
+
+            uint depth = 1;
+
             while(childIt -> getChild() != nullptr){
+                ++depth;
                 childIt = childIt -> getChild();
             }
             std::cout << "found" << "\n";
-            setBodySize(childIt -> GetBottom() - pos.y / scale.y - childIt -> getScale().y);
+            setBodySize((childIt -> GetBottom() - pos.y) / scale.y - depth);
             std::cout << "set size" << "\n";
             innerChild -> ToggleIsContained(true);
             std::cout << "toggled" << "\n";
