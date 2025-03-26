@@ -16,7 +16,8 @@ class Loop : Block{
         pos = p_pos;
 
         body -> setPos(p_pos + Vector2f(0, 12 * scale.y));
-        foot -> setPos(p_pos + Vector2f(0, 22 * scale.y));
+        foot -> setPos(Vector2f(p_pos.x, p_pos.y + scale.y * (bodySize + 12)));
+
         if(child != nullptr)
         {
             child -> setPos(p_pos + Vector2f(bottomCollider->GetFrame().x * scale.x, bottomCollider->GetFrame().y * scale.y));
@@ -64,17 +65,14 @@ class Loop : Block{
                 std::cout << depth << "\n";
                 childIt = childIt -> getChild();
             }
-            std::cout << "found" << "\n";
-            //??? Why 4 ????
-            setBodySize((childIt -> GetBottom() - pos.y) / scale.y - 4);
-            std::cout << "set size" << "\n";
+            setBodySize((childIt -> GetBottom() - pos.y) / scale.y - currentFrame.h - 1);
             innerChild -> ToggleIsContained(true);
-            std::cout << "toggled" << "\n";
         }
     }
     void setBodySize(float p_size) override{
+        bodySize = p_size;
         body -> setScale(Vector2f(scale.x, scale.y * p_size));
-        foot -> setPos(Vector2f(foot -> getPos().x, pos.y + scale.y * (p_size + 12)));
+        foot -> setPos(Vector2f(pos.x, pos.y + scale.y * (p_size + 12)));
     }
     void RemoveChild(Block* p_child) override{
         if(p_child == child){
@@ -89,5 +87,5 @@ class Loop : Block{
     Entity* foot;
     Collider* innerCollider;
     Block* innerChild;
-    float bodySize;
+    uint bodySize;
 };

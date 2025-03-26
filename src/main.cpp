@@ -57,8 +57,6 @@ int main(int agrv, char* args[]) {
     }
     Loop loop(Vector2f(300,300), Vector2f(4,4), loopTexture, &renderLayers, &colliderFlags, BlockType::DEFAULTLOOP, blockSize);
 
-    cout << "Loop Address: " << loop.GetInnerCollider() << "\n";
-
     bool gameRunning = true;
     SDL_Event event;
     Block* heldObject = nullptr;
@@ -113,13 +111,13 @@ int main(int agrv, char* args[]) {
                                 iterator -> setChild(neighbor -> GetParent() -> getChild());
                                 iterator -> getChild() -> setParent(iterator);
                             }
+                            heldObject -> setPos(neighbor->GetParent() -> getPos() + Vector2f(neighbor -> GetFrame().x * neighbor -> GetParent() -> getScale().x, neighbor -> GetFrame().y * neighbor -> GetParent() -> getScale().y));
                             if(neighbor -> GetParent() -> GetType() == BlockType::DEFAULTLOOP){
                                 neighbor -> GetParent() -> setChild(heldObject, neighbor);
                             }
                             else{
                                 neighbor -> GetParent() -> setChild(heldObject);
                             }
-                            heldObject -> setPos(neighbor->GetParent() -> getPos() + Vector2f(neighbor -> GetFrame().x * neighbor -> GetParent() -> getScale().x, neighbor -> GetFrame().y * neighbor -> GetParent() -> getScale().y));
                             heldObject -> setParent(neighbor -> GetParent());
                         }
                         heldObject -> SetLayer(0);

@@ -33,7 +33,7 @@ Block::~Block(){
     delete bottomCollider;
 }
 float Block::GetBottom(){
-    return pos.y + currentFrame.h;
+    return pos.y + currentFrame.h * scale.y;
 }
 void Block::ToggleIsContained(bool p_contained){
     contained = p_contained;
