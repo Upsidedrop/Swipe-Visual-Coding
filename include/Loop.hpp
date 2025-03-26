@@ -61,11 +61,12 @@ class Loop : Block{
             uint depth = 1;
 
             while(childIt -> getChild() != nullptr){
-                ++depth;
+                std::cout << depth << "\n";
                 childIt = childIt -> getChild();
             }
             std::cout << "found" << "\n";
-            setBodySize((childIt -> GetBottom() - pos.y) / scale.y - depth);
+            //??? Why 4 ????
+            setBodySize((childIt -> GetBottom() - pos.y) / scale.y - 4);
             std::cout << "set size" << "\n";
             innerChild -> ToggleIsContained(true);
             std::cout << "toggled" << "\n";
