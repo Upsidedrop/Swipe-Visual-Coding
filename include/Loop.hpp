@@ -79,6 +79,8 @@ class Loop : Block{
             child = nullptr;
         }
         else{
+            innerChild -> ToggleIsContained(false);
+            setBodySize(currentFrame.h - 2);
             innerChild = nullptr;
         }
     }

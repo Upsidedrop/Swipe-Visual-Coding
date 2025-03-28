@@ -54,9 +54,10 @@ void Block::setChild(Block* p_child){
         }
         Block* childIt = this;
         while(childIt -> getChild() != nullptr){
+            std::cout<< childIt -> getChild() << "\n";
             childIt = childIt -> getChild();
         }
-        loopIt -> getParent() -> setBodySize((childIt -> GetBottom() - loopIt -> getPos().y) / loopIt -> getScale().y + getCurrentFrame().h);
+        loopIt -> getParent() -> setBodySize((childIt -> GetBottom() - loopIt -> getParent() -> getPos().y) / scale.y - currentFrame.h - 1);
     }
 }
 void Block::RemoveChild(){
