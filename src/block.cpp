@@ -69,7 +69,7 @@ void Block::RemoveChild(){
                 std::cout << "something wicked this way comes" << "\n";
             }
         }
-        it -> getParent() -> setBodySize(GetBottom() - it -> getPos().y / it -> getScale().y - getScale().y);
+        it -> getParent() -> setBodySize((GetBottom() - it -> getParent() -> getPos().y) / scale.y - currentFrame.h - 1);
 
         child -> ToggleIsContained(false);
     }
