@@ -31,6 +31,9 @@ class Loop : Block{
         if(child != nullptr){
             child -> SetLayer(p_layer);
         }
+        if(innerChild != nullptr){
+            innerChild -> SetLayer(p_layer);
+        }
         body -> SetLayer(p_layer);
         foot -> SetLayer(p_layer);
 
@@ -82,6 +85,14 @@ class Loop : Block{
         bodySize = p_size;
         body -> setScale(Vector2f(scale.x, scale.y * p_size));
         foot -> setPos(Vector2f(pos.x, pos.y + scale.y * (p_size + 12)));
+
+        SDL_FRect bottomColFrame;
+        bottomColFrame.x = 0;
+        bottomColFrame.y = 16 + p_size;
+        bottomColFrame.w = 32;
+        bottomColFrame.h = 8;
+
+        bottomCollider -> SetFrame(bottomColFrame);
     }
     void RemoveChild(Block* p_child) override{
         if(p_child == child){
