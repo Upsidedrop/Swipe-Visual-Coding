@@ -33,7 +33,7 @@ Block::~Block(){
     delete bottomCollider;
 }
 float Block::GetBottom(){
-    return pos.y + currentFrame.h * scale.y;
+    return pos.y + (currentFrame.h - 1) * scale.y;
 }
 void Block::ToggleIsContained(bool p_contained){
     contained = p_contained;
@@ -57,7 +57,7 @@ void Block::setChild(Block* p_child){
             std::cout<< childIt -> getChild() << "\n";
             childIt = childIt -> getChild();
         }
-        loopIt -> getParent() -> setBodySize((childIt -> GetBottom() - loopIt -> getParent() -> getPos().y) / scale.y - currentFrame.h - 1);
+        loopIt -> getParent() -> setBodySize((childIt -> GetBottom() - loopIt -> getParent() -> getPos().y) / scale.y - currentFrame.h);
     }
 }
 void Block::RemoveChild(){
@@ -69,7 +69,7 @@ void Block::RemoveChild(){
                 std::cout << "something wicked this way comes" << "\n";
             }
         }
-        it -> getParent() -> setBodySize((GetBottom() - it -> getParent() -> getPos().y) / scale.y - currentFrame.h - 1);
+        it -> getParent() -> setBodySize((GetBottom() - it -> getParent() -> getPos().y) / scale.y - currentFrame.h);
 
         child -> ToggleIsContained(false);
     }

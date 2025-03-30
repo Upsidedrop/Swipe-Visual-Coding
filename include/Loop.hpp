@@ -55,17 +55,26 @@ class Loop : Block{
         }
         else
         {
+            Block* childIt;
+
+            if(innerChild != nullptr){
+                childIt = p_child;
+                while(childIt -> getChild() != nullptr){
+                    childIt = childIt -> getChild();
+                }
+                innerChild -> setParent(childIt);
+                childIt -> setChild(innerChild);
+                innerChild -> setPos(Vector2f(childIt -> getPos().x, childIt -> GetBottom()));
+            }
+
             innerChild = p_child;
             
-            Block* childIt = innerChild;
-
-            uint depth = 1;
+            childIt = innerChild;
 
             while(childIt -> getChild() != nullptr){
-                std::cout << depth << "\n";
                 childIt = childIt -> getChild();
             }
-            setBodySize((childIt -> GetBottom() - pos.y) / scale.y - currentFrame.h - 1);
+            setBodySize((childIt -> GetBottom() - pos.y) / scale.y - currentFrame.h);
             innerChild -> ToggleIsContained(true);
         }
     }
