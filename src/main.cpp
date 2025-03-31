@@ -58,9 +58,6 @@ int main(int agrv, char* args[]) {
     Loop loop(Vector2f(300,300), Vector2f(4,4), loopTexture, &renderLayers, &colliderFlags, BlockType::DEFAULTLOOP, blockSize);
     Loop loop2(Vector2f(300,300), Vector2f(4,4), loopTexture, &renderLayers, &colliderFlags, BlockType::DEFAULTLOOP, blockSize);
 
-    Block* loopPos = nullptr;
-    Block* loop2Pos = nullptr;
-
     bool gameRunning = true;
     SDL_Event event;
     Block* heldObject = nullptr;
@@ -81,20 +78,6 @@ int main(int agrv, char* args[]) {
             if(event.type == SDL_MOUSEBUTTONDOWN){
                 if(event.button.button == SDL_BUTTON_LEFT){
                     Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), &colliderFlags, {2});
-
-                    if(loopPos == nullptr){
-                        loopPos = collision -> GetParent();
-                    }
-                    else if(loop2Pos == nullptr){
-                        loop2Pos = collision -> GetParent();
-                    }
-                    else{
-                        cout << "Loop 1 parent: " << loopPos -> getParent() << "\n";
-                        cout << "Loop 2 parent: " << loop2Pos -> getParent() << "\n";
-    
-                        cout << "Loop 1 child: " << loopPos -> getChild() << "\n";
-                        cout << "Loop 2 child: " << loop2Pos -> getChild() << "\n";
-                    }
 
                     if(collision != nullptr){
                         heldObject = collision->GetParent();

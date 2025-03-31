@@ -129,8 +129,6 @@ class Loop : Block{
                     }
                 }
                 it -> getParent() -> setBodySize((GetBottom() - it -> getParent() -> getPos().y) / scale.y - currentFrame.h);
-        
-                child -> ToggleIsContained(false);
             }
 
             child = nullptr;
@@ -139,6 +137,7 @@ class Loop : Block{
             setBodySize(currentFrame.h - 2);
             innerChild = nullptr;
         }
+        p_child -> ToggleIsContained(false);
     }
     private:
     Entity* body;
