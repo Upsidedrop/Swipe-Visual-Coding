@@ -24,8 +24,8 @@ class Block : public Entity{
     Collider& getBottomCollider(){
         return *bottomCollider;
     }
-    Collider& getTopCollider(){
-        return *topCollider;
+    virtual Collider* getTopCollider(){
+        return topCollider;
     }
     Block* getChild(){
         return child;

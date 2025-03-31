@@ -6,6 +6,9 @@
 Collider* Collider::CheckForCollisions(vector<int> masks){
     for(int i : masks){
         for(Collider* other : *(flags -> data() + i)){
+            if(other == nullptr){
+                continue;
+            }
             if((other -> GetParent() -> getPos().x + (other -> GetFrame().w + other -> GetFrame().x) * other -> GetParent() -> getScale().x) < (parent -> getPos().x) + frame.x * parent -> getScale().x){
                 continue;
             }
