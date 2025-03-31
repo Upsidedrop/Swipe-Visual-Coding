@@ -56,6 +56,10 @@ int main(int agrv, char* args[]) {
         blocks.Add(new Block(Vector2f(0,(i+1) * 70), blockTexture, &renderLayers, &colliderFlags, blockSize, BlockType::DEFAULT, Vector2f(i + 1, 4)));
     }
     Loop loop(Vector2f(300,300), Vector2f(4,4), loopTexture, &renderLayers, &colliderFlags, BlockType::DEFAULTLOOP, blockSize);
+    Loop loop2(Vector2f(300,300), Vector2f(4,4), loopTexture, &renderLayers, &colliderFlags, BlockType::DEFAULTLOOP, blockSize);
+
+    Block* loopPos = nullptr;
+    Block* loop2Pos = nullptr;
 
     bool gameRunning = true;
     SDL_Event event;
@@ -77,6 +81,21 @@ int main(int agrv, char* args[]) {
             if(event.type == SDL_MOUSEBUTTONDOWN){
                 if(event.button.button == SDL_BUTTON_LEFT){
                     Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), &colliderFlags, {2});
+
+                    if(loopPos == nullptr){
+                        loopPos = collision -> GetParent();
+                    }
+                    else if(loop2Pos == nullptr){
+                        loop2Pos = collision -> GetParent();
+                    }
+                    else{
+                        cout << "Loop 1 parent: " << loopPos -> getParent() << "\n";
+                        cout << "Loop 2 parent: " << loop2Pos -> getParent() << "\n";
+    
+                        cout << "Loop 1 child: " << loopPos -> getChild() << "\n";
+                        cout << "Loop 2 child: " << loop2Pos -> getChild() << "\n";
+                    }
+
                     if(collision != nullptr){
                         heldObject = collision->GetParent();
                         clickedPos = Vector2f(event.button.x - heldObject -> getPos().x, event.button.y - heldObject -> getPos().y);
@@ -104,12 +123,14 @@ int main(int agrv, char* args[]) {
                         neighbor = heldObject -> getTopCollider().CheckForCollisions({1});
                         if(neighbor != nullptr){
                             if(neighbor -> GetParent() -> getChild() != nullptr){
-                                Block* iterator = heldObject;
-                                while(iterator -> getChild() != nullptr){
-                                    iterator = iterator -> getChild();
+                                if(neighbor == &(neighbor -> GetParent() -> getBottomCollider())){
+                                    Block* iterator = heldObject;
+                                    while(iterator -> getChild() != nullptr){
+                                        iterator = iterator -> getChild();
+                                    }
+                                    iterator -> setChild(neighbor -> GetParent() -> getChild());
+                                    iterator -> getChild() -> setParent(iterator);
                                 }
-                                iterator -> setChild(neighbor -> GetParent() -> getChild());
-                                iterator -> getChild() -> setParent(iterator);
                             }
                             heldObject -> setPos(neighbor->GetParent() -> getPos() + Vector2f(neighbor -> GetFrame().x * neighbor -> GetParent() -> getScale().x, neighbor -> GetFrame().y * neighbor -> GetParent() -> getScale().y));
                             if(neighbor -> GetParent() -> GetType() == BlockType::DEFAULTLOOP){

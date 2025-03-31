@@ -26,7 +26,9 @@ class Loop : Block{
             innerChild -> setPos(p_pos + Vector2f(innerCollider->GetFrame().x * scale.x, innerCollider->GetFrame().y * scale.y));
         }
     }
-    
+    float GetBottom() override{
+        return pos.y + scale.y * (bodySize + 17);
+    }
     void SetLayer(int p_layer) override{
         if(child != nullptr){
             child -> SetLayer(p_layer);
@@ -83,23 +85,57 @@ class Loop : Block{
     }
     void setBodySize(float p_size) override{
         bodySize = p_size;
+
         body -> setScale(Vector2f(scale.x, scale.y * p_size));
         foot -> setPos(Vector2f(pos.x, pos.y + scale.y * (p_size + 12)));
 
+        if(child != nullptr){
+            child -> setPos(Vector2f(pos.x, GetBottom()));
+        }
+        
         SDL_FRect bottomColFrame;
         bottomColFrame.x = 0;
-        bottomColFrame.y = 16 + p_size;
+        bottomColFrame.y = 17 + p_size;
         bottomColFrame.w = 32;
         bottomColFrame.h = 8;
 
         bottomCollider -> SetFrame(bottomColFrame);
+
+        if(contained){
+            Block* it = this;
+            while(it -> getParent() -> getChild() == it){
+                it = it -> getParent();
+                if(it == nullptr){
+                    std::cout << "something wicked this way comes" << "\n";
+                }
+            }
+            Block* childIt = this;
+
+            while(childIt -> getChild() != nullptr){
+                childIt = childIt -> getChild();
+            }
+
+            it -> getParent() -> setBodySize((childIt -> GetBottom() - it -> getParent() -> getPos().y) / scale.y - currentFrame.h);
+        }
     }
     void RemoveChild(Block* p_child) override{
         if(p_child == child){
+            if(contained){
+                Block* it = this;
+                while(it -> getParent() -> getChild() == it){
+                    it = it -> getParent();
+                    if(it == nullptr){
+                        std::cout << "something wicked this way comes" << "\n";
+                    }
+                }
+                it -> getParent() -> setBodySize((GetBottom() - it -> getParent() -> getPos().y) / scale.y - currentFrame.h);
+        
+                child -> ToggleIsContained(false);
+            }
+
             child = nullptr;
         }
         else{
-            innerChild -> ToggleIsContained(false);
             setBodySize(currentFrame.h - 2);
             innerChild = nullptr;
         }

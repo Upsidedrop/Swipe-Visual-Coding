@@ -13,7 +13,8 @@ using std::vector;
 
 enum BlockType{
     DEFAULT = 1,
-    DEFAULTLOOP = 2
+    DEFAULTLOOP = 2,
+    DEFAULTHEAD = 3
 };
 
 class Block : public Entity{

@@ -46,7 +46,7 @@ void Block::setChild(Block* p_child){
     child -> ToggleIsContained(contained);
     if(contained){
         Block* loopIt = this;
-        while(loopIt -> getParent() -> GetType() < 2 && loopIt -> getParent() -> getChild() == loopIt){
+        while(loopIt -> getParent() -> getChild() == loopIt){
             loopIt = loopIt -> getParent();
             if(loopIt == nullptr){
                 std::cout << "something wicked this way comes" << "\n";
@@ -63,7 +63,7 @@ void Block::setChild(Block* p_child){
 void Block::RemoveChild(){
     if(contained){
         Block* it = this;
-        while(it -> getParent() -> GetType() < 2 && it -> getParent() -> getChild() == it){
+        while(it -> getParent() -> getChild() == it){
             it = it -> getParent();
             if(it == nullptr){
                 std::cout << "something wicked this way comes" << "\n";
