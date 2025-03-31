@@ -10,7 +10,6 @@
 #include "RenderWindow.hpp"
 #include "Block.hpp"
 #include "Utils.hpp"
-#include "LinkedList.hpp"
 #include "Loop.hpp"
 
 using std::cout;
@@ -50,13 +49,13 @@ int main(int agrv, char* args[]) {
     blockSize.y = 0;
     blockSize.w = 63;
     blockSize.h = 12;
-    LinkedList<Block> blocks(new Block(Vector2f(0,0), blockTexture, &renderLayers, &colliderFlags, blockSize, BlockType::DEFAULT ,Vector2f(4, 4)));
+    new Block(Vector2f(0,0), blockTexture, &renderLayers, &colliderFlags, blockSize, BlockType::DEFAULT ,Vector2f(4, 4));
     for (size_t i = 0; i < 8; i++)
     {
-        blocks.Add(new Block(Vector2f(0,(i+1) * 70), blockTexture, &renderLayers, &colliderFlags, blockSize, BlockType::DEFAULT, Vector2f(i + 1, 4)));
+        new Block(Vector2f(0,(i+1) * 70), blockTexture, &renderLayers, &colliderFlags, blockSize, BlockType::DEFAULT, Vector2f(i + 1, 4));
     }
-    Loop loop(Vector2f(300,300), Vector2f(4,4), loopTexture, &renderLayers, &colliderFlags, BlockType::DEFAULTLOOP, blockSize);
-    Loop loop2(Vector2f(300,300), Vector2f(4,4), loopTexture, &renderLayers, &colliderFlags, BlockType::DEFAULTLOOP, blockSize);
+    new Loop(Vector2f(300,300), Vector2f(4,4), loopTexture, &renderLayers, &colliderFlags, BlockType::DEFAULTLOOP, blockSize);
+    new Loop(Vector2f(300,300), Vector2f(4,4), loopTexture, &renderLayers, &colliderFlags, BlockType::DEFAULTLOOP, blockSize);
 
     bool gameRunning = true;
     SDL_Event event;

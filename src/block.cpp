@@ -1,5 +1,7 @@
 #include "Block.hpp"
 
+LinkedList<Block> Block::blocks;
+
 Block::Block(Vector2f p_pos, SDL_Texture* p_tex, map<int, unordered_set<Entity*>>* p_layers, vector<vector<Collider*>>* colliderFlags, SDL_Rect p_frame, BlockType p_type , Vector2f p_scale)
 :Entity(p_pos, p_tex, p_layers, p_frame, p_scale), child(nullptr), parent(nullptr), type(p_type)
 {
@@ -26,6 +28,9 @@ Block::Block(Vector2f p_pos, SDL_Texture* p_tex, map<int, unordered_set<Entity*>
     bottomColFrame.h = 8;
     
     bottomCollider = new Collider(bottomColFrame, this, colliderFlags, 1);
+    if(type != BlockType::DEFAULTHEAD){
+        blocks.Add(this);
+    }
 }
 Block::~Block(){
     delete mainCollider;

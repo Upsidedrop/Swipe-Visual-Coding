@@ -6,6 +6,7 @@
 #include "Math.hpp"
 #include "Collider.hpp"
 #include "Entity.hpp"
+#include "LinkedList.hpp"
 
 using std::map;
 using std::unordered_set;
@@ -77,6 +78,7 @@ class Block : public Entity{
     }
     virtual ~Block();
     protected:
+    static LinkedList<Block> blocks;
     Collider* bottomCollider;
     Collider* topCollider;
     Collider* mainCollider;

@@ -29,14 +29,15 @@ private:
 template <typename T>
 class LinkedList{
 public:
-    LinkedList(T* p_first){
-        firstNode = new Node<T>(p_first);
-        lastNode = firstNode;
-    }
     ~LinkedList(){
         firstNode -> DestroyNode();
     }
     void Add(T* p_val){
+        if(firstNode == nullptr){
+            firstNode = new Node<T>(p_val);
+            lastNode = firstNode;
+            return;
+        }
         lastNode -> setNextNode(new Node<T>(p_val));
         lastNode = lastNode -> getNextNode();
     }
