@@ -4,15 +4,19 @@
 #include <SDL2/SDL.h>
 #include <vector>
 
-class Block;
+#include "Entity.hpp"
+
+class Collider;
+
+extern std::vector<std::vector<Collider*>> flags;
 
 class Collider{
 public:
     Collider()
     :frame(SDL_FRect()), parent(nullptr){}
-    Collider(SDL_FRect p_frame, Block* p_parent, std::vector<std::vector<Collider*>>* p_flags, int p_layer) 
-    :frame(p_frame), flags(p_flags), parent(p_parent){
-        ((p_flags -> data()) + p_layer) -> push_back(this);
+    Collider(SDL_FRect p_frame, Entity* p_parent, int p_layer) 
+    :frame(p_frame),  parent(p_parent){
+        flags[p_layer].push_back(this);
     }
     SDL_FRect GetFrame(){
         return frame;
@@ -20,12 +24,11 @@ public:
     void SetFrame(SDL_FRect p_frame){
         frame = p_frame;
     }
-    Block* GetParent(){
+    Entity* GetParent(){
         return parent;
     }
     Collider* CheckForCollisions(std::vector<int> masks);
 private:
     SDL_FRect frame;
-    std::vector<std::vector<Collider*>>* flags;
-    Block* parent;
+    Entity* parent;
 };

@@ -12,8 +12,11 @@
 #include "Utils.hpp"
 #include "Loop.hpp"
 #include "FuncHead.hpp"
+#include "Collider.hpp"
 
 using std::cout;
+
+std::vector<std::vector<Collider*>> flags = std::vector<std::vector<Collider*>>(3);
 
 int main(int agrv, char* args[]) {
     cout << "Program Start" << "\n";
@@ -43,8 +46,6 @@ int main(int agrv, char* args[]) {
 
     //Mix_PlayMusic(gMusic, -1);
 
-    vector<vector<Collider*>> colliderFlags = vector<vector<Collider*>>(3);
-
     map<int, unordered_set<Entity*>> renderLayers;
     SDL_Rect blockSize;
     blockSize.x = 0;
@@ -58,13 +59,13 @@ int main(int agrv, char* args[]) {
     headSize.w = 63;
     headSize.h = 15;
 
-    new Block(Vector2f(0,0), blockTexture, &renderLayers, &colliderFlags, blockSize, BlockType::DEFAULT ,Vector2f(4, 4));
+    new Block(Vector2f(0,0), blockTexture, &renderLayers, blockSize, BlockType::DEFAULT ,Vector2f(4, 4));
     for (size_t i = 0; i < 8; i++)
     {
-        new Block(Vector2f(0,(i+1) * 70), blockTexture, &renderLayers, &colliderFlags, blockSize, BlockType::DEFAULT, Vector2f(i + 1, 4));
+        new Block(Vector2f(0,(i+1) * 70), blockTexture, &renderLayers, blockSize, BlockType::DEFAULT, Vector2f(i + 1, 4));
     }
-    new Loop(Vector2f(300,300), Vector2f(4,4), loopTexture, &renderLayers, &colliderFlags, BlockType::DEFAULTLOOP, blockSize);
-    new FuncHead(Vector2f(600,300), Vector2f(4,4), headTexture, &renderLayers, &colliderFlags, BlockType::DEFAULTHEAD, headSize);
+    new Loop(Vector2f(300,300), Vector2f(4,4), loopTexture, &renderLayers, BlockType::DEFAULTLOOP, blockSize);
+    new FuncHead(Vector2f(600,300), Vector2f(4,4), headTexture, &renderLayers, BlockType::DEFAULTHEAD, headSize);
 
     bool gameRunning = true;
     SDL_Event event;
@@ -85,10 +86,10 @@ int main(int agrv, char* args[]) {
             }
             if(event.type == SDL_MOUSEBUTTONDOWN){
                 if(event.button.button == SDL_BUTTON_LEFT){
-                    Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), &colliderFlags, {2});
+                    Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), {2});
 
                     if(collision != nullptr){
-                        heldObject = collision->GetParent();
+                        heldObject = static_cast<Block*>(collision->GetParent());
                         clickedPos = Vector2f(event.button.x - heldObject -> getPos().x, event.button.y - heldObject -> getPos().y);
                     }
                     if(heldObject != nullptr){
@@ -110,28 +111,30 @@ int main(int agrv, char* args[]) {
             if(event.type == SDL_MOUSEBUTTONUP){
                 if(event.button.button == SDL_BUTTON_LEFT){
                     if(heldObject != nullptr){
-                        Collider* neighbor;
+                        Collider* neighborCol;
                         if(heldObject -> getTopCollider() != nullptr){
-                            neighbor = heldObject -> getTopCollider() -> CheckForCollisions({1});
-                            if(neighbor != nullptr){
-                                if(neighbor -> GetParent() -> getChild() != nullptr){
-                                    if(neighbor == &(neighbor -> GetParent() -> getBottomCollider())){
+                            neighborCol = heldObject -> getTopCollider() -> CheckForCollisions({1});
+                            if(neighborCol != nullptr){
+                                Block* neighbor = static_cast<Block*>(neighborCol -> GetParent());
+
+                                if(neighbor -> getChild() != nullptr){
+                                    if(neighborCol == &(neighbor -> getBottomCollider())){
                                         Block* iterator = heldObject;
                                         while(iterator -> getChild() != nullptr){
                                             iterator = iterator -> getChild();
                                         }
-                                        iterator -> setChild(neighbor -> GetParent() -> getChild());
+                                        iterator -> setChild(neighbor -> getChild());
                                         iterator -> getChild() -> setParent(iterator);
                                     }
                                 }
-                                heldObject -> setPos(neighbor->GetParent() -> getPos() + Vector2f(neighbor -> GetFrame().x * neighbor -> GetParent() -> getScale().x, neighbor -> GetFrame().y * neighbor -> GetParent() -> getScale().y));
-                                if(neighbor -> GetParent() -> GetType() == BlockType::DEFAULTLOOP){
-                                    neighbor -> GetParent() -> setChild(heldObject, neighbor);
+                                heldObject -> setPos(neighbor -> getPos() + Vector2f(neighborCol -> GetFrame().x * neighbor -> getScale().x, neighborCol -> GetFrame().y * neighbor  -> getScale().y));
+                                if(neighbor -> GetType() == BlockType::DEFAULTLOOP){
+                                    neighbor -> setChild(heldObject, neighborCol);
                                 }
                                 else{
-                                    neighbor -> GetParent() -> setChild(heldObject);
+                                    neighbor -> setChild(heldObject);
                                 }
-                                heldObject -> setParent(neighbor -> GetParent());
+                                heldObject -> setParent(neighbor);
                             }
                         }
                         heldObject -> SetLayer(0);

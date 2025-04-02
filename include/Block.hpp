@@ -20,7 +20,7 @@ enum BlockType{
 
 class Block : public Entity{
     public:
-    Block(Vector2f p_pos, SDL_Texture* p_tex, map<int, unordered_set<Entity*>>* p_layers, vector<vector<Collider*>>* colliderFlags, SDL_Rect p_frame, BlockType p_type, Vector2f p_scale = Vector2f(1,1));
+    Block(Vector2f p_pos, SDL_Texture* p_tex, map<int, unordered_set<Entity*>>* p_layers, SDL_Rect p_frame, BlockType p_type, Vector2f p_scale = Vector2f(1,1));
     Collider& getBottomCollider(){
         return *bottomCollider;
     }

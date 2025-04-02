@@ -1,11 +1,10 @@
 #include <vector>
 
 #include "Collider.hpp"
-#include "Block.hpp"
 
-Collider* Collider::CheckForCollisions(vector<int> masks){
+Collider* Collider::CheckForCollisions(std::vector<int> masks){
     for(int i : masks){
-        for(Collider* other : *(flags -> data() + i)){
+        for(Collider* other : flags[i]){
             if(other == nullptr){
                 continue;
             }
