@@ -5,6 +5,7 @@
 #include <vector>
 #include <unordered_set>
 #include <map>
+#include <unordered_map>
 #include <SDL2/SDL_filesystem.h>
 
 #include "RenderWindow.hpp"
@@ -16,6 +17,8 @@
 #include "Button.hpp"
 
 using std::cout;
+
+std::unordered_map<std::string, FuncHead*> functions;
 
 std::vector<std::vector<Collider*>> flags = std::vector<std::vector<Collider*>>(4);
 
@@ -84,7 +87,7 @@ int main(int agrv, char* args[]) {
         new Block(Vector2f(0,(i+1) * 70), blockTexture, blockSize, BlockType::DEFAULT, Vector2f(i + 1, 4));
     }
     new Loop(Vector2f(300,300), Vector2f(4,4), loopTexture, BlockType::DEFAULTLOOP, blockSize);
-    new FuncHead(Vector2f(600,300), Vector2f(4,4), headTexture, BlockType::DEFAULTHEAD, headSize);
+    new FuncHead(Vector2f(600,300), Vector2f(4,4), headTexture, BlockType::DEFAULTHEAD, headSize, "main");
     Button button(Vector2f(600,600),buttonTexture,buttonSize,hi,buttonFloatSize,Vector2f(4,4));
 
     bool gameRunning = true;
@@ -187,6 +190,8 @@ int main(int agrv, char* args[]) {
     SDL_Quit();
     IMG_Quit();
     Mix_Quit();
+
+    utils::DeconstructFunctionHeads();
 
     return 0;
 }

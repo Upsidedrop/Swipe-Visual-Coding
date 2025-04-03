@@ -28,10 +28,9 @@ Block::Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_t
     bottomColFrame.h = 8;
     
     bottomCollider = new Collider(bottomColFrame, this, 1);
-    // if(type != BlockType::DEFAULTHEAD){
-    //     blocks.Add(this);
-    // }
-    blocks.Add(this);
+    if(type != BlockType::DEFAULTHEAD){
+        blocks.Add(this);
+    }
 }
 Block::~Block(){
     delete mainCollider;

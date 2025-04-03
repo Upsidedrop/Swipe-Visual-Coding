@@ -1,9 +1,13 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include <unordered_map>
 
 #include "Collider.hpp"
 #include "Math.hpp"
+#include "FuncHead.hpp"
+
+extern std::unordered_map<std::string, FuncHead*> functions;
 
 namespace utils{
     inline float hireTimeInSeconds(){
@@ -31,5 +35,10 @@ namespace utils{
             }
         }
         return nullptr;
+    }
+    void DeconstructFunctionHeads(){
+        for(auto functionHeadPair : functions){
+            delete functionHeadPair.second;
+        }
     }
 }
