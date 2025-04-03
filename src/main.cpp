@@ -13,12 +13,17 @@
 #include "Loop.hpp"
 #include "FuncHead.hpp"
 #include "Collider.hpp"
+#include "Button.hpp"
 
 using std::cout;
 
-std::vector<std::vector<Collider*>> flags = std::vector<std::vector<Collider*>>(3);
+std::vector<std::vector<Collider*>> flags = std::vector<std::vector<Collider*>>(4);
 
 std::map<int, std::unordered_set<Entity*>> layers;
+
+void hi(){
+    cout << "hi\n";
+}
 
 int main(int agrv, char* args[]) {
     cout << "Program Start" << "\n";
@@ -41,6 +46,7 @@ int main(int agrv, char* args[]) {
     SDL_Texture* blockTexture = window.loadTexture("res/gfx/DefaultBlock.png");
     SDL_Texture* headTexture = window.loadTexture("res/gfx/DefaultHead.png");
     SDL_Texture* loopTexture = window.loadTexture("res/gfx/Loop.png");
+    SDL_Texture* buttonTexture = window.loadTexture("res/gfx/Button.png");
     
     //Mix_Music* gMusic = Mix_LoadMUS("res/dev/death-odyssey.mp3"); UNCOMMENT MEMORY CLEANUP
 
@@ -60,6 +66,18 @@ int main(int agrv, char* args[]) {
     headSize.w = 63;
     headSize.h = 15;
 
+    SDL_Rect buttonSize;
+    buttonSize.x = 0;
+    buttonSize.y = 0;
+    buttonSize.w = 37;
+    buttonSize.h = 15;
+
+    SDL_FRect buttonFloatSize;
+    buttonFloatSize.x = 0;
+    buttonFloatSize.y = 0;
+    buttonFloatSize.w = 37;
+    buttonFloatSize.h = 15;
+
     new Block(Vector2f(0,0), blockTexture, blockSize, BlockType::DEFAULT, Vector2f(4, 4));
     for (size_t i = 0; i < 8; i++)
     {
@@ -67,6 +85,7 @@ int main(int agrv, char* args[]) {
     }
     new Loop(Vector2f(300,300), Vector2f(4,4), loopTexture, BlockType::DEFAULTLOOP, blockSize);
     new FuncHead(Vector2f(600,300), Vector2f(4,4), headTexture, BlockType::DEFAULTHEAD, headSize);
+    Button button(Vector2f(600,600),buttonTexture,buttonSize,hi,buttonFloatSize,Vector2f(4,4));
 
     bool gameRunning = true;
     SDL_Event event;
@@ -92,8 +111,6 @@ int main(int agrv, char* args[]) {
                     if(collision != nullptr){
                         heldObject = static_cast<Block*>(collision->GetParent());
                         clickedPos = Vector2f(event.button.x - heldObject -> getPos().x, event.button.y - heldObject -> getPos().y);
-                    }
-                    if(heldObject != nullptr){
                         if(heldObject -> getParent() != nullptr){
                             cout << "had parent" << "\n";
                             if(heldObject -> getParent() -> GetType() == BlockType::DEFAULTLOOP){
@@ -106,6 +123,11 @@ int main(int agrv, char* args[]) {
                             heldObject -> setParent(nullptr);
                         }
                         heldObject -> SetLayer(1);
+                    }else{
+                        Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), {3});
+                        if(collision != nullptr){
+                            static_cast<Button*>(collision -> GetParent())->CallFunc();
+                        }
                     }
                 }
             }
