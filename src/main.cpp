@@ -15,6 +15,7 @@
 #include "FuncHead.hpp"
 #include "Collider.hpp"
 #include "Button.hpp"
+#include "Compiler.hpp"
 
 using std::cout;
 
@@ -23,10 +24,6 @@ std::unordered_map<std::string, FuncHead*> functions;
 std::vector<std::vector<Collider*>> flags = std::vector<std::vector<Collider*>>(4);
 
 std::map<int, std::unordered_set<Entity*>> layers;
-
-void hi(){
-    cout << "hi\n";
-}
 
 int main(int agrv, char* args[]) {
     cout << "Program Start" << "\n";
@@ -42,8 +39,6 @@ int main(int agrv, char* args[]) {
     }
     cout << "Init Passed" << "\n";
     
-    cout << SDL_GetPrefPath("Oddity", "Swipe") << "\n";
-
     RenderWindow window("hi", 1280, 720);
 
     SDL_Texture* blockTexture = window.loadTexture("res/gfx/DefaultBlock.png");
@@ -56,7 +51,7 @@ int main(int agrv, char* args[]) {
     //Mix_VolumeMusic(50);
 
     //Mix_PlayMusic(gMusic, -1);
-
+    
     SDL_Rect blockSize;
     blockSize.x = 0;
     blockSize.y = 0;
@@ -88,7 +83,7 @@ int main(int agrv, char* args[]) {
     }
     new Loop(Vector2f(300,300), Vector2f(4,4), loopTexture, BlockType::DEFAULTLOOP, blockSize);
     new FuncHead(Vector2f(600,300), Vector2f(4,4), headTexture, BlockType::DEFAULTHEAD, headSize, "main");
-    Button button(Vector2f(600,600),buttonTexture,buttonSize,hi,buttonFloatSize,Vector2f(4,4));
+    Button button(Vector2f(600,600),buttonTexture,buttonSize,Compilation::Compile,buttonFloatSize,Vector2f(4,4));
 
     bool gameRunning = true;
     SDL_Event event;

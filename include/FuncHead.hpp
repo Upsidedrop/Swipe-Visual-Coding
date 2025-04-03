@@ -9,7 +9,7 @@ class FuncHead;
 
 extern std::unordered_map<std::string, FuncHead*> functions;
 
-class FuncHead : Block{
+class FuncHead : public Block{
     public:
     FuncHead(Vector2f p_pos, Vector2f p_scale, SDL_Texture* p_tex, BlockType p_type, SDL_Rect p_frame, std::string p_name);
     void setPos(Vector2f p_pos) override
