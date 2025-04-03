@@ -18,6 +18,8 @@ using std::cout;
 
 std::vector<std::vector<Collider*>> flags = std::vector<std::vector<Collider*>>(3);
 
+std::map<int, std::unordered_set<Entity*>> layers;
+
 int main(int agrv, char* args[]) {
     cout << "Program Start" << "\n";
     
@@ -46,7 +48,6 @@ int main(int agrv, char* args[]) {
 
     //Mix_PlayMusic(gMusic, -1);
 
-    map<int, unordered_set<Entity*>> renderLayers;
     SDL_Rect blockSize;
     blockSize.x = 0;
     blockSize.y = 0;
@@ -59,13 +60,13 @@ int main(int agrv, char* args[]) {
     headSize.w = 63;
     headSize.h = 15;
 
-    new Block(Vector2f(0,0), blockTexture, &renderLayers, blockSize, BlockType::DEFAULT ,Vector2f(4, 4));
+    new Block(Vector2f(0,0), blockTexture, blockSize, BlockType::DEFAULT, Vector2f(4, 4));
     for (size_t i = 0; i < 8; i++)
     {
-        new Block(Vector2f(0,(i+1) * 70), blockTexture, &renderLayers, blockSize, BlockType::DEFAULT, Vector2f(i + 1, 4));
+        new Block(Vector2f(0,(i+1) * 70), blockTexture, blockSize, BlockType::DEFAULT, Vector2f(i + 1, 4));
     }
-    new Loop(Vector2f(300,300), Vector2f(4,4), loopTexture, &renderLayers, BlockType::DEFAULTLOOP, blockSize);
-    new FuncHead(Vector2f(600,300), Vector2f(4,4), headTexture, &renderLayers, BlockType::DEFAULTHEAD, headSize);
+    new Loop(Vector2f(300,300), Vector2f(4,4), loopTexture, BlockType::DEFAULTLOOP, blockSize);
+    new FuncHead(Vector2f(600,300), Vector2f(4,4), headTexture, BlockType::DEFAULTHEAD, headSize);
 
     bool gameRunning = true;
     SDL_Event event;
@@ -146,7 +147,7 @@ int main(int agrv, char* args[]) {
         }
         window.clear();
 
-        for(auto layer : renderLayers){
+        for(auto layer : layers){
             for(Entity* entity : layer.second){
                 window.render(*entity);
             }

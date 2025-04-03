@@ -6,7 +6,7 @@
 
 class Loop : Block{
     public:
-    Loop(Vector2f p_pos, Vector2f p_scale, SDL_Texture* p_tex, std::map<int, std::unordered_set<Entity*>>* p_layers, BlockType p_type , SDL_Rect p_frame);
+    Loop(Vector2f p_pos, Vector2f p_scale, SDL_Texture* p_tex, BlockType p_type , SDL_Rect p_frame);
     ~Loop();
     Collider* GetInnerCollider(){
         return innerCollider;
@@ -39,16 +39,16 @@ class Loop : Block{
         body -> SetLayer(p_layer);
         foot -> SetLayer(p_layer);
 
-        layers -> find(layer) -> second.erase(this);
+        layers.find(layer) -> second.erase(this);
 
         layer = p_layer;
     
-        auto it = layers -> find(layer);
-        if(it == layers -> end()){
-            layers -> insert(std::make_pair(layer, std::unordered_set<Entity*>()));
-            it = layers -> find(layer); 
+        auto it = layers.find(layer);
+        if(it == layers.end()){
+            layers.insert(std::make_pair(layer, std::unordered_set<Entity*>()));
+            it = layers.find(layer); 
         }
-        layers -> find(layer) -> second.insert(this);
+        layers.find(layer) -> second.insert(this);
     }
     Block* GetInnerChild(){
         return innerChild;
