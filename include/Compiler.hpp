@@ -14,17 +14,28 @@ namespace Compilation{
     std::string prefPath = SDL_GetPrefPath("Oddity", "Swipe");
     std::ofstream program;
 
+    void TypeChecker(Block* it, char foo){
+        if(it == nullptr){
+            return;
+        }
+        if(it -> GetType() == BlockType::DEFAULT){
+            program << "std::cout << \"Hello World!\\n\";";
+        }
+        if(it -> GetType() == BlockType::DEFAULTLOOP){
+            program << "for(int " << foo << " =0;" << foo << "<3;++" << foo <<"){";
+            TypeChecker(((Loop*)(it)) -> GetInnerChild(), foo + 1);
+            program << "}";
+        }
+        TypeChecker(it -> getChild(), foo);
+    }
+    
     void Compile(){
         program.open(prefPath + "program.cpp");
-        Block* it;
-        it = functions["main"];
+
         program << "#include <iostream> \nint main(){";
-        while(it != nullptr){
-            if(it -> GetType() == BlockType::DEFAULT){
-                program << "std::cout << \"Hello World!\\n\";";
-            }
-            it = it -> getChild(); 
-        }
+
+        TypeChecker(functions["main"], 'a');
+
         program << "}";
 
         program.close();

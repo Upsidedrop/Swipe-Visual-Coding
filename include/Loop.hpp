@@ -4,7 +4,7 @@
 #include "Block.hpp"
 #include "Math.hpp"
 
-class Loop : Block{
+class Loop : public Block{
     public:
     Loop(Vector2f p_pos, Vector2f p_scale, SDL_Texture* p_tex, BlockType p_type , SDL_Rect p_frame);
     ~Loop();
