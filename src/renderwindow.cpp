@@ -20,6 +20,14 @@ SDL_Texture* RenderWindow::loadTexture(const char* p_filePath){
     }
     return texture;
 }
+SDL_Texture* RenderWindow::loadSurface(SDL_Surface* surface){
+    SDL_Texture* texture = nullptr;
+    texture = SDL_CreateTextureFromSurface(renderer, surface);
+    if(texture == nullptr){
+        std::cout << "FAILED TO LOAD TEXTURE. ERROR: " << SDL_GetError() << std::endl;
+    }
+    return texture;
+}
 void RenderWindow::cleanUp(){
     SDL_DestroyWindow(window);
 }

@@ -7,6 +7,7 @@
 #include <map>
 #include <unordered_map>
 #include <SDL2/SDL_filesystem.h>
+#include <SDL2/SDL_ttf.h>
 
 #include "RenderWindow.hpp"
 #include "Block.hpp"
@@ -34,12 +35,23 @@ int main(int agrv, char* args[]) {
     if(!(IMG_Init(IMG_INIT_PNG))){
         cout << "IMG_Init HAS FAILED. ERROR:" << SDL_GetError() << "\n";
     }
+    if(TTF_Init()){
+        cout << "TTF_Init HAS FAILED. ERROR:" << TTF_GetError() << "\n";
+    }
     if(Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0){
         cout << "SDL_MIXER HAS FAILED. ERROR:" << SDL_GetError() << "\n";
     }
     cout << "Init Passed" << "\n";
     
     RenderWindow window("hi", 1280, 720);
+
+    TTF_Font* comic = TTF_OpenFont("res/gfx/ComicNeueBold.ttf", 50);
+
+    SDL_Color White = {255, 255, 255};
+
+    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(comic, "put your text here", White);
+
+    SDL_Texture* text = window.loadSurface(surfaceMessage);
 
     SDL_Texture* blockTexture = window.loadTexture("res/gfx/DefaultBlock.png");
     SDL_Texture* headTexture = window.loadTexture("res/gfx/DefaultHead.png");
@@ -75,6 +87,14 @@ int main(int agrv, char* args[]) {
     buttonFloatSize.y = 0;
     buttonFloatSize.w = 37;
     buttonFloatSize.h = 15;
+
+    SDL_Rect Message_rect; //create a rect
+    Message_rect.x = 0;  //controls the rect's x coordinate 
+    Message_rect.y = 0; // controls the rect's y coordinte
+    Message_rect.w = 400; // controls the width of the rect
+    Message_rect.h = 50; // controls the height of the rect
+    
+    new Entity(Vector2f(600, 0), text, Message_rect);
 
     new Block(Vector2f(0,0), blockTexture, blockSize, BlockType::DEFAULT, Vector2f(4, 4));
     for (size_t i = 0; i < 8; i++)
@@ -179,11 +199,21 @@ int main(int agrv, char* args[]) {
     window.cleanUp();
 
     SDL_DestroyTexture(blockTexture);
+    SDL_DestroyTexture(headTexture);
+    SDL_DestroyTexture(loopTexture);
+    SDL_DestroyTexture(text);
+    SDL_DestroyTexture(buttonTexture);
+
+    SDL_FreeSurface(surfaceMessage);
+
+    TTF_CloseFont(comic);
+
 
     //Mix_FreeMusic(gMusic);
 
     SDL_Quit();
     IMG_Quit();
+    TTF_Quit();
     Mix_Quit();
 
     utils::DeconstructFunctionHeads();
