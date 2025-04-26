@@ -87,14 +87,8 @@ int main(int agrv, char* args[]) {
     buttonFloatSize.y = 0;
     buttonFloatSize.w = 37;
     buttonFloatSize.h = 15;
-
-    SDL_Rect Message_rect; //create a rect
-    Message_rect.x = 0;  //controls the rect's x coordinate 
-    Message_rect.y = 0; // controls the rect's y coordinte
-    Message_rect.w = 400; // controls the width of the rect
-    Message_rect.h = 50; // controls the height of the rect
     
-    new Entity(Vector2f(600, 0), text, Message_rect);
+    new Entity(Vector2f(600, 0), text);
 
     new Block(Vector2f(0,0), blockTexture, blockSize, BlockType::DEFAULT, Vector2f(4, 4));
     for (size_t i = 0; i < 8; i++)
