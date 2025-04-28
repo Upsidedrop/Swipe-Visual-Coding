@@ -13,7 +13,6 @@ extern std::map<int, std::unordered_set<Entity*>> layers;
 class Entity{
     public:
     Entity(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, Vector2f p_scale = Vector2f(1,1), int p_layer = 0);
-    Entity(Vector2f p_pos, SDL_Texture* p_tex, Vector2f p_scale = Vector2f(1,1), int p_layer = 0);
     Vector2f& getPos()
     {
         return pos;

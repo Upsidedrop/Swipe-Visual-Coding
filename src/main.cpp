@@ -17,6 +17,7 @@
 #include "Collider.hpp"
 #include "Button.hpp"
 #include "Compiler.hpp"
+#include "TextBox.hpp"
 
 using std::cout;
 
@@ -25,6 +26,10 @@ std::unordered_map<std::string, FuncHead*> functions;
 std::vector<std::vector<Collider*>> flags = std::vector<std::vector<Collider*>>(4);
 
 std::map<int, std::unordered_set<Entity*>> layers;
+
+RenderWindow window("hi", 1280, 720);
+
+TTF_Font* comic;
 
 int main(int agrv, char* args[]) {
     cout << "Program Start" << "\n";
@@ -42,16 +47,8 @@ int main(int agrv, char* args[]) {
         cout << "SDL_MIXER HAS FAILED. ERROR:" << SDL_GetError() << "\n";
     }
     cout << "Init Passed" << "\n";
-    
-    RenderWindow window("hi", 1280, 720);
 
-    TTF_Font* comic = TTF_OpenFont("res/gfx/ComicNeueBold.ttf", 50);
-
-    SDL_Color White = {255, 255, 255};
-
-    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(comic, "put your text here", White);
-
-    SDL_Texture* text = window.loadSurface(surfaceMessage);
+    comic = TTF_OpenFont("res/gfx/ComicNeueBold.ttf", 50);
 
     SDL_Texture* blockTexture = window.loadTexture("res/gfx/DefaultBlock.png");
     SDL_Texture* headTexture = window.loadTexture("res/gfx/DefaultHead.png");
@@ -88,7 +85,7 @@ int main(int agrv, char* args[]) {
     buttonFloatSize.w = 37;
     buttonFloatSize.h = 15;
     
-    new Entity(Vector2f(600, 0), text);
+    TextBox text("hello", Vector2f(40, 200));
 
     new Block(Vector2f(0,0), blockTexture, blockSize, BlockType::DEFAULT, Vector2f(4, 4));
     for (size_t i = 0; i < 8; i++)
@@ -195,14 +192,9 @@ int main(int agrv, char* args[]) {
     SDL_DestroyTexture(blockTexture);
     SDL_DestroyTexture(headTexture);
     SDL_DestroyTexture(loopTexture);
-    SDL_DestroyTexture(text);
     SDL_DestroyTexture(buttonTexture);
 
-    SDL_FreeSurface(surfaceMessage);
-
     TTF_CloseFont(comic);
-
-
     //Mix_FreeMusic(gMusic);
 
     SDL_Quit();
