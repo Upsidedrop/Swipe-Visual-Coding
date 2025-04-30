@@ -3,6 +3,7 @@
 Entity::Entity(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, Vector2f p_scale, int p_layer)
 :pos(p_pos), scale(p_scale), currentFrame(p_frame), tex(p_tex)
 {
+    layer = p_layer;
     auto it = layers.find(p_layer); 
     if(it == layers.end()){
         layers.insert(std::make_pair(layer, std::unordered_set<Entity*>()));

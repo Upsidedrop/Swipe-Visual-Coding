@@ -7,6 +7,7 @@
 #include "Collider.hpp"
 #include "Entity.hpp"
 #include "LinkedList.hpp"
+#include "TextBox.hpp"
 
 using std::map;
 using std::unordered_set;
@@ -20,7 +21,7 @@ enum BlockType{
 
 class Block : public Entity{
     public:
-    Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_type, Vector2f p_scale = Vector2f(1,1));
+    Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_type, Vector2f p_scale = Vector2f(1,1), const char* p_text = "Hello World!", Vector2f textOffset = Vector2f(10, 5));
     Collider& getBottomCollider(){
         return *bottomCollider;
     }
@@ -86,4 +87,5 @@ class Block : public Entity{
     Block* parent;
     BlockType type;
     bool contained = false;
+    TextBox text;
 };

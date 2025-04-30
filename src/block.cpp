@@ -2,8 +2,8 @@
 
 LinkedList<Block> Block::blocks;
 
-Block::Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_type , Vector2f p_scale)
-:Entity(p_pos, p_tex, p_frame, p_scale), child(nullptr), parent(nullptr), type(p_type)
+Block::Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_type, Vector2f p_scale, const char* p_text, Vector2f textOffset)
+:Entity(p_pos, p_tex, p_frame, p_scale), child(nullptr), parent(nullptr), type(p_type), text(p_text, p_pos + textOffset, Vector2f(0.8, 0.8))
 {
     SDL_FRect mainColFrame;
     mainColFrame.x = 0;
