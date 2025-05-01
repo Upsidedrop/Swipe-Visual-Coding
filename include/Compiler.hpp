@@ -19,12 +19,12 @@ namespace Compilation{
             return;
         }
         if(it -> GetType() == BlockType::DEFAULT){
-            program << "std::cout << \"Hello World!\\n\";";
+            program << "std::cout << \"Hello World!\\n\";\n";
         }
         if(it -> GetType() == BlockType::DEFAULTLOOP){
-            program << "for(int " << foo << " =0;" << foo << "<3;++" << foo <<"){";
+            program << "for(int " << foo << " =0;" << foo << "<3;++" << foo <<"){\n";
             TypeChecker(((Loop*)(it)) -> GetInnerChild(), foo + 1);
-            program << "}";
+            program << "}\n";
         }
         TypeChecker(it -> getChild(), foo);
     }
@@ -32,7 +32,7 @@ namespace Compilation{
     void Compile(){
         program.open(prefPath + "program.cpp");
 
-        program << "#include <iostream> \nint main(){";
+        program << "#include <iostream> \nint main(){\n";
 
         TypeChecker(functions["main"], 'a');
 

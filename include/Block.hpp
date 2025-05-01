@@ -61,11 +61,13 @@ class Block : public Entity{
         {
             child-> setPos(p_pos + Vector2f(0, 11 * scale.y));
         }
+        text.getVisual() -> setPos(p_pos + Vector2f(10, 5));
     }
     void SetLayer(int p_layer) override{
         if(child != nullptr){
             child -> SetLayer(p_layer);
         }
+        text.getVisual() -> SetLayer(p_layer + 1);
         layers.find(layer) -> second.erase(this);
 
         layer = p_layer;

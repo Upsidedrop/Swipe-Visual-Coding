@@ -15,6 +15,7 @@ class Loop : public Block{
     {
         pos = p_pos;
 
+        text.getVisual() -> setPos(p_pos + Vector2f(10, 5));
         body -> setPos(p_pos + Vector2f(0, 12 * scale.y));
         foot -> setPos(Vector2f(p_pos.x, p_pos.y + scale.y * (bodySize + 12)));
 
@@ -36,6 +37,7 @@ class Loop : public Block{
         if(innerChild != nullptr){
             innerChild -> SetLayer(p_layer);
         }
+        text.getVisual() -> SetLayer(p_layer + 1);
         body -> SetLayer(p_layer);
         foot -> SetLayer(p_layer);
 

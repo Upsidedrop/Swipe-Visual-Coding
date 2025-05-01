@@ -85,8 +85,6 @@ int main(int agrv, char* args[]) {
     buttonFloatSize.w = 37;
     buttonFloatSize.h = 15;
     
-    TextBox text("hello", Vector2f(40, 200));
-
     new Block(Vector2f(0,0), blockTexture, blockSize, BlockType::DEFAULT, Vector2f(4, 4));
     for (size_t i = 0; i < 8; i++)
     {
@@ -131,7 +129,7 @@ int main(int agrv, char* args[]) {
                             }
                             heldObject -> setParent(nullptr);
                         }
-                        heldObject -> SetLayer(1);
+                        heldObject -> SetLayer(2);
                     }else{
                         Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), {3});
                         if(collision != nullptr){

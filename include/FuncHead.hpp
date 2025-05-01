@@ -19,5 +19,6 @@ class FuncHead : public Block{
         {
             child-> setPos(p_pos + Vector2f(0, 13 * scale.y));
         }
+        text.getVisual() -> setPos(p_pos + Vector2f(10, 5));
     }
 };
