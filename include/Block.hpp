@@ -59,11 +59,11 @@ class Block : public Entity{
         pos = p_pos;
         if(child != nullptr)
         {
-            child-> setPos(p_pos + Vector2f(0, 11 * scale.y));
+            child-> setPos(p_pos + Vector2f(0, 12 * scale.y));
         }
         
-        middle -> setPos(Vector2f(p_pos.x + 12 * scale.x, p_pos.y));
-        end -> setPos(Vector2f(p_pos.x + 12 * scale.x + text.getDimensions().x, p_pos.y));
+        middle -> setPos(Vector2f(p_pos.x + 13 * scale.x, p_pos.y));
+        end -> setPos(Vector2f(p_pos.x + 13 * scale.x + text.getDimensions().x, p_pos.y));
 
         text.getVisual() -> setPos(p_pos + Vector2f(10, 5));
     }
