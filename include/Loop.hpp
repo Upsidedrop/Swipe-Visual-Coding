@@ -16,8 +16,12 @@ class Loop : public Block{
         pos = p_pos;
 
         text.getVisual() -> setPos(p_pos + Vector2f(10, 5));
+        
         body -> setPos(p_pos + Vector2f(0, 12 * scale.y));
         foot -> setPos(Vector2f(p_pos.x, p_pos.y + scale.y * (bodySize + 12)));
+
+        middle -> setPos(Vector2f(p_pos.x + 13 * scale.x, p_pos.y));
+        end -> setPos(Vector2f(p_pos.x + 13 * scale.x + text.getDimensions().x, p_pos.y));
 
         if(child != nullptr)
         {

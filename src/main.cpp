@@ -72,8 +72,8 @@ int main(int agrv, char* args[]) {
     SDL_Rect headSize;
     headSize.x = 0;
     headSize.y = 0;
-    headSize.w = 63;
-    headSize.h = 15;
+    headSize.w = 65;
+    headSize.h = 17;
 
     SDL_Rect buttonSize;
     buttonSize.x = 0;
