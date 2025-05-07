@@ -48,7 +48,9 @@ int main(int agrv, char* args[]) {
     }
     cout << "Init Passed" << "\n";
 
-    comic = TTF_OpenFont("res/gfx/ComicNeueBold.ttf", 50);
+    window.changeBackground({82,79,61});
+
+    comic = TTF_OpenFont("res/gfx/ComicNeueBold.ttf", 43);
 
     SDL_Texture* blockTexture = window.loadTexture("res/gfx/DefaultBlock.png");
     SDL_Texture* headTexture = window.loadTexture("res/gfx/DefaultHead.png");
@@ -64,7 +66,7 @@ int main(int agrv, char* args[]) {
     SDL_Rect blockSize;
     blockSize.x = 0;
     blockSize.y = 0;
-    blockSize.w = 63;
+    blockSize.w = 12;
     blockSize.h = 12;
 
     SDL_Rect headSize;
@@ -85,13 +87,12 @@ int main(int agrv, char* args[]) {
     buttonFloatSize.w = 37;
     buttonFloatSize.h = 15;
     
-    new Block(Vector2f(0,0), blockTexture, blockSize, BlockType::DEFAULT, Vector2f(4, 4));
     for (size_t i = 0; i < 8; i++)
     {
-        new Block(Vector2f(0,(i+1) * 70), blockTexture, blockSize, BlockType::DEFAULT, Vector2f(i + 1, 4));
+        new Block(Vector2f(0,(i+1) * 70), blockTexture, blockSize, BlockType::DEFAULT, 4, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     }
-    new Loop(Vector2f(300,300), Vector2f(4,4), loopTexture, BlockType::DEFAULTLOOP, blockSize);
-    new FuncHead(Vector2f(600,300), Vector2f(4,4), headTexture, BlockType::DEFAULTHEAD, headSize, "main");
+    new Loop(Vector2f(300,300), 4, loopTexture, BlockType::DEFAULTLOOP, blockSize);
+    new FuncHead(Vector2f(600,300), 4, headTexture, BlockType::DEFAULTHEAD, headSize, "main");
     Button button(Vector2f(600,600),buttonTexture,buttonSize,Compilation::Compile,buttonFloatSize,Vector2f(4,4));
 
     bool gameRunning = true;

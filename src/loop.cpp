@@ -1,6 +1,6 @@
 #include "Loop.hpp"
 
-Loop::Loop(Vector2f p_pos, Vector2f p_scale, SDL_Texture* p_tex, BlockType p_type, SDL_Rect p_frame)
+Loop::Loop(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType p_type, SDL_Rect p_frame)
 :Block(p_pos, p_tex, p_frame, p_type, p_scale), innerChild(nullptr), bodySize(10) {
     SDL_Rect bodyFrame;
     bodyFrame.x = 0;
@@ -14,8 +14,8 @@ Loop::Loop(Vector2f p_pos, Vector2f p_scale, SDL_Texture* p_tex, BlockType p_typ
     footFrame.w = 63;
     footFrame.h = 6;
 
-    body = new Entity(p_pos + Vector2f(0, 12 * p_scale.y), p_tex, bodyFrame, Vector2f(p_scale.x, 10 * p_scale.y));
-    foot = new Entity(p_pos + Vector2f(0, 22 * p_scale.y), p_tex, footFrame, p_scale);
+    body = new Entity(p_pos + Vector2f(0, 12 * p_scale), p_tex, bodyFrame, Vector2f(p_scale, 10 * p_scale));
+    foot = new Entity(p_pos + Vector2f(0, 22 * p_scale), p_tex, footFrame, Vector2f(p_scale, p_scale));
 
     SDL_FRect bottomColFrame;
     bottomColFrame.x = 0;

@@ -13,6 +13,7 @@ class RenderWindow{
         void clear();
         void render(Entity& p_entity);
         void display();
+        void changeBackground(SDL_Color p_color);
     private:
         SDL_Window* window;
         SDL_Renderer* renderer;

@@ -21,7 +21,7 @@ enum BlockType{
 
 class Block : public Entity{
     public:
-    Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_type, Vector2f p_scale = Vector2f(1,1), const char* p_text = "Hello World!", Vector2f textOffset = Vector2f(10, 5));
+    Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_type, float p_scale = 1, const char* p_text = "Hello World!", Vector2f textOffset = Vector2f(10, 5));
     Collider& getBottomCollider(){
         return *bottomCollider;
     }
@@ -61,6 +61,10 @@ class Block : public Entity{
         {
             child-> setPos(p_pos + Vector2f(0, 11 * scale.y));
         }
+        
+        middle -> setPos(Vector2f(p_pos.x + 12 * scale.x, p_pos.y));
+        end -> setPos(Vector2f(p_pos.x + 12 * scale.x + text.getDimensions().x, p_pos.y));
+
         text.getVisual() -> setPos(p_pos + Vector2f(10, 5));
     }
     void SetLayer(int p_layer) override{
@@ -90,4 +94,6 @@ class Block : public Entity{
     BlockType type;
     bool contained = false;
     TextBox text;
+    Entity* middle;
+    Entity* end;
 };

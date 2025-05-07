@@ -51,3 +51,6 @@ void RenderWindow::render(Entity& p_entity){
 void RenderWindow::display(){
     SDL_RenderPresent(renderer);
 }
+void RenderWindow::changeBackground(SDL_Color p_color){
+    SDL_SetRenderDrawColor(renderer, p_color.r, p_color.g, p_color.b, p_color.a);
+}
