@@ -36,7 +36,7 @@ Block::Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_t
     middleSize.x = 13;
     middleSize.y = 0;
     middleSize.w = 50;
-    middleSize.h = 14;
+    middleSize.h = p_frame.h;
 
     middle = new Entity(Vector2f(p_pos.x + 13 * p_scale, p_pos.y), p_tex, middleSize, Vector2f((text.getDimensions().x) / middleSize.w, p_scale));
 
@@ -44,9 +44,9 @@ Block::Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_t
     endSize.x = 64;
     endSize.y = 0;
     endSize.w = 1;
-    endSize.h = 14;
+    endSize.h = p_frame.h;
 
-    end = new Entity(Vector2f(p_pos.x + 13 * p_scale + text.getDimensions().x, p_pos.y), p_tex, endSize, Vector2f(p_scale, p_scale), 5);
+    end = new Entity(Vector2f(p_pos.x + 13 * p_scale + text.getDimensions().x, p_pos.y), p_tex, endSize, Vector2f(p_scale, p_scale));
 }
 Block::~Block(){
     delete mainCollider;

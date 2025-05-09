@@ -72,6 +72,8 @@ class Block : public Entity{
             child -> SetLayer(p_layer);
         }
         text.getVisual() -> SetLayer(p_layer + 1);
+        middle ->SetLayer(p_layer);
+        end -> SetLayer(p_layer);
         layers.find(layer) -> second.erase(this);
 
         layer = p_layer;
