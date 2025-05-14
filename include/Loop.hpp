@@ -6,7 +6,7 @@
 
 class Loop : public Block{
     public:
-    Loop(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType p_type , SDL_Rect p_frame);
+    Loop(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType p_type , SDL_Rect p_frame, const char* p_text = "Hello World!",Vector2f textOffset = Vector2f(10, 5));
     ~Loop();
     Collider* GetInnerCollider(){
         return innerCollider;
@@ -151,4 +151,6 @@ class Loop : public Block{
     Collider* innerCollider;
     Block* innerChild;
     uint bodySize;
+    Entity* footMiddle;
+    Entity* footEnd;
 };

@@ -69,6 +69,12 @@ int main(int agrv, char* args[]) {
     blockSize.w = 13;
     blockSize.h = 14;
 
+    SDL_Rect loopSize;
+    loopSize.x = 0;
+    loopSize.y = 0;
+    loopSize.w = 19;
+    loopSize.h = 14;
+
     SDL_Rect headSize;
     headSize.x = 0;
     headSize.y = 0;
@@ -89,9 +95,9 @@ int main(int agrv, char* args[]) {
 
     new Block(Vector2f(0,70), blockTexture, blockSize, BlockType::DEFAULT, 4, "Hello earth");
     new Block(Vector2f(0,140), blockTexture, blockSize, BlockType::DEFAULT, 4, "lobotomize");
-    new Block(Vector2f(0,210), blockTexture, blockSize, BlockType::DEFAULT, 4, "Hello people");
+    new Block(Vector2f(0,210), blockTexture, blockSize, BlockType::DEFAULT, 4, "15");
 
-    new Loop(Vector2f(300,300), 4, loopTexture, BlockType::DEFAULTLOOP, blockSize);
+    new Loop(Vector2f(300,300), 4, loopTexture, BlockType::DEFAULTLOOP, loopSize, "23");
     new FuncHead(Vector2f(600,300), 4, headTexture, BlockType::DEFAULTHEAD, headSize, "main");
     Button button(Vector2f(600,600),buttonTexture,buttonSize,Compilation::Compile,buttonFloatSize,Vector2f(4,4));
 

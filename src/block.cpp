@@ -33,12 +33,15 @@ Block::Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_t
     }
 
     SDL_Rect middleSize;
-    middleSize.x = 13;
+    middleSize.x = p_frame.w;
     middleSize.y = 0;
-    middleSize.w = 50;
+    middleSize.w = 63 - p_frame.w;
     middleSize.h = p_frame.h;
 
-    middle = new Entity(Vector2f(p_pos.x + 13 * p_scale, p_pos.y), p_tex, middleSize, Vector2f((text.getDimensions().x) / middleSize.w, p_scale));
+    float a = (p_frame.x + p_frame.w) * p_scale;
+    float b = text.getDimensions().x;
+
+    middle = new Entity(Vector2f(a + p_pos.x, p_pos.y), p_tex, middleSize, Vector2f((b - a + textOffset.x) / middleSize.w, p_scale));
 
     SDL_Rect endSize;
     endSize.x = 64;
@@ -46,7 +49,7 @@ Block::Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_t
     endSize.w = 1;
     endSize.h = p_frame.h;
 
-    end = new Entity(Vector2f(p_pos.x + 13 * p_scale + text.getDimensions().x, p_pos.y), p_tex, endSize, Vector2f(p_scale, p_scale));
+    end = new Entity(Vector2f(((a < b + textOffset.x)? b + textOffset.x : a) + p_pos.x, p_pos.y), p_tex, endSize, Vector2f(p_scale, p_scale));
 }
 Block::~Block(){
     delete mainCollider;
