@@ -5,6 +5,9 @@
 #include "Math.hpp"
 
 class Loop : public Block{
+    const int MIDDLE_TEXTURE_SIZE = 44;
+    const int TOTAL_TEXTURE_HEIGHT = 21;
+
     public:
     Loop(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType p_type , SDL_Rect p_frame, const char* p_text = "Hello World!",Vector2f textOffset = Vector2f(10, 5));
     ~Loop();
@@ -17,11 +20,14 @@ class Loop : public Block{
 
         text.getVisual() -> setPos(p_pos + Vector2f(10, 5));
         
-        body -> setPos(p_pos + Vector2f(0, 12 * scale.y));
-        foot -> setPos(Vector2f(p_pos.x, p_pos.y + scale.y * (bodySize + 12)));
+        body -> setPos(p_pos + Vector2f(0, (currentFrame.h - 1) * scale.y));
+        foot -> setPos(Vector2f(p_pos.x, p_pos.y + scale.y * (bodySize + currentFrame.h - 1)));
 
-        middle -> setPos(Vector2f(p_pos.x + 13 * scale.x, p_pos.y));
-        end -> setPos(Vector2f(p_pos.x + 13 * scale.x + text.getDimensions().x, p_pos.y));
+        middle -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, p_pos.y));
+        end -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * middle->getScale().x, p_pos.y));
+
+        footMiddle -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, foot->getPos().y));
+        footEnd -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * middle->getScale().x, foot->getPos().y));
 
         if(child != nullptr)
         {
@@ -32,7 +38,7 @@ class Loop : public Block{
         }
     }
     float GetBottom() override{
-        return pos.y + scale.y * (bodySize + 17);
+        return pos.y + scale.y * (bodySize + TOTAL_TEXTURE_HEIGHT - 1);
     }
     void SetLayer(int p_layer) override{
         if(child != nullptr){
@@ -93,7 +99,11 @@ class Loop : public Block{
         bodySize = p_size;
 
         body -> setScale(Vector2f(scale.x, scale.y * p_size));
-        foot -> setPos(Vector2f(pos.x, pos.y + scale.y * (p_size + 12)));
+        foot -> setPos(Vector2f(pos.x, pos.y + scale.y * (bodySize + currentFrame.h - 1)));
+
+        footMiddle -> setPos(Vector2f(footMiddle -> getPos().x, foot -> getPos().y));
+        footEnd -> setPos(Vector2f(footEnd -> getPos().x, foot -> getPos().y));
+
 
         if(child != nullptr){
             child -> setPos(Vector2f(pos.x, GetBottom()));
@@ -140,7 +150,7 @@ class Loop : public Block{
             child = nullptr;
         }
         else{
-            setBodySize(currentFrame.h - 2);
+            setBodySize(currentFrame.h - 3);
             innerChild = nullptr;
         }
         p_child -> ToggleIsContained(false);

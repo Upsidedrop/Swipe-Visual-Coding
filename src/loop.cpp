@@ -1,6 +1,6 @@
 #include "Loop.hpp"
 
-const int DEFAULT_LOOP_SIZE = 22;
+const int DEFAULT_LOOP_SIZE = 24;
 
 Loop::Loop(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType p_type, SDL_Rect p_frame, const char* p_text, Vector2f textOffset)
 :Block(p_pos, p_tex, p_frame, p_type, p_scale, p_text, textOffset), innerChild(nullptr), bodySize(10) {
@@ -28,7 +28,7 @@ Loop::Loop(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType p_type, 
     footEndFrame.w = 1;
     footEndFrame.h = 8;
 
-    body = new Entity(p_pos + Vector2f(0, 12 * p_scale), p_tex, bodyFrame, Vector2f(p_scale, 10 * p_scale));
+    body = new Entity(p_pos + Vector2f(0, p_frame.h * p_scale), p_tex, bodyFrame, Vector2f(p_scale, (DEFAULT_LOOP_SIZE - p_frame.h) * p_scale));
     foot = new Entity(p_pos + Vector2f(0, DEFAULT_LOOP_SIZE * p_scale), p_tex, footFrame, Vector2f(p_scale, p_scale));
 
     float a = (footFrame.x + footFrame.w) * p_scale;
