@@ -2,8 +2,8 @@
 
 LinkedList<Block> Block::blocks;
 
-Block::Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_type, float p_scale, const char* p_text, Vector2f textOffset)
-:Entity(p_pos, p_tex, p_frame, Vector2f(p_scale, p_scale)), child(nullptr), parent(nullptr), type(p_type), text(p_text, p_pos + textOffset, 0.8)
+Block::Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_type, float p_scale, const char* p_text, Vector2f p_textOffset)
+:Entity(p_pos, p_tex, p_frame, Vector2f(p_scale, p_scale)), child(nullptr), parent(nullptr), type(p_type), text(p_text, p_pos + p_textOffset, 0.8), textOffset(p_textOffset)
 {
     SDL_FRect mainColFrame;
     mainColFrame.x = 0;
@@ -41,7 +41,7 @@ Block::Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_t
     float a = (p_frame.x + p_frame.w) * p_scale;
     float b = text.getDimensions().x;
 
-    middle = new Entity(Vector2f(a + p_pos.x, p_pos.y), p_tex, middleSize, Vector2f((b - a + textOffset.x) / middleSize.w, p_scale));
+    middle = new Entity(Vector2f(a + p_pos.x, p_pos.y), p_tex, middleSize, Vector2f((b - a + p_textOffset.x * 2) / middleSize.w, p_scale));
 
     SDL_Rect endSize;
     endSize.x = 64;
@@ -49,7 +49,7 @@ Block::Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_t
     endSize.w = 1;
     endSize.h = p_frame.h;
 
-    end = new Entity(Vector2f(((a < b + textOffset.x)? b + textOffset.x : a) + p_pos.x, p_pos.y), p_tex, endSize, Vector2f(p_scale, p_scale));
+    end = new Entity(Vector2f(((a < b + p_textOffset.x * 2)? b + p_textOffset.x * 2 : a) + p_pos.x, p_pos.y), p_tex, endSize, Vector2f(p_scale, p_scale));
 }
 Block::~Block(){
     delete mainCollider;

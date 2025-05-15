@@ -98,4 +98,5 @@ class Block : public Entity{
     TextBox text;
     Entity* middle;
     Entity* end;
+    Vector2f textOffset;
 };
