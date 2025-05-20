@@ -28,7 +28,8 @@ public:
         return parent;
     }
     Collider* CheckForCollisions(std::vector<int> masks);
-private:
+    Collider* CheckForCollisionsHeightPriority(std::vector<int> masks);
+    private:
     SDL_FRect frame;
     Entity* parent;
 };

@@ -151,7 +151,7 @@ int main(int agrv, char* args[]) {
                     if(heldObject != nullptr){
                         Collider* neighborCol;
                         if(heldObject -> getTopCollider() != nullptr){
-                            neighborCol = heldObject -> getTopCollider() -> CheckForCollisions({1});
+                            neighborCol = heldObject -> getTopCollider() -> CheckForCollisionsHeightPriority({1});
                             if(neighborCol != nullptr){
                                 Block* neighbor = static_cast<Block*>(neighborCol -> GetParent());
 
