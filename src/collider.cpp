@@ -46,7 +46,7 @@ Collider* Collider::CheckForCollisionsHeightPriority(std::vector<int> masks){
             if((parent -> getPos().y + (frame.h + frame.y) * parent -> getScale().y) < (other -> GetParent() -> getPos().y) + other -> GetFrame().y * other -> GetParent() -> getScale().y){
                 continue;
             }
-            int height = other -> GetParent() -> getPos().y + other -> GetFrame().y;
+            int height = other -> GetParent() -> getPos().y + other -> GetFrame().y * other -> GetParent() -> getScale().y;
             if(height > max){
                 max = height;
                 lowest = other;

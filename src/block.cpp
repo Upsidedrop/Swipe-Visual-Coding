@@ -15,9 +15,9 @@ Block::Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_t
 
     SDL_FRect topColFrame;
     topColFrame.x = 0;
-    topColFrame.y = -3;
+    topColFrame.y = 0;
     topColFrame.w = 32;
-    topColFrame.h = 8;
+    topColFrame.h = 0;
 
     topCollider = new Collider(topColFrame, this, 0);
 

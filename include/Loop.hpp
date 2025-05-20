@@ -69,6 +69,21 @@ class Loop : public Block{
         if(p_col == bottomCollider){
             child = p_child;
             child -> ToggleIsContained(contained);
+            if(contained){
+                Block* loopIt = this;
+                while(loopIt -> getParent() -> getChild() == loopIt){
+                    loopIt = loopIt -> getParent();
+                    if(loopIt == nullptr){
+                        std::cout << "something wicked this way comes" << "\n";
+                    }
+                }
+                Block* childIt = this;
+                while(childIt -> getChild() != nullptr){
+                    std::cout<< childIt -> getChild() << "\n";
+                    childIt = childIt -> getChild();
+                }
+                loopIt -> getParent() -> setBodySize((childIt -> GetBottom() - loopIt -> getParent() -> getPos().y) / scale.y - currentFrame.h);
+            }
         }
         else
         {
@@ -106,12 +121,12 @@ class Loop : public Block{
 
 
         if(child != nullptr){
-            child -> setPos(Vector2f(pos.x, GetBottom()));
+            child -> setPos(Vector2f(pos.x, GetBottom() - child -> getScale().y));
         }
         
         SDL_FRect bottomColFrame;
         bottomColFrame.x = 0;
-        bottomColFrame.y = 17 + p_size;
+        bottomColFrame.y = 19 + p_size;
         bottomColFrame.w = 32;
         bottomColFrame.h = 8;
 
