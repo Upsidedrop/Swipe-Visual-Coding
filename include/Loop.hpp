@@ -96,7 +96,7 @@ class Loop : public Block{
                 }
                 innerChild -> setParent(childIt);
                 childIt -> setChild(innerChild);
-                innerChild -> setPos(Vector2f(childIt -> getPos().x, childIt -> GetBottom()));
+                innerChild -> setPos(Vector2f(childIt -> getPos().x, childIt -> GetBottom() - childIt ->getScale().y));
             }
 
             innerChild = p_child;

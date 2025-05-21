@@ -34,6 +34,7 @@ class Block : public Entity{
         return child;
     }
     void ToggleIsContained(bool p_contained);
+    //Often GetBottom() requires "-1" after it. I my brain only has 2 bytes of RAM though so I can't remember why.
     virtual float GetBottom();
     void setChild(Block* p_child);
     virtual void setBodySize(float p_size){
