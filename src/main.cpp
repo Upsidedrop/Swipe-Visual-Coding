@@ -78,7 +78,7 @@ int main(int agrv, char* args[]) {
     SDL_Rect headSize;
     headSize.x = 0;
     headSize.y = 0;
-    headSize.w = 13;
+    headSize.w = 21;
     headSize.h = 17;
 
     SDL_Rect buttonSize;
@@ -99,7 +99,7 @@ int main(int agrv, char* args[]) {
 
     new Loop(Vector2f(300,300), 4, loopTexture, BlockType::DEFAULTLOOP, loopSize, "repeat 3 times");
     new Loop(Vector2f(300,300), 4, loopTexture, BlockType::DEFAULTLOOP, loopSize, "repeat 3 times");
-    new FuncHead(Vector2f(600,300), 4, headTexture, BlockType::DEFAULTHEAD, headSize, "buiov;sebzvuiszebviulszevbszeuil", Vector2f(10, 16));
+    new FuncHead(Vector2f(600,300), 4, headTexture, BlockType::DEFAULTHEAD, headSize, "main", Vector2f(10, 16));
     Button button(Vector2f(600,600),buttonTexture,buttonSize,Compilation::Compile,buttonFloatSize,Vector2f(4,4));
 
     bool gameRunning = true;

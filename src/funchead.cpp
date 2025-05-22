@@ -13,7 +13,7 @@ FuncHead::FuncHead(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType 
     SDL_Rect middleSize;
     middleSize.x = p_frame.w;
     middleSize.y = 0;
-    middleSize.w = 40;
+    middleSize.w = 32;
     middleSize.h = p_frame.h;
 
     SDL_Rect endSize;
