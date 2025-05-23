@@ -18,6 +18,7 @@
 #include "Button.hpp"
 #include "Compiler.hpp"
 #include "TextBox.hpp"
+#include "General.hpp"
 
 using std::cout;
 
@@ -121,64 +122,14 @@ int main(int agrv, char* args[]) {
             }
             if(event.type == SDL_MOUSEBUTTONDOWN){
                 if(event.button.button == SDL_BUTTON_LEFT){
-                    Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), {2});
-
-                    if(collision != nullptr){
-                        heldObject = static_cast<Block*>(collision->GetParent());
-                        clickedPos = Vector2f(event.button.x - heldObject -> getPos().x, event.button.y - heldObject -> getPos().y);
-                        if(heldObject -> getParent() != nullptr){
-                            cout << "had parent" << "\n";
-                            if(heldObject -> getParent() -> GetType() == BlockType::DEFAULTLOOP){
-                                cout << "parent was loop" << "\n";
-                                heldObject -> getParent() -> RemoveChild(heldObject);
-                            }
-                            else{
-                                heldObject -> getParent() -> RemoveChild();
-                            }
-                            heldObject -> setParent(nullptr);
-                        }
-                        heldObject -> SetLayer(2);
-                    }else{
-                        Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), {3});
-                        if(collision != nullptr){
-                            static_cast<Button*>(collision -> GetParent())->CallFunc();
-                        }
-                    }
+                    General::OnClick(event, heldObject, clickedPos);
                 }
             }
             if(event.type == SDL_MOUSEBUTTONUP){
                 if(event.button.button == SDL_BUTTON_LEFT){
                     if(heldObject != nullptr){
-                        Collider* neighborCol;
-                        if(heldObject -> getTopCollider() != nullptr){
-                            neighborCol = heldObject -> getTopCollider() -> CheckForCollisionsHeightPriority({1});
-                            if(neighborCol != nullptr){
-                                Block* neighbor = static_cast<Block*>(neighborCol -> GetParent());
-
-                                if(neighbor -> getChild() != nullptr){
-                                    if(neighborCol == &(neighbor -> getBottomCollider())){
-                                        Block* iterator = heldObject;
-                                        while(iterator -> getChild() != nullptr){
-                                            iterator = iterator -> getChild();
-                                        }
-                                        iterator -> setChild(neighbor -> getChild());
-                                        iterator -> getChild() -> setParent(iterator);
-                                    }
-                                }
-                                heldObject -> setPos(neighbor -> getPos() + Vector2f(neighborCol -> GetFrame().x * neighbor -> getScale().x, neighborCol -> GetFrame().y * neighbor  -> getScale().y));
-                                if(neighbor -> GetType() == BlockType::DEFAULTLOOP){
-                                    neighbor -> setChild(heldObject, neighborCol);
-                                }
-                                else{
-                                    neighbor -> setChild(heldObject);
-                                }
-                                heldObject -> setParent(neighbor);
-                            }
-                        }
-                        heldObject -> SetLayer(0);
-                        heldObject = nullptr;
+                        General::BlockReleased(heldObject);
                     }
-                    
                 }
             }
         }
