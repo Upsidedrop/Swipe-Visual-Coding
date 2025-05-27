@@ -32,6 +32,8 @@ RenderWindow window("hi", 1280, 720);
 
 TTF_Font* comic;
 
+SDL_Texture* gapTexture = window.loadTexture("res/gfx/Gap.png");
+
 int main(int agrv, char* args[]) {
     cout << "Program Start" << "\n";
     
