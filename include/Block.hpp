@@ -1,4 +1,5 @@
 #pragma once
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <vector>
@@ -8,6 +9,7 @@
 #include "Entity.hpp"
 #include "LinkedList.hpp"
 #include "TextBox.hpp"
+#include "Gap.hpp"
 
 using std::map;
 using std::unordered_set;
@@ -23,7 +25,7 @@ class Block : public Entity{
     const int MIDDLE_TEXTURE_SIZE = 50;
     
     public:
-    Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_type, float p_scale = 1, const char* p_text = "Hello World!", Vector2f textOffset = Vector2f(10, 4));
+    Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_type, float p_scale = 1, const char* p_text = "Hello World!", Vector2f textOffset = Vector2f(10, 4), std::vector<const char*> p_parameters = {});
     Collider& getBottomCollider(){
         return *bottomCollider;
     }
@@ -102,4 +104,5 @@ class Block : public Entity{
     Entity* middle;
     Entity* end;
     Vector2f textOffset;
+    std::vector<std::pair<TextBox*, Gap*>> parameters;
 };

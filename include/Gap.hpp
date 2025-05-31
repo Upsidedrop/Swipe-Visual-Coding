@@ -8,6 +8,8 @@ extern SDL_Texture* gapTexture;
 class Gap{
     public:
     Gap(Vector2f p_pos);
+    ~Gap();
+    float GetSize();
     private:
     Entity* body;
 };
