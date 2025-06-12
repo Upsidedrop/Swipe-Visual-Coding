@@ -21,6 +21,8 @@ enum BlockType{
     DEFAULTHEAD = 3
 };
 
+const float GAP_OFFSET = 8;
+
 class Block : public Entity{
     const int MIDDLE_TEXTURE_SIZE = 50;
     
@@ -71,12 +73,23 @@ class Block : public Entity{
         end -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * middle->getScale().x, p_pos.y));
 
         text.getVisual() -> setPos(p_pos + Vector2f(10, 5));
+
+        for(size_t i = 0; i < parameters.size(); ++i){
+            parameters[i].first -> getVisual() -> setPos(parameterOffsets[i].first + p_pos);
+
+            parameters[i].second -> setPos(parameterOffsets[i].second + p_pos);
+        }
     }
     void SetLayer(int p_layer) override{
         if(child != nullptr){
             child -> SetLayer(p_layer);
         }
         text.getVisual() -> SetLayer(p_layer + 1);
+
+        for(auto pair : parameters){
+            pair.first -> getVisual() -> SetLayer(p_layer + 1);
+        }
+
         middle ->SetLayer(p_layer);
         end -> SetLayer(p_layer);
         layers.find(layer) -> second.erase(this);
@@ -105,4 +118,5 @@ class Block : public Entity{
     Entity* end;
     Vector2f textOffset;
     std::vector<std::pair<TextBox*, Gap*>> parameters;
+    std::vector<std::pair<Vector2f, Vector2f>> parameterOffsets;
 };

@@ -10,6 +10,9 @@ class Gap{
     Gap(Vector2f p_pos);
     ~Gap();
     float GetSize();
+    void setPos(Vector2f p_pos){
+        body -> setPos(p_pos);
+    }
     private:
     Entity* body;
 };
