@@ -13,6 +13,9 @@ class Gap{
     void setPos(Vector2f p_pos){
         body -> setPos(p_pos);
     }
+    void setLayer(int p_layer){
+        body -> SetLayer(p_layer);
+    }
     private:
     Entity* body;
 };

@@ -33,7 +33,9 @@ RenderWindow window("hi", 1280, 720);
 
 TTF_Font* comic;
 
-SDL_Texture* gapTexture = window.loadTexture("res/gfx/Gap.png");
+SDL_Texture* gapTexture = window.loadTexture("res/gfx/Variable.png");
+
+SDL_Texture* varTexture = window.loadTexture("res/gfx/Variable.png");
 
 int main(int agrv, char* args[]) {
     cout << "Program Start" << "\n";
@@ -97,7 +99,7 @@ int main(int agrv, char* args[]) {
     buttonFloatSize.w = 37;
     buttonFloatSize.h = 15;
 
-    new Block(Vector2f(0,70), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: \"Hello World!\"", Vector2f(10, 4), {"Parameter:"});
+    new Block(Vector2f(0,70), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: \"Hello World!\"", Vector2f(10, 4), {"x:", "y:", "z:"});
     new Block(Vector2f(0,140), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: \"Hello World!\"");
     new Block(Vector2f(0,210), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: \"Hello World!\"");
 
@@ -105,8 +107,6 @@ int main(int agrv, char* args[]) {
     new Loop(Vector2f(300,300), 4, loopTexture, BlockType::DEFAULTLOOP, loopSize, "repeat 3 times");
     new FuncHead(Vector2f(600,300), 4, headTexture, BlockType::DEFAULTHEAD, headSize, "main", Vector2f(10, 16));
     Button button(Vector2f(600,600),buttonTexture,buttonSize,Compilation::Compile,buttonFloatSize,Vector2f(4,4));
-
-    Gap gap(Vector2f(500,500));
 
     bool gameRunning = true;
     SDL_Event event;
