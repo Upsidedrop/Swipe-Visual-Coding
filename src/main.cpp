@@ -20,6 +20,7 @@
 #include "TextBox.hpp"
 #include "General.hpp"
 #include "Gap.hpp"
+#include "Variable.hpp"
 
 using std::cout;
 
@@ -33,7 +34,7 @@ RenderWindow window("hi", 1280, 720);
 
 TTF_Font* comic;
 
-SDL_Texture* gapTexture = window.loadTexture("res/gfx/Variable.png");
+SDL_Texture* gapTexture = window.loadTexture("res/gfx/Gap.png");
 
 SDL_Texture* varTexture = window.loadTexture("res/gfx/Variable.png");
 
@@ -107,6 +108,8 @@ int main(int agrv, char* args[]) {
     new Loop(Vector2f(300,300), 4, loopTexture, BlockType::DEFAULTLOOP, loopSize, "repeat 3 times");
     new FuncHead(Vector2f(600,300), 4, headTexture, BlockType::DEFAULTHEAD, headSize, "main", Vector2f(10, 16));
     Button button(Vector2f(600,600),buttonTexture,buttonSize,Compilation::Compile,buttonFloatSize,Vector2f(4,4));
+
+    Variable var;
 
     bool gameRunning = true;
     SDL_Event event;
