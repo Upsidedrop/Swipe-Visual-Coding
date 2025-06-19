@@ -1,8 +1,11 @@
 #pragma once
 
+#include <SDL2/SDL.h>
+
 #include "Collider.hpp"
 #include "Utils.hpp"
 #include "Button.hpp"
+#include "Variable.hpp"
 
 
 namespace General{
@@ -20,8 +23,18 @@ namespace General{
         }
         heldObject -> SetLayer(2);
     }
-    void OnClick(SDL_Event& event, Block*& heldObject, Vector2f& clickedPos){
-        Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), {2});
+    void GrabbedVariable(Variable*& heldVar, SDL_Event& event, Collider*& collision, Vector2f& clickedPos){
+        
+    }
+    void OnClick(SDL_Event& event, Block*& heldObject, Vector2f& clickedPos, Variable*& heldVar){
+        Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), {4});
+
+        if(collision != nullptr){
+            GrabbedVariable(heldVar, event, collision, clickedPos);
+            return;
+        }
+
+        collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), {2});
 
         if(collision != nullptr){
             GrabbedBlock(heldObject, event, collision, clickedPos);

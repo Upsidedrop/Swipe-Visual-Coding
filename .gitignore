@@ -3,3 +3,4 @@
 /bin/release/main
 .vscode/*
     !/tasks.json
+.Makefile.swp
