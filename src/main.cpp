@@ -131,10 +131,12 @@ int main(int agrv, char* args[]) {
                 gameRunning = false;
             }
             if(event.type == SDL_MOUSEMOTION){
-                if(heldObject == nullptr){
-                    continue;
+                if(heldObject != nullptr){
+                    heldObject -> setPos(Vector2f(event.motion.x, event.motion.y) - clickedPos);
                 }
-                heldObject -> setPos(Vector2f(event.motion.x, event.motion.y) - clickedPos);
+                if(heldVar != nullptr){
+                    heldVar -> setPos(Vector2f(event.motion.x, event.motion.y) - clickedPos);
+                }
             }
             if(event.type == SDL_MOUSEBUTTONDOWN){
                 if(event.button.button == SDL_BUTTON_LEFT){
@@ -145,6 +147,9 @@ int main(int agrv, char* args[]) {
                 if(event.button.button == SDL_BUTTON_LEFT){
                     if(heldObject != nullptr){
                         General::BlockReleased(heldObject);
+                    }
+                    if(heldVar != nullptr){
+                        General::VariableReleased(heldVar);
                     }
                 }
             }

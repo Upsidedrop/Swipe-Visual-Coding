@@ -24,7 +24,9 @@ namespace General{
         heldObject -> SetLayer(2);
     }
     void GrabbedVariable(Variable*& heldVar, SDL_Event& event, Collider*& collision, Vector2f& clickedPos){
-        
+        heldVar = static_cast<Variable*>(collision->GetParent());
+        clickedPos = Vector2f(event.button.x - heldVar -> getPos().x, event.button.y - heldVar -> getPos().y);
+        heldVar -> SetLayer(2);
     }
     void OnClick(SDL_Event& event, Block*& heldObject, Vector2f& clickedPos, Variable*& heldVar){
         Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), {4});
@@ -69,7 +71,6 @@ namespace General{
             neighbor -> setChild(heldObject);
         }
         heldObject -> setParent(neighbor);
-
     }
     void BlockReleased(Block*& heldObject){
         Collider* neighborCol;
@@ -81,6 +82,9 @@ namespace General{
         }
         heldObject -> SetLayer(0);
         heldObject = nullptr;
-    
+    }
+    void VariableReleased(Variable*& heldVar){
+        heldVar -> SetLayer(0);
+        heldVar = nullptr;
     }
 }
