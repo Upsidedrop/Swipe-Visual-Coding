@@ -2,20 +2,16 @@
 
 #include "Entity.hpp"
 #include "Math.hpp"
+#include "Variable.hpp"
 
 extern SDL_Texture* gapTexture;
 
-class Gap{
+class Gap : public Entity{
     public:
-    Gap(Vector2f p_pos);
+    Gap(Vector2f p_pos, Vector2f p_scale = Vector2f(4,4), int p_layer = 0);
     ~Gap();
     float GetSize();
-    void setPos(Vector2f p_pos){
-        body -> setPos(p_pos);
-    }
-    void setLayer(int p_layer){
-        body -> SetLayer(p_layer);
-    }
     private:
-    Entity* body;
+    Variable* attached;
+    Collider* col;
 };

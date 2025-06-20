@@ -10,6 +10,7 @@ link:
 run:
 	@./bin/debug/main
 build:
-	@g++ -c src/*.cpp -std=c++14 -m64 -g -Wall -I include -O0 
-	@echo Built Files
+	@read -p "File: " file ; \
+	g++ -c src/$$file -std=c++14 -m64 -g -Wall -I include -O0 ; 
+	@echo Built File $$file
 

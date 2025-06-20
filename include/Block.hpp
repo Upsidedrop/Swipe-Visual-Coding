@@ -89,7 +89,7 @@ class Block : public Entity{
         for(auto pair : parameters){
             pair.first -> getVisual() -> SetLayer(p_layer + 1);
 
-            pair.second -> setLayer(p_layer + 1);
+            pair.second -> SetLayer(p_layer + 1);
         }
 
         middle ->SetLayer(p_layer);

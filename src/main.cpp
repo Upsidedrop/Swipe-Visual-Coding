@@ -26,7 +26,7 @@ using std::cout;
 
 std::unordered_map<std::string, FuncHead*> functions;
 
-std::vector<std::vector<Collider*>> flags = std::vector<std::vector<Collider*>>(5);
+std::vector<std::vector<Collider*>> flags = std::vector<std::vector<Collider*>>(6);
 
 std::map<int, std::unordered_set<Entity*>> layers;
 

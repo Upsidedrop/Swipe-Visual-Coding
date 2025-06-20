@@ -16,29 +16,8 @@ namespace utils{
 
         return t;
     }
-    Collider* CheckMouseCollisions(Vector2f p_mousePos, vector<int> p_masks){
-        for(int i : p_masks){
-            for(Collider* other : flags[i]){
-                if((other -> GetParent() -> getPos().x + (other -> GetFrame().w + other -> GetFrame().x) * other->GetParent()->getScale().x) < p_mousePos.x){
-                    continue;
-                }
-                if((other -> GetParent() -> getPos().y + (other -> GetFrame().h + other -> GetFrame().y) * other->GetParent()->getScale().y) < p_mousePos.y){
-                    continue;
-                }
-                if(p_mousePos.x < (other -> GetParent() -> getPos().x) + other -> GetFrame().x){
-                    continue;
-                }
-                if(p_mousePos.y < (other -> GetParent() -> getPos().y) + other -> GetFrame().y){
-                    continue;
-                }
-                return other;
-            }
-        }
-        return nullptr;
-    }
-    void DeconstructFunctionHeads(){
-        for(auto functionHeadPair : functions){
-            delete functionHeadPair.second;
-        }
-    }
+    Collider* CheckMouseCollisions(Vector2f p_mousePos, vector<int> p_masks);
+    void DeconstructFunctionHeads();
+    SDL_FRect RectToFrect(SDL_Rect& p_rect);
+    SDL_Rect InitRect(int x, int y, int w, int h);
 }
