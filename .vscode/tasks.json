@@ -1,8 +1,9 @@
 {
     "tasks": [
+        //Used when you want to run code or test a change to a cpp file. 
         {
             "type": "shell",
-            "label": "Debug",
+            "label": "Run",
             "command": "make",
             "problemMatcher": [
                 "$gcc"
@@ -12,6 +13,7 @@
                 "isDefault": true
             }
         },
+        //Used when you want to test a change to an hpp file.
         {
             "type": "shell",
             "label": "Update Headers",
@@ -24,6 +26,7 @@
                 "isDefault": true
             }
         },
+        //Used when you want an optimized build and don't care how long it takes
         {
             "type": "shell",
             "label": "Release",
