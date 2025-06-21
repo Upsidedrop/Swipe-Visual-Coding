@@ -13,3 +13,6 @@ Variable::Variable(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, Vector2
 Variable::~Variable(){
     delete collision;
 }
+Collider* Variable::GetCollider(){
+    return collision;
+}

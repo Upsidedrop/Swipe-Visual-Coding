@@ -80,6 +80,11 @@ namespace General{
     }
 
     void VariableReleased(Variable*& heldVar){
+        Collider* neighborCol;
+        neighborCol = heldVar -> GetCollider() -> CheckForCollisions({5});
+        if(neighborCol != nullptr){
+            static_cast<Gap*>(neighborCol -> GetParent()) -> SetAttached(heldVar);
+        }
         heldVar -> SetLayer(0);
         heldVar = nullptr;
     }
