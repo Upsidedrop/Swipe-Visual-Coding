@@ -70,6 +70,11 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
         endSize.h = p_frame.h;
 
         end = new Entity(Vector2f(((a < b) ? b : a) + p_pos.x, p_pos.y), p_tex, endSize, Vector2f(p_scale, p_scale));
+        for(auto pair : parameters){
+            pair.first -> getVisual() -> SetLayer(layer + 1);
+
+            pair.second -> SetLayer(layer + 1);
+        }
     }
 }
 Block::~Block()

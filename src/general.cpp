@@ -85,7 +85,6 @@ namespace General{
         if(neighborCol != nullptr){
             static_cast<Gap*>(neighborCol -> GetParent()) -> SetAttached(heldVar);
         }
-        heldVar -> SetLayer(0);
         heldVar = nullptr;
     }
 }

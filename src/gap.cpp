@@ -14,4 +14,5 @@ float Gap::GetSize(){
 void Gap::SetAttached(Variable* p_attached){
     attached = p_attached;
     p_attached -> setPos(pos);
+    p_attached -> SetLayer(layer + 1);
 }
