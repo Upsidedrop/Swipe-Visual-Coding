@@ -34,6 +34,7 @@ class Gap : public Entity{
             attached -> SetLayer(p_layer + 1);
         }
     }
+    void Detach();
     private:
     Variable* attached;
     Collider* col;

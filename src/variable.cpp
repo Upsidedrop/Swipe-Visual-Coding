@@ -1,7 +1,8 @@
 #include "Variable.hpp"
 
 Variable::Variable(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, Vector2f p_scale, int p_layer)
-:Entity(p_pos, p_tex, p_frame, p_scale, p_layer){
+:Entity(p_pos, p_tex, p_frame, p_scale, p_layer), parent(nullptr){
+
     SDL_FRect floatBodyFrame;
     floatBodyFrame.x = p_frame.x;
     floatBodyFrame.y = p_frame.y;
@@ -15,4 +16,10 @@ Variable::~Variable(){
 }
 Collider* Variable::GetCollider(){
     return collision;
+}
+void Variable::SetParent(Gap* p_parent){
+    parent = p_parent;
+}
+Gap* Variable::GetParent(){
+    return parent;
 }

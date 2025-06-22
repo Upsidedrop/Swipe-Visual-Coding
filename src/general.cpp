@@ -21,6 +21,10 @@ namespace General{
         heldVar = static_cast<Variable*>(collision->GetParent());
         clickedPos = Vector2f(event.button.x - heldVar -> getPos().x, event.button.y - heldVar -> getPos().y);
         heldVar -> SetLayer(2);
+        if(heldVar -> GetParent() != nullptr){
+            heldVar -> GetParent() -> Detach();
+            heldVar -> SetParent(nullptr);
+        }
     }
 
     void OnClick(SDL_Event& event, Block*& heldObject, Vector2f& clickedPos, Variable*& heldVar){
