@@ -13,10 +13,10 @@
                 "isDefault": true
             }
         },
-        //Used when you want to test a change to an hpp file.
+        //Used when you want to test a change to an hpp file, or when you need to intitalize all files for the first time.
         {
             "type": "shell",
-            "label": "Update Headers",
+            "label": "Update Headers / Init",
             "command": "g++ -c src/*.cpp -std=c++14 -m64 -g -Wall -I include && g++ *.o -o bin/debug/main -lSDL2main -lSDL2_ttf -lSDL2 -lSDL2_image -lSDL2_mixer && ./bin/debug/main",
             "problemMatcher": [
                 "$gcc"
