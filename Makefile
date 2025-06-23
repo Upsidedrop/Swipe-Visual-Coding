@@ -15,4 +15,3 @@ build:
 	@read -p "File: " file ; \
 	g++ -c src/$$file -std=c++14 -m64 -g -Wall -I include ; 
 	@echo Built File $$file
-

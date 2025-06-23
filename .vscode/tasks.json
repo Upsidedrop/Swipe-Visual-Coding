@@ -17,7 +17,7 @@
         {
             "type": "shell",
             "label": "Update Headers / Init",
-            "command": "g++ -c src/*.cpp -std=c++14 -m64 -g -Wall -I include && g++ *.o -o bin/debug/main -lSDL2main -lSDL2_ttf -lSDL2 -lSDL2_image -lSDL2_mixer && ./bin/debug/main",
+            "command": "find . -maxdepth 1 -name \"*.o\" -type f -delete && g++ -c src/*.cpp -std=c++14 -m64 -g -Wall -I include && g++ *.o -o bin/debug/main -lSDL2main -lSDL2_ttf -lSDL2 -lSDL2_image -lSDL2_mixer && ./bin/debug/main",
             "problemMatcher": [
                 "$gcc"
             ],

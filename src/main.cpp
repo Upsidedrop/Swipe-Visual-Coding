@@ -106,9 +106,9 @@ int main(int agrv, char* args[]) {
     bodyFrame.w = 10;
     bodyFrame.h = 7;
 
-    new Block(Vector2f(0,70), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: \"Hello World!\"", Vector2f(10, 4), {"x:", "y:", "z:"});
-    new Block(Vector2f(0,140), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: \"Hello World!\"");
-    new Block(Vector2f(0,210), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: \"Hello World!\"");
+    new Block(Vector2f(0,70), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: \"Hello World!\"",  Vector2f(10, 11), {"x:", "y:", "z:"});
+    new Block(Vector2f(0,140), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: \"Hello World!\"", Vector2f(10, 11));
+    new Block(Vector2f(0,210), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: \"Hello World!\"", Vector2f(10, 11));
 
     new Loop(Vector2f(300,300), 4, loopTexture, BlockType::DEFAULTLOOP, loopSize, "repeat 3 times");
     new Loop(Vector2f(300,300), 4, loopTexture, BlockType::DEFAULTLOOP, loopSize, "repeat 3 times");

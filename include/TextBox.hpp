@@ -21,6 +21,7 @@ class TextBox{
     Vector2f getDimensions(){
         return Vector2f(visual -> getCurrentFrame().w, visual -> getCurrentFrame().h) * scale;
     }
+    float getScale();
     private:
     Entity* visual;
     SDL_Surface* surface;

@@ -16,3 +16,6 @@ TextBox::~TextBox(){
     SDL_FreeSurface(surface);
     delete visual;
 }
+float TextBox::getScale(){
+    return scale;
+}

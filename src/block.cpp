@@ -3,7 +3,7 @@
 LinkedList<Block> Block::blocks;
 
 Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_type, float p_scale, const char *p_text, Vector2f p_textOffset, std::vector<const char*> p_parameters)
-    : Entity(p_pos, p_tex, p_frame, Vector2f(p_scale, p_scale)), topCollider(nullptr), child(nullptr), parent(nullptr), type(p_type), text(p_text, p_pos + p_textOffset, 0.8), textOffset(p_textOffset)
+    : Entity(p_pos, p_tex, p_frame, Vector2f(p_scale, p_scale)), topCollider(nullptr), child(nullptr), parent(nullptr), type(p_type), text(p_text, p_pos + p_textOffset, 0.6), textOffset(p_textOffset)
 {
     SDL_FRect mainColFrame;
     mainColFrame.x = 0;
@@ -49,15 +49,15 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
             parameters.push_back(std::make_pair(nullptr, nullptr));
             parameterOffsets.push_back(std::make_pair(Vector2f(0,0), Vector2f(0,0)));
             
-            parameters[i].first = new TextBox(p_parameters[i], Vector2f(b, p_textOffset.y) + p_pos, 0.8);
+            parameters[i].first = new TextBox(p_parameters[i], Vector2f(b, p_textOffset.y) + p_pos, text.getScale());
 
             //Saving offset for later so it doesnt need to be recalculated all the time
             parameterOffsets[i].first = Vector2f(b, p_textOffset.y);
             b += parameters[i].first -> getDimensions().x + p_textOffset.x;
             
-            parameters[i].second = new Gap(Vector2f(b, p_textOffset.y + GAP_OFFSET) + p_pos);
+            parameters[i].second = new Gap(Vector2f(b, p_textOffset.y) + p_pos);
             //Saving offset for later so it doesnt need to be recalculated all the time
-            parameterOffsets[i].second = Vector2f(b, p_textOffset.y + GAP_OFFSET);
+            parameterOffsets[i].second = Vector2f(b, p_textOffset.y);
             b += parameters[i].second -> GetSize() * p_scale + p_textOffset.x;
         }
 
