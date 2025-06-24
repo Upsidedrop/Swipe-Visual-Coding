@@ -100,11 +100,6 @@ int main(int agrv, char* args[]) {
     buttonFloatSize.w = 37;
     buttonFloatSize.h = 15;
 
-    SDL_Rect bodyFrame;
-    bodyFrame.x = 0;
-    bodyFrame.y = 0;
-    bodyFrame.w = 10;
-    bodyFrame.h = 7;
 
     new Block(Vector2f(0,70), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: \"Hello World!\"",  Vector2f(10, 11), {"x:", "y:", "z:"});
     new Block(Vector2f(0,140), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: \"Hello World!\"", Vector2f(10, 11));
@@ -115,7 +110,7 @@ int main(int agrv, char* args[]) {
     new FuncHead(Vector2f(600,300), 4, headTexture, BlockType::DEFAULTHEAD, headSize, "main", Vector2f(10, 16));
     Button button(Vector2f(600,600),buttonTexture,buttonSize,Compilation::Compile,buttonFloatSize,Vector2f(4,4));
 
-    Variable var(Vector2f(400, 400), varTexture, bodyFrame, Vector2f(4,4));
+    Variable var(Vector2f(400, 400), varTexture, Vector2f(4,4));
 
     Variable* heldVar = nullptr;
     Block* heldObject = nullptr;
