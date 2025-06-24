@@ -25,7 +25,7 @@ class Block : public Entity{
     const int MIDDLE_TEXTURE_SIZE = 50;
     
     public:
-    Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_type, float p_scale = 1, const char* p_text = "Hello World!", Vector2f textOffset = Vector2f(10, 8), std::vector<const char*> p_parameters = {});
+    Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_type, float p_scale = 1, const char* p_text = "Hello World!", Vector2f p_textOffset = Vector2f(10, 8), std::vector<const char*> p_parameters = {});
     Collider& getBottomCollider(){
         return *bottomCollider;
     }

@@ -110,7 +110,7 @@ int main(int agrv, char* args[]) {
     new FuncHead(Vector2f(600,300), 4, headTexture, BlockType::DEFAULTHEAD, headSize, "main", Vector2f(10, 16));
     Button button(Vector2f(600,600),buttonTexture,buttonSize,Compilation::Compile,buttonFloatSize,Vector2f(4,4));
 
-    Variable var(Vector2f(400, 400), varTexture, Vector2f(4,4));
+    Variable var(Vector2f(400, 600), varTexture, "Sensor");
 
     Variable* heldVar = nullptr;
     Block* heldObject = nullptr;
