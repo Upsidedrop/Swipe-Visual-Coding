@@ -14,9 +14,9 @@ Variable::Variable(Vector2f p_pos, SDL_Texture* p_tex, const char *p_text, float
     end = new Entity(Vector2f(((a < b) ? b : a) + p_pos.x, p_pos.y), p_tex, endTexSize, Vector2f(p_scale, p_scale));
 
     SDL_FRect floatBodyFrame;
-    floatBodyFrame.x = currentFrame.x;
-    floatBodyFrame.y = currentFrame.y;
-    floatBodyFrame.w = currentFrame.w;
+    floatBodyFrame.x = 0;
+    floatBodyFrame.y = 0;
+    floatBodyFrame.w = ((a < b) ? b : a) / p_scale + endTexSize.w;
     floatBodyFrame.h = currentFrame.h;
 
     collision = new Collider(floatBodyFrame, this, 4);

@@ -14,6 +14,15 @@ class Variable : public Entity{
     Collider* GetCollider();
     void SetParent(Gap* p_parent);
     Gap* GetParent();
+    void setPos(Vector2f p_pos) override{
+        pos = p_pos;
+
+        float a = (currentFrame.x + currentFrame.w) * scale.x;
+        float b = text.getDimensions().x + currentFrame.w * scale.x;
+
+        middle -> setPos(Vector2f(a + p_pos.x, p_pos.y));
+        end -> setPos(Vector2f(((a < b) ? b : a) + p_pos.x, p_pos.y));
+    }
     private:
     Collider* collision;
     Gap* parent;
