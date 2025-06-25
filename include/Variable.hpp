@@ -22,6 +22,8 @@ class Variable : public Entity{
 
         middle -> setPos(Vector2f(a + p_pos.x, p_pos.y));
         end -> setPos(Vector2f(((a < b) ? b : a) + p_pos.x, p_pos.y));
+
+        text.getVisual() -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, pos.y));
     }
     private:
     Collider* collision;
