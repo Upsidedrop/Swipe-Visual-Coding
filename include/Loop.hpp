@@ -9,7 +9,7 @@ class Loop : public Block{
     const int TOTAL_TEXTURE_HEIGHT = 21;
 
     public:
-    Loop(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType p_type , SDL_Rect p_frame, const char* p_text = "Hello World!",Vector2f textOffset = Vector2f(10, 5));
+    Loop(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType p_type , SDL_Rect p_frame, const char* p_text = "Hello World!", Vector2f p_textOffset = Vector2f(10, 9));
     ~Loop();
     Collider* GetInnerCollider(){
         return innerCollider;
@@ -18,7 +18,7 @@ class Loop : public Block{
     {
         pos = p_pos;
 
-        text.getVisual() -> setPos(p_pos + Vector2f(10, 5));
+        text.getVisual() -> setPos(p_pos + textOffset);
         
         body -> setPos(p_pos + Vector2f(0, (currentFrame.h - 1) * scale.y));
         foot -> setPos(Vector2f(p_pos.x, p_pos.y + scale.y * (bodySize + currentFrame.h - 1)));
