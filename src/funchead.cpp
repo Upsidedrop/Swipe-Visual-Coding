@@ -13,22 +13,19 @@ FuncHead::FuncHead(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType 
     SDL_Rect middleSize;
     middleSize.x = p_frame.w;
     middleSize.y = 0;
-    middleSize.w = 32;
+    middleSize.w = 29;
     middleSize.h = p_frame.h;
 
     SDL_Rect endSize;
-    endSize.x = 53;
+    endSize.x = middleSize.x + middleSize.w;
     endSize.y = 0;
-    endSize.w = 12;
+    endSize.w = 15;
     endSize.h = p_frame.h;
 
     float a = (p_frame.x + p_frame.w) * p_scale;
-    float b = text.getDimensions().x;
-    float c = p_textOffset.x * 2 - endSize.w * p_scale;
+    float b = text.getDimensions().x + p_textOffset.x * 2;
 
+    middle = (a < b) ? new Entity(Vector2f(a + p_pos.x, p_pos.y), p_tex, middleSize, Vector2f((b - a) / middleSize.w, p_scale)) : nullptr;
 
-    middle = new Entity(Vector2f(a + p_pos.x, p_pos.y), p_tex, middleSize, Vector2f((b - a + c) / middleSize.w, p_scale));
-
-    end = new Entity(Vector2f(((a < b + c) ? b + c : a) + p_pos.x, p_pos.y), p_tex, endSize, Vector2f(p_scale, p_scale));
-
+    end = new Entity(Vector2f(((a < b) ? b : a) + p_pos.x, p_pos.y), p_tex, endSize, Vector2f(p_scale, p_scale));
 }
