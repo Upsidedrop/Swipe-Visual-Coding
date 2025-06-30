@@ -35,3 +35,6 @@ void Variable::SetParent(Gap* p_parent){
 Gap* Variable::GetParent(){
     return parent;
 }
+float Variable::GetSize(){
+    return currentFrame.x * 2 + currentFrame.w * 3 + text.getDimensions().x / scale.x;
+}

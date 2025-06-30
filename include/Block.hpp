@@ -105,6 +105,7 @@ class Block : public Entity{
         }
         layers.find(layer) -> second.insert(this);
     }
+    void UpdateSize();
     virtual ~Block();
     protected:
     static LinkedList<Block> blocks;

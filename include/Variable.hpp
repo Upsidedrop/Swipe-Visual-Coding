@@ -25,6 +25,22 @@ class Variable : public Entity{
 
         text.getVisual() -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, pos.y));
     }
+    void SetLayer(int p_layer) override{
+        middle -> SetLayer(p_layer);
+        end -> SetLayer(p_layer);
+
+        text.getVisual() -> SetLayer(p_layer + 1);
+
+        layer = p_layer;
+        
+        auto it = layers.find(layer);
+        if(it == layers.end()){
+            layers.insert(std::make_pair(layer, std::unordered_set<Entity*>()));
+            it = layers.find(layer); 
+        }
+        layers.find(layer) -> second.insert(this);
+    }
+    float GetSize();
     private:
     Collider* collision;
     Gap* parent;

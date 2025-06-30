@@ -4,11 +4,13 @@
 #include "Math.hpp"
 #include "Variable.hpp"
 
+class Block;
+
 extern SDL_Texture* gapTexture;
 
 class Gap : public Entity{
     public:
-    Gap(Vector2f p_pos, Vector2f p_scale = Vector2f(4,4), int p_layer = 0);
+    Gap(Vector2f p_pos, Block* p_parent, Vector2f p_scale = Vector2f(4,4), int p_layer = 0);
     ~Gap();
     float GetSize();
     void SetAttached(Variable* p_attached);
@@ -38,4 +40,5 @@ class Gap : public Entity{
     private:
     Variable* attached;
     Collider* col;
+    Block* parent;
 };
