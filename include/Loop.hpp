@@ -9,7 +9,7 @@ class Loop : public Block{
     const int TOTAL_TEXTURE_HEIGHT = 21;
 
     public:
-    Loop(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType p_type , SDL_Rect p_frame, const char* p_text = "Hello World!", Vector2f p_textOffset = Vector2f(10, 9));
+    Loop(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType p_type , SDL_Rect p_frame, const char* p_text = "Hello World!", Vector2f p_textOffset = Vector2f(10, 9), std::vector<const char*> p_parameters = {});
     ~Loop();
     Collider* GetInnerCollider(){
         return innerCollider;

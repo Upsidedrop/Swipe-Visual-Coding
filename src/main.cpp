@@ -105,9 +105,9 @@ int main(int agrv, char* args[]) {
     new Block(Vector2f(0,140), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: \"Hello World!\"", Vector2f(10, 11));
     new Block(Vector2f(0,210), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: \"Hello World!\"", Vector2f(10, 11));
 
-    new Loop(Vector2f(300,300), 4, loopTexture, BlockType::DEFAULTLOOP, loopSize, "repeat 3 times");
-    new Loop(Vector2f(300,300), 4, loopTexture, BlockType::DEFAULTLOOP, loopSize, "repeat 3 times");
-    new FuncHead(Vector2f(600,300), 4, headTexture, BlockType::DEFAULTHEAD, headSize, "supercalifragilisticexpialidocious");
+    new Loop(Vector2f(300,300), 4, loopTexture, BlockType::DEFAULTLOOP, loopSize, "repeat", Vector2f(10, 9), {" "});
+    new Loop(Vector2f(300,300), 4, loopTexture, BlockType::DEFAULTLOOP, loopSize, "repeat", Vector2f(10, 9), {" "});
+    new FuncHead(Vector2f(600,300), 4, headTexture, BlockType::DEFAULTHEAD, headSize, "supercalifragilisticexpialidocious", Vector2f(10, 20), {"tastiness:"});
     Button button(Vector2f(600,600),buttonTexture,buttonSize,Compilation::Compile,buttonFloatSize,Vector2f(4,4));
 
     Variable var(Vector2f(400, 600), varTexture, "Sensor");

@@ -2,8 +2,8 @@
 
 const int DEFAULT_LOOP_SIZE = 24;
 
-Loop::Loop(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType p_type, SDL_Rect p_frame, const char* p_text, Vector2f textOffset)
-:Block(p_pos, p_tex, p_frame, p_type, p_scale, p_text, textOffset), innerChild(nullptr), bodySize(10) {
+Loop::Loop(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType p_type, SDL_Rect p_frame, const char* p_text, Vector2f textOffset, std::vector<const char*> p_parameters)
+:Block(p_pos, p_tex, p_frame, p_type, p_scale, p_text, textOffset, p_parameters), innerChild(nullptr), bodySize(10) {
     SDL_Rect bodyFrame;
     bodyFrame.x = 0;
     bodyFrame.y = 12;
