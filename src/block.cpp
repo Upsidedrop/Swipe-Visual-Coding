@@ -42,34 +42,20 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
         middleSize.w = 63 - p_frame.w;
         middleSize.h = p_frame.h;
 
-        float a = (p_frame.x + p_frame.w) * p_scale;
-        float b = text.getDimensions().x + p_textOffset.x * 2;
-
-        for(size_t i = 0; i < p_parameters.size(); ++i){
-            parameters.push_back(std::make_pair(nullptr, nullptr));
-            parameterOffsets.push_back(std::make_pair(Vector2f(0,0), Vector2f(0,0)));
-            
-            parameters[i].first = new TextBox(p_parameters[i], Vector2f(b, p_textOffset.y) + p_pos, text.getScale());
-
-            //Saving offset for later so it doesnt need to be recalculated all the time
-            parameterOffsets[i].first = Vector2f(b, p_textOffset.y);
-            b += parameters[i].first -> getDimensions().x + p_textOffset.x;
-            
-            parameters[i].second = new Gap(Vector2f(b, p_textOffset.y) + p_pos, this);
-            //Saving offset for later so it doesnt need to be recalculated all the time
-            parameterOffsets[i].second = Vector2f(b, p_textOffset.y);
-            b += parameters[i].second -> GetSize() * p_scale + p_textOffset.x;
-        }
-
-        middle = new Entity(Vector2f(a + p_pos.x, p_pos.y), p_tex, middleSize, Vector2f((b - a) / middleSize.w, p_scale));
-
         SDL_Rect endSize;
         endSize.x = 64;
         endSize.y = 0;
         endSize.w = 1;
         endSize.h = p_frame.h;
 
-        end = new Entity(Vector2f(((a < b) ? b : a) + p_pos.x, p_pos.y), p_tex, endSize, Vector2f(p_scale, p_scale));
+        BlockResize::InitBlockScale(
+            p_frame, middleSize, endSize,
+            p_scale, text, p_textOffset, 
+            parameters, p_pos, parameterOffsets, 
+            p_tex, p_parameters, this, 
+            middle, end
+        );
+
         for(auto pair : parameters){
             pair.first -> getVisual() -> SetLayer(layer + 1);
 

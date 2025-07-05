@@ -10,6 +10,7 @@
 #include "LinkedList.hpp"
 #include "TextBox.hpp"
 #include "Gap.hpp"
+#include "Resizable.hpp"
 
 using std::map;
 using std::unordered_set;
