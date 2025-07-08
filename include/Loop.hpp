@@ -36,6 +36,12 @@ class Loop : public Block{
         if(innerChild != nullptr){
             innerChild -> setPos(p_pos + Vector2f(innerCollider->GetFrame().x * scale.x, innerCollider->GetFrame().y * scale.y));
         }
+
+        for(size_t i = 0; i < parameters.size(); ++i){
+            parameters[i].first -> getVisual() -> setPos(parameterOffsets[i].first + p_pos);
+
+            parameters[i].second -> setPos(parameterOffsets[i].second + p_pos);
+        }
     }
     float GetBottom() override{
         return pos.y + scale.y * (bodySize + TOTAL_TEXTURE_HEIGHT - 1);
@@ -169,6 +175,16 @@ class Loop : public Block{
             innerChild = nullptr;
         }
         p_child -> ToggleIsContained(false);
+    }
+    void UpdateSize() override{
+        BlockResize::UpdateBlockScale(
+            currentFrame, text, scale,
+            textOffset, parameters,
+            parameterOffsets,
+            pos, middle, end
+        );
+        footMiddle -> setScale(middle -> getScale());
+        footEnd -> setPos(Vector2f(end -> getPos().x, footEnd -> getPos().y));
     }
     private:
     Entity* body;

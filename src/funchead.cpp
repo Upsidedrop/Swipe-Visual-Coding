@@ -22,10 +22,15 @@ FuncHead::FuncHead(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType 
     endSize.w = 15;
     endSize.h = p_frame.h;
 
-    float a = (p_frame.x + p_frame.w) * p_scale;
-    float b = text.getDimensions().x + p_textOffset.x * 2;
-
-    middle = (a < b) ? new Entity(Vector2f(a + p_pos.x, p_pos.y), p_tex, middleSize, Vector2f((b - a) / middleSize.w, p_scale)) : nullptr;
-
-    end = new Entity(Vector2f(((a < b) ? b : a) + p_pos.x, p_pos.y), p_tex, endSize, Vector2f(p_scale, p_scale));
+    BlockResize::InitBlockScale(
+        p_frame, middleSize, endSize,
+        p_scale, text, p_textOffset, 
+        parameters, p_pos, parameterOffsets, 
+        p_tex, p_parameters, this, 
+        middle, end
+    );
+    for(auto pair : parameters){
+        pair.first -> getVisual() -> SetLayer(layer + 1);
+        pair.second -> SetLayer(layer + 1);
+    }
 }

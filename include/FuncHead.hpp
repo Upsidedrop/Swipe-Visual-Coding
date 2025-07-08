@@ -26,5 +26,11 @@ class FuncHead : public Block{
             middle -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, p_pos.y));
         }
         end -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * ((middle != nullptr) ? middle->getScale().x : 0), p_pos.y));
+    
+        for(size_t i = 0; i < parameters.size(); ++i){
+            parameters[i].first -> getVisual() -> setPos(parameterOffsets[i].first + p_pos);
+
+            parameters[i].second -> setPos(parameterOffsets[i].second + p_pos);
+        }
     }
 };

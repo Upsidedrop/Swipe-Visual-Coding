@@ -126,23 +126,3 @@ void Block::RemoveChild()
     }
     child = nullptr;
 }
-void Block::UpdateSize(){
-    float a = (currentFrame.x + currentFrame.w) * scale.x;
-    float b = text.getDimensions().x + textOffset.x * 2;
-    for(size_t i = 0; i < parameters.size(); ++i){        
-        parameters[i].first -> getVisual() -> setPos(Vector2f(b, textOffset.y) + pos);
-        //Saving offset for later so it doesnt need to be recalculated all the time
-        parameterOffsets[i].first = Vector2f(b, textOffset.y);
-        b += parameters[i].first -> getDimensions().x + textOffset.x;
-        
-        parameters[i].second -> setPos(Vector2f(b, textOffset.y) + pos);
-        //Saving offset for later so it doesnt need to be recalculated all the time
-        parameterOffsets[i].second = Vector2f(b, textOffset.y);
-        b += parameters[i].second -> GetSize() * scale.x + textOffset.x;
-    }
-
-    middle -> setPos(Vector2f(a + pos.x, pos.y)); 
-    middle -> setScale(Vector2f((b - a) / middle -> getCurrentFrame().w, scale.y));
-
-    end -> setPos(Vector2f(((a < b) ? b : a) + pos.x, pos.y));
-}

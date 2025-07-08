@@ -30,7 +30,30 @@ namespace BlockResize{
         p_end = new Entity(Vector2f(((a < b) ? b : a) + p_pos.x, p_pos.y), p_tex, p_endFrame, Vector2f(p_scale, p_scale));
         
     }
-    void UpdateBlockScale(){
+    void UpdateBlockScale(
+        SDL_Rect& p_currentFrame, TextBox& p_text, Vector2f& p_scale,
+        Vector2f& p_textOffset, std::vector<std::pair<TextBox*, Gap*>>& p_parameters,
+        std::vector<std::pair<Vector2f, Vector2f>>& p_parameterOffsets,
+        Vector2f& p_pos, Entity* p_middle, Entity* p_end
+    )
+    {
+        float a = (p_currentFrame.x + p_currentFrame.w) * p_scale.x;
+        float b = p_text.getDimensions().x + p_textOffset.x * 2;
+        for(size_t i = 0; i < p_parameters.size(); ++i){        
+            p_parameters[i].first -> getVisual() -> setPos(Vector2f(b, p_textOffset.y) + p_pos);
+            //Saving offset for later so it doesnt need to be recalculated all the time
+            p_parameterOffsets[i].first = Vector2f(b, p_textOffset.y);
+            b += p_parameters[i].first -> getDimensions().x + p_textOffset.x;
 
+            p_parameters[i].second -> setPos(Vector2f(b, p_textOffset.y) + p_pos);
+            //Saving offset for later so it doesnt need to be recalculated all the time
+            p_parameterOffsets[i].second = Vector2f(b, p_textOffset.y);
+            b += p_parameters[i].second -> GetSize() * p_scale.x + p_textOffset.x;
+        }
+
+        p_middle -> setPos(Vector2f(a + p_pos.x, p_pos.y)); 
+        p_middle -> setScale(Vector2f((b - a) / p_middle -> getCurrentFrame().w, p_scale.y));
+
+        p_end -> setPos(Vector2f(((a < b) ? b : a) + p_pos.x, p_pos.y));
     }
 }

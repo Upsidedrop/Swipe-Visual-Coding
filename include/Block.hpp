@@ -106,7 +106,14 @@ class Block : public Entity{
         }
         layers.find(layer) -> second.insert(this);
     }
-    void UpdateSize();
+    virtual void UpdateSize(){
+        BlockResize::UpdateBlockScale(
+            currentFrame, text, scale,
+            textOffset, parameters,
+            parameterOffsets,
+            pos, middle, end
+        );
+    }
     virtual ~Block();
     protected:
     static LinkedList<Block> blocks;

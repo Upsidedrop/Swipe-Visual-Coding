@@ -32,10 +32,9 @@ Loop::Loop(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType p_type, 
     foot = new Entity(p_pos + Vector2f(0, DEFAULT_LOOP_SIZE * p_scale), p_tex, footFrame, Vector2f(p_scale, p_scale));
 
     float a = (footFrame.x + footFrame.w) * p_scale;
-    float b = text.getDimensions().x;
 
-    footMiddle = new Entity(Vector2f(a, DEFAULT_LOOP_SIZE * p_scale) + p_pos, p_tex, footMiddleFrame, Vector2f((b - a + textOffset.x * 2) / footMiddleFrame.w, p_scale));
-    footEnd = new Entity(Vector2f((a < b + textOffset.x * 2)? b + textOffset.x * 2: a, DEFAULT_LOOP_SIZE * p_scale) + p_pos, p_tex, footEndFrame, Vector2f(p_scale, p_scale));
+    footMiddle = new Entity(Vector2f(a, DEFAULT_LOOP_SIZE * p_scale) + p_pos, p_tex, footMiddleFrame, middle -> getScale());
+    footEnd = new Entity(Vector2f(end -> getPos().x, DEFAULT_LOOP_SIZE * p_scale + p_pos.y), p_tex, footEndFrame, Vector2f(p_scale, p_scale));
 
     SDL_FRect bottomColFrame;
     bottomColFrame.x = 0;
