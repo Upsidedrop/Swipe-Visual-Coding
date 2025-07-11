@@ -50,5 +50,5 @@ fi
 
 if [[ $GIT == 'not installed' ]]; then
         echo 'Removing git'
-	sudo pacman -Rs
+	sudo pacman -Rs git
 fi
