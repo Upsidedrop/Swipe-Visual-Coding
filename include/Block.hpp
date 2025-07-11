@@ -113,6 +113,14 @@ class Block : public Entity{
             parameterOffsets,
             pos, middle, end
         );
+        
+        SDL_FRect mainColFrame;
+        mainColFrame.x = 0;
+        mainColFrame.y = 0;
+        mainColFrame.w = currentFrame.w + ((middle != nullptr)? middle -> getCurrentFrame().w * middle -> getScale().x / scale.x : 0) + end -> getCurrentFrame().w;
+        mainColFrame.h = currentFrame.h;
+
+        mainCollider -> SetFrame(mainColFrame);
     }
     virtual ~Block();
     protected:

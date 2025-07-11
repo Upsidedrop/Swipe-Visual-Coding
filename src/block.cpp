@@ -5,14 +5,6 @@ LinkedList<Block> Block::blocks;
 Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_type, float p_scale, const char *p_text, Vector2f p_textOffset, std::vector<const char*> p_parameters)
     : Entity(p_pos, p_tex, p_frame, Vector2f(p_scale, p_scale)), topCollider(nullptr), child(nullptr), parent(nullptr), type(p_type), text(p_text, p_pos + p_textOffset, 0.6), textOffset(p_textOffset)
 {
-    SDL_FRect mainColFrame;
-    mainColFrame.x = 0;
-    mainColFrame.y = 0;
-    mainColFrame.w = currentFrame.w;
-    mainColFrame.h = currentFrame.h;
-
-    mainCollider = new Collider(mainColFrame, this, 2);
-
     if (p_type != BlockType::DEFAULTHEAD)
     {
         SDL_FRect topColFrame;
@@ -55,6 +47,15 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
             p_tex, p_parameters, this, 
             middle, end
         );
+
+        SDL_FRect mainColFrame;
+        mainColFrame.x = 0;
+        mainColFrame.y = 0;
+        mainColFrame.w = currentFrame.w + ((middle != nullptr)? middleSize.w * middle -> getScale().x / p_scale : 0) + endSize.w;
+        mainColFrame.h = currentFrame.h;
+
+        mainCollider = new Collider(mainColFrame, this, 2);
+
 
         for(auto pair : parameters){
             pair.first -> getVisual() -> SetLayer(layer + 1);

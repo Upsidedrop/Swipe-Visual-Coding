@@ -33,4 +33,12 @@ FuncHead::FuncHead(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType 
         pair.first -> getVisual() -> SetLayer(layer + 1);
         pair.second -> SetLayer(layer + 1);
     }
+
+    SDL_FRect mainColFrame;
+    mainColFrame.x = 0;
+    mainColFrame.y = 0;
+    mainColFrame.w = currentFrame.w + ((middle != nullptr)? middleSize.w * middle -> getScale().x / p_scale : 0) + endSize.w;
+    mainColFrame.h = currentFrame.h;
+
+    mainCollider = new Collider(mainColFrame, this, 2);
 }
