@@ -192,7 +192,8 @@ class Loop : public Block{
 
         mainCollider -> SetFrame(mainColFrame);
 
-        footMiddle -> setScale(middle -> getScale());
+        float adjustedMiddleWidth = middle -> getScale().x / footMiddle -> getCurrentFrame().w * middle -> getCurrentFrame().w;
+        footMiddle -> setScale(Vector2f(adjustedMiddleWidth, scale.y));
         footEnd -> setPos(Vector2f(end -> getPos().x, footEnd -> getPos().y));
     }
     private:
