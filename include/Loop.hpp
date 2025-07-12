@@ -183,7 +183,17 @@ class Loop : public Block{
             parameterOffsets,
             pos, middle, end
         );
-        footMiddle -> setScale(middle -> getScale());
+        
+        SDL_FRect mainColFrame;
+        mainColFrame.x = 0;
+        mainColFrame.y = 0;
+        mainColFrame.w = currentFrame.w + ((middle != nullptr)? middle -> getCurrentFrame().w * middle -> getScale().x / scale.x : 0) + end -> getCurrentFrame().w;
+        mainColFrame.h = currentFrame.h;
+
+        mainCollider -> SetFrame(mainColFrame);
+
+        float adjustedMiddleWidth = middle -> getScale().x / footMiddle -> getCurrentFrame().w * middle -> getCurrentFrame().w;
+        footMiddle -> setScale(Vector2f(adjustedMiddleWidth, scale.y));
         footEnd -> setPos(Vector2f(end -> getPos().x, footEnd -> getPos().y));
     }
     private:
