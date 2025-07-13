@@ -36,8 +36,9 @@ namespace General{
         collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), {2});
         if(collision != nullptr){
             GrabbedBlock(heldObject, event, collision, clickedPos);
-        }else{
-            Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), {3});
+        }
+        else{
+            collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), {3});
             if(collision != nullptr){
                 static_cast<Button*>(collision -> GetParent())->CallFunc();
             }

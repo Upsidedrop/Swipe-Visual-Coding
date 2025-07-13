@@ -1,11 +1,14 @@
 #include "Variable.hpp"
 #include "Utils.hpp"
+#include "Resizable.hpp"
 
 Variable::Variable(Vector2f p_pos, SDL_Texture* p_tex, const char *p_text, float p_scale, int p_layer)
 :Entity(p_pos, p_tex, utils::InitRect(0,0,3,7), Vector2f(p_scale, p_scale), p_layer), parent(nullptr), text(p_text, Vector2f(p_pos.x + currentFrame.w * p_scale, p_pos.y), 0.6){
 
     SDL_Rect midTexSize = utils::InitRect(3,0,4,7);
     SDL_Rect endTexSize = utils::InitRect(7,0,3,7);
+
+    //BlockResize::InitBlockScale(currentFrame, midTexSize, endTexSize, p_scale, text, Vector2f(0,0), /*etc*/);
 
     float a = (currentFrame.x + currentFrame.w) * p_scale;
     float b = text.getDimensions().x + currentFrame.w * p_scale;
