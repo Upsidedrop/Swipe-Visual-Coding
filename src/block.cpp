@@ -28,30 +28,62 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
     {
         blocks.Add(this);
 
-        SDL_Rect middleSize;
-        middleSize.x = p_frame.w;
-        middleSize.y = 0;
-        middleSize.w = 63 - p_frame.w;
-        middleSize.h = p_frame.h;
+        SDL_Rect topSize;
+        topSize.x = p_frame.w;
+        topSize.y = 0;
+        topSize.w = 63 - p_frame.w;
+        topSize.h = p_frame.h;
 
-        SDL_Rect endSize;
-        endSize.x = 64;
-        endSize.y = 0;
-        endSize.w = 1;
-        endSize.h = p_frame.h;
+        SDL_Rect topRightSize;
+        topRightSize.x = 64;
+        topRightSize.y = 0;
+        topRightSize.w = 1;
+        topRightSize.h = p_frame.h;
+
+        SDL_Rect leftSize;
+        leftSize.x = 0;
+        leftSize.y = 2;
+        leftSize.w = p_frame.w;
+        leftSize.h = 10;
+
+        SDL_Rect centerSize;
+        centerSize.x = p_frame.w;
+        centerSize.y = 2;
+        centerSize.w = 63 - p_frame.w;
+        centerSize.h = 10;
+
+        SDL_Rect rightSize;
+        rightSize.x = 64;
+        rightSize.y = 2;
+        rightSize.w = 1;
+        rightSize.h = 10;
+
+        SDL_Rect bottomLeftSize;
+        bottomLeftSize.x = 0;
+        bottomLeftSize.y = 12;
+        bottomLeftSize.w = p_frame.w;
+        bottomLeftSize.h = 2;
+
+        SDL_Rect bottomSize;
+        bottomSize.x = p_frame.w;
+        bottomSize.y = 12;
+        bottomSize.w = 63 - p_frame.w;
+        bottomSize.h = 2;
+
+        SDL_Rect bottomRightSize;
+        bottomRightSize.x = 64;
+        bottomRightSize.y = 12;
+        bottomRightSize.w = 1;
+        bottomRightSize.h = 2;
 
         BlockResize::InitBlockScale(
-            p_frame, middleSize, endSize,
-            p_scale, text, p_textOffset, 
-            parameters, p_pos, parameterOffsets, 
-            p_tex, p_parameters, this, 
-            middle, end
+            p_frame, topSize, topRightSize, leftSize, centerSize, rightSize, bottomLeftSize, bottomSize, bottomRightSize, left,center,right, bottomLeft,bottom,bottomRight, p_scale, text, p_textOffset, parameters, p_pos, parameterOffsets, p_tex, p_parameters, this, top, topRight
         );
 
         SDL_FRect mainColFrame;
         mainColFrame.x = 0;
         mainColFrame.y = 0;
-        mainColFrame.w = currentFrame.w + ((middle != nullptr)? middleSize.w * middle -> getScale().x / p_scale : 0) + endSize.w;
+        mainColFrame.w = currentFrame.w + ((top != nullptr)? topSize.w * top -> getScale().x / p_scale : 0) + topRightSize.w;
         mainColFrame.h = currentFrame.h;
 
         mainCollider = new Collider(mainColFrame, this, 2);
@@ -69,8 +101,14 @@ Block::~Block()
     delete mainCollider;
     delete topCollider;
     delete bottomCollider;
-    delete middle;
-    delete end;
+    delete top;
+    delete topRight;
+    delete left;
+    delete center;
+    delete right;
+    delete bottomLeft;
+    delete bottom;
+    delete bottomRight;
 }
 float Block::GetBottom()
 {

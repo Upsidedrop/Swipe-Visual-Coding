@@ -23,11 +23,11 @@ class Loop : public Block{
         body -> setPos(p_pos + Vector2f(0, (currentFrame.h - 1) * scale.y));
         foot -> setPos(Vector2f(p_pos.x, p_pos.y + scale.y * (bodySize + currentFrame.h - 1)));
 
-        middle -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, p_pos.y));
-        end -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * middle->getScale().x, p_pos.y));
+        top -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, p_pos.y));
+        topRight -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * top->getScale().x, p_pos.y));
 
         footMiddle -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, foot->getPos().y));
-        footEnd -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * middle->getScale().x, foot->getPos().y));
+        footEnd -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * top->getScale().x, foot->getPos().y));
 
         if(child != nullptr)
         {
@@ -181,20 +181,20 @@ class Loop : public Block{
             currentFrame, text, scale,
             textOffset, parameters,
             parameterOffsets,
-            pos, middle, end
+            pos, top, topRight
         );
         
         SDL_FRect mainColFrame;
         mainColFrame.x = 0;
         mainColFrame.y = 0;
-        mainColFrame.w = currentFrame.w + ((middle != nullptr)? middle -> getCurrentFrame().w * middle -> getScale().x / scale.x : 0) + end -> getCurrentFrame().w;
+        mainColFrame.w = currentFrame.w + ((top != nullptr)? top -> getCurrentFrame().w * top -> getScale().x / scale.x : 0) + topRight -> getCurrentFrame().w;
         mainColFrame.h = currentFrame.h;
 
         mainCollider -> SetFrame(mainColFrame);
 
-        float adjustedMiddleWidth = middle -> getScale().x / footMiddle -> getCurrentFrame().w * middle -> getCurrentFrame().w;
+        float adjustedMiddleWidth = top -> getScale().x / footMiddle -> getCurrentFrame().w * top -> getCurrentFrame().w;
         footMiddle -> setScale(Vector2f(adjustedMiddleWidth, scale.y));
-        footEnd -> setPos(Vector2f(end -> getPos().x, footEnd -> getPos().y));
+        footEnd -> setPos(Vector2f(topRight -> getPos().x, footEnd -> getPos().y));
     }
     private:
     Entity* body;

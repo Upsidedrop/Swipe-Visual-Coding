@@ -22,10 +22,10 @@ class FuncHead : public Block{
             child-> setPos(p_pos + Vector2f(0, (currentFrame.h - 2) * scale.y));
         }
         text.getVisual() -> setPos(p_pos + textOffset); 
-        if(middle != nullptr){
-            middle -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, p_pos.y));
+        if(top != nullptr){
+            top -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, p_pos.y));
         }
-        end -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * ((middle != nullptr) ? middle->getScale().x : 0), p_pos.y));
+        topRight -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * ((top != nullptr) ? top->getScale().x : 0), p_pos.y));
     
         for(size_t i = 0; i < parameters.size(); ++i){
             parameters[i].first -> getVisual() -> setPos(parameterOffsets[i].first + p_pos);

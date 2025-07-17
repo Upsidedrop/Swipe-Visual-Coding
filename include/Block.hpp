@@ -68,8 +68,8 @@ class Block : public Entity{
             child-> setPos(p_pos + Vector2f(0, 12 * scale.y));
         }
         
-        middle -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, p_pos.y));
-        end -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * middle->getScale().x, p_pos.y));
+        top -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, p_pos.y));
+        topRight -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * top->getScale().x, p_pos.y));
 
         text.getVisual() -> setPos(p_pos + textOffset);
 
@@ -91,10 +91,10 @@ class Block : public Entity{
             pair.second -> SetLayer(p_layer + 1);
         }
 
-        if(middle != nullptr){
-            middle ->SetLayer(p_layer);
+        if(top != nullptr){
+            top ->SetLayer(p_layer);
         }
-        end -> SetLayer(p_layer);
+        topRight -> SetLayer(p_layer);
         layers.find(layer) -> second.erase(this);
 
         layer = p_layer;
@@ -111,13 +111,13 @@ class Block : public Entity{
             currentFrame, text, scale,
             textOffset, parameters,
             parameterOffsets,
-            pos, middle, end
+            pos, top, topRight
         );
         
         SDL_FRect mainColFrame;
         mainColFrame.x = 0;
         mainColFrame.y = 0;
-        mainColFrame.w = currentFrame.w + ((middle != nullptr)? middle -> getCurrentFrame().w * middle -> getScale().x / scale.x : 0) + end -> getCurrentFrame().w;
+        mainColFrame.w = currentFrame.w + ((top != nullptr)? top -> getCurrentFrame().w * top -> getScale().x / scale.x : 0) + topRight -> getCurrentFrame().w;
         mainColFrame.h = currentFrame.h;
 
         mainCollider -> SetFrame(mainColFrame);
@@ -133,8 +133,14 @@ class Block : public Entity{
     BlockType type;
     bool contained = false;
     TextBox text;
-    Entity* middle;
-    Entity* end;
+    Entity* top;
+    Entity* topRight;
+    Entity* center;
+    Entity* left;
+    Entity* right;
+    Entity* bottom;
+    Entity* bottomLeft;
+    Entity* bottomRight;
     Vector2f textOffset;
     std::vector<std::pair<TextBox*, Gap*>> parameters;
     std::vector<std::pair<Vector2f, Vector2f>> parameterOffsets;

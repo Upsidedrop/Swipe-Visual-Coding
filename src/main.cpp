@@ -74,7 +74,7 @@ int main(int agrv, char* args[]) {
     blockSize.x = 0;
     blockSize.y = 0;
     blockSize.w = 13;
-    blockSize.h = 14;
+    blockSize.h = 2;
 
     SDL_Rect loopSize;
     loopSize.x = 0;
