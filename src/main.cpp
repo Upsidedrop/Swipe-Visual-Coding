@@ -80,7 +80,7 @@ int main(int agrv, char* args[]) {
     loopSize.x = 0;
     loopSize.y = 0;
     loopSize.w = 19;
-    loopSize.h = 14;
+    loopSize.h = 2;
 
     SDL_Rect headSize;
     headSize.x = 0;

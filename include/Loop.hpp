@@ -25,6 +25,18 @@ class Loop : public Block{
 
         top -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, p_pos.y));
         topRight -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * top->getScale().x, p_pos.y));
+        
+        Vector2f topMargin(0, 2 * scale.y);
+
+        left -> setPos(p_pos + topMargin);
+        center -> setPos(top -> getPos() + topMargin);
+        right -> setPos(topRight -> getPos() + topMargin);
+
+        topMargin.y = 12 * scale.y;
+
+        bottomLeft -> setPos(p_pos + topMargin);
+        bottom -> setPos(top -> getPos() + topMargin);
+        bottomRight -> setPos(topRight -> getPos() + topMargin);
 
         footMiddle -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, foot->getPos().y));
         footEnd -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * top->getScale().x, foot->getPos().y));
