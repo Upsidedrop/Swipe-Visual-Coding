@@ -16,12 +16,14 @@ class Loop : public Block{
     }
     void setPos(Vector2f p_pos) override
     {
+        float mainHeight = (bottomLeft->getPos().y - pos.y) / scale.y + bottomLeft -> getCurrentFrame().h;
+        
         pos = p_pos;
 
         text.getVisual() -> setPos(p_pos + textOffset);
         
-        body -> setPos(p_pos + Vector2f(0, (currentFrame.h - 1) * scale.y));
-        foot -> setPos(Vector2f(p_pos.x, p_pos.y + scale.y * (bodySize + currentFrame.h - 1)));
+        body -> setPos(p_pos + Vector2f(0, (mainHeight- 1) * scale.y));
+        foot -> setPos(Vector2f(p_pos.x, p_pos.y + scale.y * (bodySize + mainHeight - 1)));
 
         top -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, p_pos.y));
         topRight -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * top->getScale().x, p_pos.y));
