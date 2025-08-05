@@ -20,6 +20,7 @@ namespace BlockResize{
         SDL_Rect& p_currentFrame, TextBox& p_text, Vector2f& p_scale,
         Vector2f& p_textOffset, std::vector<std::pair<TextBox*, Gap*>>& p_parameters,
         std::vector<std::pair<Vector2f, Vector2f>>& p_parameterOffsets,
-        Vector2f& p_pos, Entity* p_middle, Entity* p_end
+        Vector2f& p_pos, Entity* p_middle, Entity* p_end, Entity* p_center,
+        Entity* p_right, Entity* p_bottom, Entity* p_bottomRight
     );
 }

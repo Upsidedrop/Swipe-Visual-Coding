@@ -55,7 +55,8 @@ namespace BlockResize{
         SDL_Rect& p_currentFrame, TextBox& p_text, Vector2f& p_scale,
         Vector2f& p_textOffset, std::vector<std::pair<TextBox*, Gap*>>& p_parameters,
         std::vector<std::pair<Vector2f, Vector2f>>& p_parameterOffsets,
-        Vector2f& p_pos, Entity* p_middle, Entity* p_end
+        Vector2f& p_pos, Entity* p_middle, Entity* p_end, Entity* p_center,
+        Entity* p_right, Entity* p_bottom, Entity* p_bottomRight
     )
     {
         float a = p_currentFrame.w * p_scale.x;
@@ -78,5 +79,15 @@ namespace BlockResize{
         p_middle -> setScale(Vector2f((b - a - c) / p_middle -> getCurrentFrame().w, p_scale.y));
 
         p_end -> setPos(Vector2f(((a < b - c) ? b - c : a) + p_pos.x, p_pos.y));
+
+        p_center -> setPos(Vector2f(p_middle -> getPos().x, p_center -> getPos().y));
+        p_center -> setScale(p_middle -> getScale());
+
+        p_right -> setPos(Vector2f(p_end -> getPos().x, p_right -> getPos().y));
+
+        p_bottom -> setPos(Vector2f(p_middle -> getPos().x, p_bottom -> getPos().y));
+        p_bottom -> setScale(p_middle -> getScale());
+
+        p_bottomRight -> setPos(Vector2f(p_end -> getPos().x, p_bottomRight -> getPos().y));
     }
 }

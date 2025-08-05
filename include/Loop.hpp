@@ -195,7 +195,8 @@ class Loop : public Block{
             currentFrame, text, scale,
             textOffset, parameters,
             parameterOffsets,
-            pos, top, topRight
+            pos, top, topRight, center,
+            right, bottom, bottomRight
         );
         
         SDL_FRect mainColFrame;
