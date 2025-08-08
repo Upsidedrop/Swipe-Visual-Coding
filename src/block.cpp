@@ -83,8 +83,8 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
         SDL_FRect mainColFrame;
         mainColFrame.x = 0;
         mainColFrame.y = 0;
-        mainColFrame.w = currentFrame.w + ((top != nullptr)? topSize.w * top -> getScale().x / p_scale : 0) + topRightSize.w;
-        mainColFrame.h = currentFrame.h;
+        mainColFrame.w = (topRight->getPos().x - pos.x) / p_scale;
+        mainColFrame.h = (bottomLeft->getPos().y - pos.y) / p_scale;
 
         mainCollider = new Collider(mainColFrame, this, 2);
 

@@ -130,8 +130,8 @@ class Block : public Entity{
         SDL_FRect mainColFrame;
         mainColFrame.x = 0;
         mainColFrame.y = 0;
-        mainColFrame.w = currentFrame.w + ((top != nullptr)? top -> getCurrentFrame().w * top -> getScale().x / scale.x : 0) + topRight -> getCurrentFrame().w;
-        mainColFrame.h = currentFrame.h;
+        mainColFrame.w = (topRight->getPos().x - pos.x) / scale.x;
+        mainColFrame.h = (bottomLeft->getPos().y - pos.y) / scale.y;
 
         mainCollider -> SetFrame(mainColFrame);
     }

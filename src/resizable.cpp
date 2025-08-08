@@ -31,7 +31,7 @@ namespace BlockResize{
         }
 
 
-        p_top = (a < b - c) ? new Entity(Vector2f(a + p_pos.x, p_pos.y), p_tex, p_topFrame, Vector2f((b - a - c) / p_topFrame.w, p_scale)) : nullptr;
+        p_top = new Entity(Vector2f(a + p_pos.x, p_pos.y), p_tex, p_topFrame,  (a < b - c) ? Vector2f((b - a - c) / p_topFrame.w, p_scale) : Vector2f(0, 0));
 
         p_topRight = new Entity(Vector2f(((a < b - c) ? b - c : a) + p_pos.x, p_pos.y), p_tex, p_topRightFrame, Vector2f(p_scale, p_scale));
 
