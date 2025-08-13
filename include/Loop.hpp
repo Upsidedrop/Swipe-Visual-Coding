@@ -102,7 +102,7 @@ class Loop : public Block{
                     std::cout<< childIt -> getChild() << "\n";
                     childIt = childIt -> getChild();
                 }
-                loopIt -> getParent() -> setBodySize((childIt -> GetBottom() - loopIt -> getParent() -> getPos().y) / scale.y - currentFrame.h);
+                loopIt -> getParent() -> setBodySize((childIt -> GetBottom() - loopIt -> getParent() -> getPos().y) / scale.y - (/*total head height*/ (bottom->getPos().y - pos.y) / scale.y + bottom->getCurrentFrame().h));
             }
         }
         else
@@ -126,7 +126,7 @@ class Loop : public Block{
             while(childIt -> getChild() != nullptr){
                 childIt = childIt -> getChild();
             }
-            setBodySize((childIt -> GetBottom() - pos.y) / scale.y - currentFrame.h);
+            setBodySize((childIt -> GetBottom() - pos.y) / scale.y - (/*total head height*/ (bottom->getPos().y - pos.y) / scale.y + bottom->getCurrentFrame().h));
             innerChild -> ToggleIsContained(true);
         }
     }
@@ -134,7 +134,7 @@ class Loop : public Block{
         bodySize = p_size;
 
         body -> setScale(Vector2f(scale.x, scale.y * p_size));
-        foot -> setPos(Vector2f(pos.x, pos.y + scale.y * (bodySize + currentFrame.h - 1)));
+        foot -> setPos(Vector2f(pos.x, pos.y + scale.y * (bodySize + (/*total head height*/ (bottom->getPos().y - pos.y) / scale.y + bottom->getCurrentFrame().h) - 1)));
 
         footMiddle -> setPos(Vector2f(footMiddle -> getPos().x, foot -> getPos().y));
         footEnd -> setPos(Vector2f(footEnd -> getPos().x, foot -> getPos().y));
@@ -166,7 +166,7 @@ class Loop : public Block{
                 childIt = childIt -> getChild();
             }
 
-            it -> getParent() -> setBodySize((childIt -> GetBottom() - it -> getParent() -> getPos().y) / scale.y - currentFrame.h);
+            it -> getParent() -> setBodySize((childIt -> GetBottom() - it -> getParent() -> getPos().y) / scale.y - (/*total head height*/ (bottom->getPos().y - pos.y) / scale.y + bottom->getCurrentFrame().h));
         }
     }
     void RemoveChild(Block* p_child) override{
@@ -179,13 +179,13 @@ class Loop : public Block{
                         std::cout << "something wicked this way comes" << "\n";
                     }
                 }
-                it -> getParent() -> setBodySize((GetBottom() - it -> getParent() -> getPos().y) / scale.y - currentFrame.h);
+                it -> getParent() -> setBodySize((GetBottom() - it -> getParent() -> getPos().y) / scale.y - (/*total head height*/ (bottom->getPos().y - pos.y) / scale.y + bottom->getCurrentFrame().h));
             }
 
             child = nullptr;
         }
         else{
-            setBodySize(currentFrame.h - 3);
+            setBodySize((/*total head height*/ (bottom->getPos().y - pos.y) / scale.y + bottom->getCurrentFrame().h) - 3);
             innerChild = nullptr;
         }
         p_child -> ToggleIsContained(false);

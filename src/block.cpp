@@ -112,7 +112,7 @@ Block::~Block()
 }
 float Block::GetBottom()
 {
-    return pos.y + (currentFrame.h - 1) * scale.y;
+    return bottom->getPos().y + (bottom->getCurrentFrame().h - 1) * scale.y;
 }
 void Block::ToggleIsContained(bool p_contained)
 {
@@ -143,7 +143,7 @@ void Block::setChild(Block *p_child)
             std::cout << childIt->getChild() << "\n";
             childIt = childIt->getChild();
         }
-        loopIt->getParent()->setBodySize((childIt->GetBottom() - loopIt->getParent()->getPos().y) / scale.y - currentFrame.h);
+        loopIt->getParent()->setBodySize((childIt->GetBottom() - loopIt->getParent()->getPos().y) / scale.y - (/*total head height*/ (bottom->getPos().y - pos.y) / scale.y + bottom->getCurrentFrame().h));
     }
 }
 void Block::RemoveChild()
