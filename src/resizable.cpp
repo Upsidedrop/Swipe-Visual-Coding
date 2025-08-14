@@ -35,7 +35,7 @@ namespace BlockResize{
 
         p_topRight = new Entity(Vector2f(((a < b - c) ? b - c : a) + p_pos.x, p_pos.y), p_tex, p_topRightFrame, Vector2f(p_scale, p_scale));
 
-        Vector2f topMargin(0, 2 * p_scale);
+        Vector2f topMargin(0, p_leftFrame.y * p_scale);
 
         p_left = new Entity(p_pos + topMargin, p_tex, p_leftFrame, Vector2f(p_scale, p_scale));
 
@@ -43,7 +43,7 @@ namespace BlockResize{
 
         p_right = new Entity(p_topRight -> getPos() + topMargin, p_tex, p_rightFrame, Vector2f(p_scale, p_scale));
 
-        topMargin.y = 12 * p_scale;
+        topMargin.y = p_bottomLeftFrame.y * p_scale;
 
         p_bottomLeft = new Entity(p_pos + topMargin, p_tex, p_bottomLeftFrame, Vector2f(p_scale, p_scale));
 
