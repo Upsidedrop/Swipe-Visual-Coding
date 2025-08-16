@@ -103,10 +103,17 @@ class Block : public Entity{
             pair.second -> SetLayer(p_layer + 1);
         }
 
-        if(top != nullptr){
-            top ->SetLayer(p_layer);
-        }
+        top ->SetLayer(p_layer);
         topRight -> SetLayer(p_layer);
+
+        left -> SetLayer(p_layer);
+        center -> SetLayer(p_layer);
+        right -> SetLayer(p_layer);
+
+        bottomLeft -> SetLayer(p_layer);
+        bottom -> SetLayer(p_layer);
+        bottomRight ->SetLayer(p_layer);
+
         layers.find(layer) -> second.erase(this);
 
         layer = p_layer;

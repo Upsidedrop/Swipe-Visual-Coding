@@ -68,8 +68,29 @@ class Loop : public Block{
             innerChild -> SetLayer(p_layer);
         }
         text.getVisual() -> SetLayer(p_layer + 1);
+
+        for(auto pair : parameters){
+            pair.first -> getVisual() -> SetLayer(p_layer + 1);
+
+            pair.second -> SetLayer(p_layer + 1);
+        }
+
+        top ->SetLayer(p_layer);
+        topRight -> SetLayer(p_layer);
+
+        left -> SetLayer(p_layer);
+        center -> SetLayer(p_layer);
+        right -> SetLayer(p_layer);
+
+        bottomLeft -> SetLayer(p_layer);
+        bottom -> SetLayer(p_layer);
+        bottomRight ->SetLayer(p_layer);
+
         body -> SetLayer(p_layer);
         foot -> SetLayer(p_layer);
+
+        footMiddle -> SetLayer(p_layer);
+        footEnd -> SetLayer(p_layer);
 
         layers.find(layer) -> second.erase(this);
 
