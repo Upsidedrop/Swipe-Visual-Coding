@@ -17,7 +17,7 @@
         {
             "type": "shell",
             "label": "Update Headers / Init",
-            "command": "find . -maxdepth 1 -name \"*.o\" -type f -delete && g++ -c src/*.cpp -std=c++14 -m64 -g -Wall -I include && g++ *.o -o bin/debug/main -lSDL2main -lSDL2_ttf -lSDL2 -lSDL2_image -lSDL2_mixer && ./bin/debug/main",
+            "command": "find . -maxdepth 1 -name \"*.o\" -type f -delete && g++ -c src/*.cpp -std=c++14 -m64 -g -Wall -I include && g++ *.o -o bin/debug/main -Llib -lSDL2main -lSDL2_ttf -lSDL2 -lSDL2_image -lSDL2_mixer -Wl,-rpath,lib -Wl,--disable-new-dtags -Wl,-dynamic-linker,lib/ld-linux-x86-64.so.2 && ./bin/debug/main",
             "problemMatcher": [
                 "$gcc"
             ],
@@ -30,7 +30,7 @@
         {
             "type": "shell",
             "label": "Release",
-            "command": "g++ -c src/*.cpp -std=c++14 -m64 -O2 -Wall -I include && g++ *.o -o bin/release/main -s -lSDL2main -lSDL2_ttf -lSDL2 -lSDL2_image -lSDL2_mixer && ./bin/release/main",
+            "command": "g++ -c src/*.cpp -std=c++14 -m64 -O2 -Wall -I include && g++ *.o -o bin/release/main -Llib -s -lSDL2main -lSDL2_ttf -lSDL2 -lSDL2_image -lSDL2_mixer -Wl,-rpath,lib -Wl,--disable-new-dtags -Wl,-dynamic-linker,lib/ld-linux-x86-64.so.2 && ./bin/release/main",
             "problemMatcher": [
                 "$gcc"
             ],
