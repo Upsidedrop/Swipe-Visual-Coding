@@ -11,6 +11,7 @@
 #include "TextBox.hpp"
 #include "Gap.hpp"
 #include "Resizable.hpp"
+#include "DividedEntity.hpp"
 
 using std::map;
 using std::unordered_set;
@@ -68,20 +69,20 @@ class Block : public Entity{
             child-> setPos(p_pos + Vector2f(0, 12 * scale.y));
         }
         
-        top -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, p_pos.y));
-        topRight -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * top->getScale().x, p_pos.y));
+        parts.top -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, p_pos.y));
+        parts.topRight -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * parts.top->getScale().x, p_pos.y));
         
         Vector2f topMargin(0, 2 * scale.y);
 
-        left -> setPos(p_pos + topMargin);
-        center -> setPos(top -> getPos() + topMargin);
-        right -> setPos(topRight -> getPos() + topMargin);
+        parts.left -> setPos(p_pos + topMargin);
+        parts.center -> setPos(parts.top -> getPos() + topMargin);
+        parts.right -> setPos(parts.topRight -> getPos() + topMargin);
 
         topMargin.y = 12 * scale.y;
 
-        bottomLeft -> setPos(p_pos + topMargin);
-        bottom -> setPos(top -> getPos() + topMargin);
-        bottomRight -> setPos(topRight -> getPos() + topMargin);
+        parts.bottomLeft -> setPos(p_pos + topMargin);
+        parts.bottom -> setPos(parts.top -> getPos() + topMargin);
+        parts.bottomRight -> setPos(parts.topRight -> getPos() + topMargin);
 
         text.getVisual() -> setPos(p_pos + textOffset);
 
@@ -103,16 +104,16 @@ class Block : public Entity{
             pair.second -> SetLayer(p_layer + 1);
         }
 
-        top ->SetLayer(p_layer);
-        topRight -> SetLayer(p_layer);
+        parts.top ->SetLayer(p_layer);
+        parts.topRight -> SetLayer(p_layer);
 
-        left -> SetLayer(p_layer);
-        center -> SetLayer(p_layer);
-        right -> SetLayer(p_layer);
+        parts.left -> SetLayer(p_layer);
+        parts.center -> SetLayer(p_layer);
+        parts.right -> SetLayer(p_layer);
 
-        bottomLeft -> SetLayer(p_layer);
-        bottom -> SetLayer(p_layer);
-        bottomRight ->SetLayer(p_layer);
+        parts.bottomLeft -> SetLayer(p_layer);
+        parts.bottom -> SetLayer(p_layer);
+        parts.bottomRight ->SetLayer(p_layer);
 
         layers.find(layer) -> second.erase(this);
 
@@ -130,15 +131,14 @@ class Block : public Entity{
             currentFrame, text, scale,
             textOffset, parameters,
             parameterOffsets,
-            pos, top, topRight, center,
-            right, bottom, bottomRight
+            pos, parts
         );
         
         SDL_FRect mainColFrame;
         mainColFrame.x = 0;
         mainColFrame.y = 0;
-        mainColFrame.w = (topRight->getPos().x - pos.x) / scale.x;
-        mainColFrame.h = (bottomLeft->getPos().y - pos.y) / scale.y;
+        mainColFrame.w = (parts.topRight->getPos().x - pos.x) / scale.x;
+        mainColFrame.h = (parts.bottomLeft->getPos().y - pos.y) / scale.y;
 
         mainCollider -> SetFrame(mainColFrame);
     }
@@ -153,14 +153,7 @@ class Block : public Entity{
     BlockType type;
     bool contained = false;
     TextBox text;
-    Entity* top;
-    Entity* topRight;
-    Entity* center;
-    Entity* left;
-    Entity* right;
-    Entity* bottom;
-    Entity* bottomLeft;
-    Entity* bottomRight;
+    DividedEntity parts;
     Vector2f textOffset;
     std::vector<std::pair<TextBox*, Gap*>> parameters;
     std::vector<std::pair<Vector2f, Vector2f>> parameterOffsets;

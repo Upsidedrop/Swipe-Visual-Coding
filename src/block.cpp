@@ -77,14 +77,14 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
         bottomRightSize.h = 2;
 
         BlockResize::InitBlockScale(
-            p_frame, topSize, topRightSize, leftSize, centerSize, rightSize, bottomLeftSize, bottomSize, bottomRightSize, left,center,right, bottomLeft,bottom,bottomRight, p_scale, text, p_textOffset, parameters, p_pos, parameterOffsets, p_tex, p_parameters, this, top, topRight
+            p_frame, topSize, topRightSize, leftSize, centerSize, rightSize, bottomLeftSize, bottomSize, bottomRightSize, parts, p_scale, text, p_textOffset, parameters, p_pos, parameterOffsets, p_tex, p_parameters, this
         );
 
         SDL_FRect mainColFrame;
         mainColFrame.x = 0;
         mainColFrame.y = 0;
-        mainColFrame.w = (topRight->getPos().x - pos.x) / p_scale;
-        mainColFrame.h = (bottomLeft->getPos().y - pos.y) / p_scale;
+        mainColFrame.w = (parts.topRight->getPos().x - pos.x) / p_scale;
+        mainColFrame.h = (parts.bottomLeft->getPos().y - pos.y) / p_scale;
 
         mainCollider = new Collider(mainColFrame, this, 2);
 
@@ -101,18 +101,10 @@ Block::~Block()
     delete mainCollider;
     delete topCollider;
     delete bottomCollider;
-    delete top;
-    delete topRight;
-    delete left;
-    delete center;
-    delete right;
-    delete bottomLeft;
-    delete bottom;
-    delete bottomRight;
 }
 float Block::GetBottom()
 {
-    return bottom->getPos().y + (bottom->getCurrentFrame().h - 1) * scale.y;
+    return parts.bottom->getPos().y + (parts.bottom->getCurrentFrame().h - 1) * scale.y;
 }
 void Block::ToggleIsContained(bool p_contained)
 {
@@ -143,7 +135,7 @@ void Block::setChild(Block *p_child)
             std::cout << childIt->getChild() << "\n";
             childIt = childIt->getChild();
         }
-        loopIt->getParent()->setBodySize((childIt->GetBottom() - loopIt->getParent()->getPos().y) / scale.y - (/*total head height*/ (bottom->getPos().y - pos.y) / scale.y + bottom->getCurrentFrame().h));
+        loopIt->getParent()->setBodySize((childIt->GetBottom() - loopIt->getParent()->getPos().y) / scale.y - (/*total head height*/ (parts.bottom->getPos().y - pos.y) / scale.y + parts.bottom->getCurrentFrame().h));
     }
 }
 void Block::RemoveChild()

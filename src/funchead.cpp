@@ -61,9 +61,9 @@ FuncHead::FuncHead(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType 
     BlockResize::InitBlockScale(
         p_frame, topSize, topRightSize, leftSize, centerSize,
         rightSize, bottomLeftSize, bottomSize, bottomRightSize,
-        left, center, right, bottomLeft, bottom, bottomRight, p_scale,
+        parts, p_scale,
         text, p_textOffset, parameters, p_pos, parameterOffsets, p_tex,
-        p_parameters, this, top, topRight 
+        p_parameters, this
     );
     for(auto pair : parameters){
         pair.first -> getVisual() -> SetLayer(layer + 1);
@@ -73,8 +73,8 @@ FuncHead::FuncHead(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType 
     SDL_FRect mainColFrame;
     mainColFrame.x = 0;
     mainColFrame.y = 0;
-    mainColFrame.w = (topRight->getPos().x - pos.x) / p_scale;
-    mainColFrame.h = (bottomLeft->getPos().y - pos.y) / p_scale;
+    mainColFrame.w = (parts.topRight->getPos().x - pos.x) / p_scale;
+    mainColFrame.h = (parts.bottomLeft->getPos().y - pos.y) / p_scale;
 
     mainCollider = new Collider(mainColFrame, this, 2);
 }

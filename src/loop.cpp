@@ -5,7 +5,7 @@ const int DEFAULT_LOOP_SIZE = 24;
 Loop::Loop(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType p_type, SDL_Rect p_frame, const char* p_text, Vector2f textOffset, std::vector<const char*> p_parameters)
 :Block(p_pos, p_tex, p_frame, p_type, p_scale, p_text, textOffset, p_parameters), innerChild(nullptr), bodySize(10) {
 
-    float mainHeight = (bottomLeft->getPos().y - pos.y) / p_scale + bottomLeft -> getCurrentFrame().h;;
+    float mainHeight = (parts.bottomLeft->getPos().y - pos.y) / p_scale + parts.bottomLeft -> getCurrentFrame().h;;
 
     SDL_Rect bodyFrame;
     bodyFrame.x = 0;
@@ -36,10 +36,10 @@ Loop::Loop(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType p_type, 
 
     float a = (footFrame.x + footFrame.w) * p_scale;
 
-    float adjustedMiddleWidth = top -> getScale().x / footMiddleFrame.w * top -> getCurrentFrame().w;
+    float adjustedMiddleWidth = parts.top -> getScale().x / footMiddleFrame.w * parts.top -> getCurrentFrame().w;
 
     footMiddle = new Entity(Vector2f(a, DEFAULT_LOOP_SIZE * p_scale) + p_pos, p_tex, footMiddleFrame, Vector2f(adjustedMiddleWidth, p_scale));
-    footEnd = new Entity(Vector2f(topRight -> getPos().x, DEFAULT_LOOP_SIZE * p_scale + p_pos.y), p_tex, footEndFrame, Vector2f(p_scale, p_scale));
+    footEnd = new Entity(Vector2f(parts.topRight -> getPos().x, DEFAULT_LOOP_SIZE * p_scale + p_pos.y), p_tex, footEndFrame, Vector2f(p_scale, p_scale));
 
     SDL_FRect bottomColFrame;
     bottomColFrame.x = 0;

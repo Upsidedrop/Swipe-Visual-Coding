@@ -18,25 +18,25 @@ class FuncHead : public Block{
         //currentFrame > -2 < is to account for dip at bottom of block and top of other block
         if(child != nullptr)
         {
-            SDL_Rect foo = bottomLeft->getCurrentFrame();
+            SDL_Rect foo = parts.bottomLeft->getCurrentFrame();
             child-> setPos(p_pos + Vector2f(0, (foo.y + foo.h - 2) * scale.y));
         }
         text.getVisual() -> setPos(p_pos + textOffset); 
         
-        top -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, p_pos.y));
-        topRight -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + top -> getCurrentFrame().w * top->getScale().x, p_pos.y));
+        parts.top -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, p_pos.y));
+        parts.topRight -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + parts.top -> getCurrentFrame().w * parts.top->getScale().x, p_pos.y));
         
-        Vector2f topMargin(0, left->getCurrentFrame().y * scale.y);
+        Vector2f topMargin(0, parts.left->getCurrentFrame().y * scale.y);
 
-        left -> setPos(p_pos + topMargin);
-        center -> setPos(top -> getPos() + topMargin);
-        right -> setPos(topRight -> getPos() + topMargin);
+        parts.left -> setPos(p_pos + topMargin);
+        parts.center -> setPos(parts.top -> getPos() + topMargin);
+        parts.right -> setPos(parts.topRight -> getPos() + topMargin);
 
-        topMargin.y = bottomLeft->getCurrentFrame().y * scale.y;
+        topMargin.y = parts.bottomLeft->getCurrentFrame().y * scale.y;
 
-        bottomLeft -> setPos(p_pos + topMargin);
-        bottom -> setPos(top -> getPos() + topMargin);
-        bottomRight -> setPos(topRight -> getPos() + topMargin);
+        parts.bottomLeft -> setPos(p_pos + topMargin);
+        parts.bottom -> setPos(parts.top -> getPos() + topMargin);
+        parts.bottomRight -> setPos(parts.topRight -> getPos() + topMargin);
     
         for(size_t i = 0; i < parameters.size(); ++i){
             parameters[i].first -> getVisual() -> setPos(parameterOffsets[i].first + p_pos);

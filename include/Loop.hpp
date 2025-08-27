@@ -16,7 +16,7 @@ class Loop : public Block{
     }
     void setPos(Vector2f p_pos) override
     {
-        float mainHeight = (bottomLeft->getPos().y - pos.y) / scale.y + bottomLeft -> getCurrentFrame().h;
+        float mainHeight = (parts.bottomLeft->getPos().y - pos.y) / scale.y + parts.bottomLeft -> getCurrentFrame().h;
         
         pos = p_pos;
 
@@ -25,23 +25,23 @@ class Loop : public Block{
         body -> setPos(p_pos + Vector2f(0, (mainHeight- 1) * scale.y));
         foot -> setPos(Vector2f(p_pos.x, p_pos.y + scale.y * (bodySize + mainHeight - 1)));
 
-        top -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, p_pos.y));
-        topRight -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * top->getScale().x, p_pos.y));
+        parts.top -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, p_pos.y));
+        parts.topRight -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * parts.top->getScale().x, p_pos.y));
         
         Vector2f topMargin(0, 2 * scale.y);
 
-        left -> setPos(p_pos + topMargin);
-        center -> setPos(top -> getPos() + topMargin);
-        right -> setPos(topRight -> getPos() + topMargin);
+        parts.left -> setPos(p_pos + topMargin);
+        parts.center -> setPos(parts.top -> getPos() + topMargin);
+        parts.right -> setPos(parts.topRight -> getPos() + topMargin);
 
         topMargin.y = 12 * scale.y;
 
-        bottomLeft -> setPos(p_pos + topMargin);
-        bottom -> setPos(top -> getPos() + topMargin);
-        bottomRight -> setPos(topRight -> getPos() + topMargin);
+        parts.bottomLeft -> setPos(p_pos + topMargin);
+        parts.bottom -> setPos(parts.top -> getPos() + topMargin);
+        parts.bottomRight -> setPos(parts.topRight -> getPos() + topMargin);
 
         footMiddle -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, foot->getPos().y));
-        footEnd -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * top->getScale().x, foot->getPos().y));
+        footEnd -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * parts.top->getScale().x, foot->getPos().y));
 
         if(child != nullptr)
         {
@@ -75,16 +75,16 @@ class Loop : public Block{
             pair.second -> SetLayer(p_layer + 1);
         }
 
-        top ->SetLayer(p_layer);
-        topRight -> SetLayer(p_layer);
+        parts.top ->SetLayer(p_layer);
+        parts.topRight -> SetLayer(p_layer);
 
-        left -> SetLayer(p_layer);
-        center -> SetLayer(p_layer);
-        right -> SetLayer(p_layer);
+        parts.left -> SetLayer(p_layer);
+        parts.center -> SetLayer(p_layer);
+        parts.right -> SetLayer(p_layer);
 
-        bottomLeft -> SetLayer(p_layer);
-        bottom -> SetLayer(p_layer);
-        bottomRight ->SetLayer(p_layer);
+        parts.bottomLeft -> SetLayer(p_layer);
+        parts.bottom -> SetLayer(p_layer);
+        parts.bottomRight ->SetLayer(p_layer);
 
         body -> SetLayer(p_layer);
         foot -> SetLayer(p_layer);
@@ -123,7 +123,7 @@ class Loop : public Block{
                     std::cout<< childIt -> getChild() << "\n";
                     childIt = childIt -> getChild();
                 }
-                loopIt -> getParent() -> setBodySize((childIt -> GetBottom() - loopIt -> getParent() -> getPos().y) / scale.y - (/*total head height*/ (bottom->getPos().y - pos.y) / scale.y + bottom->getCurrentFrame().h));
+                loopIt -> getParent() -> setBodySize((childIt -> GetBottom() - loopIt -> getParent() -> getPos().y) / scale.y - (/*total head height*/ (parts.bottom->getPos().y - pos.y) / scale.y + parts.bottom->getCurrentFrame().h));
             }
         }
         else
@@ -147,7 +147,7 @@ class Loop : public Block{
             while(childIt -> getChild() != nullptr){
                 childIt = childIt -> getChild();
             }
-            setBodySize((childIt -> GetBottom() - pos.y) / scale.y - (/*total head height*/ (bottom->getPos().y - pos.y) / scale.y + bottom->getCurrentFrame().h));
+            setBodySize((childIt -> GetBottom() - pos.y) / scale.y - (/*total head height*/ (parts.bottom->getPos().y - pos.y) / scale.y + parts.bottom->getCurrentFrame().h));
             innerChild -> ToggleIsContained(true);
         }
     }
@@ -155,7 +155,7 @@ class Loop : public Block{
         bodySize = p_size;
 
         body -> setScale(Vector2f(scale.x, scale.y * p_size));
-        foot -> setPos(Vector2f(pos.x, pos.y + scale.y * (bodySize + (/*total head height*/ (bottom->getPos().y - pos.y) / scale.y + bottom->getCurrentFrame().h) - 1)));
+        foot -> setPos(Vector2f(pos.x, pos.y + scale.y * (bodySize + (/*total head height*/ (parts.bottom->getPos().y - pos.y) / scale.y + parts.bottom->getCurrentFrame().h) - 1)));
 
         footMiddle -> setPos(Vector2f(footMiddle -> getPos().x, foot -> getPos().y));
         footEnd -> setPos(Vector2f(footEnd -> getPos().x, foot -> getPos().y));
@@ -187,7 +187,7 @@ class Loop : public Block{
                 childIt = childIt -> getChild();
             }
 
-            it -> getParent() -> setBodySize((childIt -> GetBottom() - it -> getParent() -> getPos().y) / scale.y - (/*total head height*/ (bottom->getPos().y - pos.y) / scale.y + bottom->getCurrentFrame().h));
+            it -> getParent() -> setBodySize((childIt -> GetBottom() - it -> getParent() -> getPos().y) / scale.y - (/*total head height*/ (parts.bottom->getPos().y - pos.y) / scale.y + parts.bottom->getCurrentFrame().h));
         }
     }
     void RemoveChild(Block* p_child) override{
@@ -200,13 +200,13 @@ class Loop : public Block{
                         std::cout << "something wicked this way comes" << "\n";
                     }
                 }
-                it -> getParent() -> setBodySize((GetBottom() - it -> getParent() -> getPos().y) / scale.y - (/*total head height*/ (bottom->getPos().y - pos.y) / scale.y + bottom->getCurrentFrame().h));
+                it -> getParent() -> setBodySize((GetBottom() - it -> getParent() -> getPos().y) / scale.y - (/*total head height*/ (parts.bottom->getPos().y - pos.y) / scale.y + parts.bottom->getCurrentFrame().h));
             }
 
             child = nullptr;
         }
         else{
-            setBodySize((/*total head height*/ (bottom->getPos().y - pos.y) / scale.y + bottom->getCurrentFrame().h) - 3);
+            setBodySize((/*total head height*/ (parts.bottom->getPos().y - pos.y) / scale.y + parts.bottom->getCurrentFrame().h) - 3);
             innerChild = nullptr;
         }
         p_child -> ToggleIsContained(false);
@@ -216,21 +216,20 @@ class Loop : public Block{
             currentFrame, text, scale,
             textOffset, parameters,
             parameterOffsets,
-            pos, top, topRight, center,
-            right, bottom, bottomRight
+            pos, parts
         );
         
         SDL_FRect mainColFrame;
         mainColFrame.x = 0;
         mainColFrame.y = 0;
-        mainColFrame.w = (topRight->getPos().x - pos.x) / scale.x;
-        mainColFrame.h = (bottomLeft->getPos().y - pos.y) / scale.y;
+        mainColFrame.w = (parts.topRight->getPos().x - pos.x) / scale.x;
+        mainColFrame.h = (parts.bottomLeft->getPos().y - pos.y) / scale.y;
 
         mainCollider -> SetFrame(mainColFrame);
 
-        float adjustedMiddleWidth = top -> getScale().x / footMiddle -> getCurrentFrame().w * top -> getCurrentFrame().w;
+        float adjustedMiddleWidth = parts.top -> getScale().x / footMiddle -> getCurrentFrame().w * parts.top -> getCurrentFrame().w;
         footMiddle -> setScale(Vector2f(adjustedMiddleWidth, scale.y));
-        footEnd -> setPos(Vector2f(topRight -> getPos().x, footEnd -> getPos().y));
+        footEnd -> setPos(Vector2f(parts.topRight -> getPos().x, footEnd -> getPos().y));
     }
     private:
     Entity* body;
