@@ -3,18 +3,13 @@
 #include "DividedEntity.hpp"
 
 class HeightChanger{
-    HeightChanger(DividedEntity& p_parts): parts(p_parts){};
+    HeightChanger(DividedEntity& p_parts, int p_baseHeight, HeightChanger& p_parent, int p_minHeight)
+    :parts(p_parts), baseHeight(p_baseHeight), parent(p_parent), minHeight(p_minHeight){};
+
     DividedEntity& parts;
-    void UpdateHeight(int height){
-        height -= parts.top -> getCurrentFrame().h * parts.top -> getScale().y;
-        height -= parts.bottom -> getCurrentFrame().h * parts.bottom -> getScale().y;
+    int baseHeight, minHeight;
+    HeightChanger& parent;
 
-        parts.left -> setScale(Vector2f(parts.left -> getScale().x, height / parts.left -> getCurrentFrame().h));
-        parts.center -> setScale(Vector2f(parts.center -> getScale().x, parts.left -> getScale().y));
-        parts.right -> setScale(parts.left -> getScale());
-
-        parts.bottomLeft -> setPos(Vector2f(parts.bottomLeft -> getPos().x, parts.left -> getPos().y + height));
-        parts.bottom -> setPos(Vector2f(parts.bottom->getPos().x, parts.bottomLeft -> getPos().y));
-        parts.bottomRight -> setPos(Vector2f(parts.bottomRight->getPos().x, parts.bottomLeft -> getPos().y));
-    }
+    public:
+    void UpdateHeight(int height);
 };
