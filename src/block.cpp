@@ -3,7 +3,7 @@
 LinkedList<Block> Block::blocks;
 
 Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_type, float p_scale, const char *p_text, Vector2f p_textOffset, std::vector<const char*> p_parameters)
-    : Entity(p_pos, p_tex, p_frame, Vector2f(p_scale, p_scale)), topCollider(nullptr), child(nullptr), parent(nullptr), type(p_type), text(p_text, p_pos + p_textOffset, 0.6), textOffset(p_textOffset)
+    : Entity(p_pos, p_tex, p_frame, Vector2f(p_scale, p_scale)), topCollider(nullptr), child(nullptr), parent(nullptr), type(p_type), text(p_text, p_pos + p_textOffset, 0.6), textOffset(p_textOffset), heightChanger(parts, 7, nullptr, 14)
 {
     if (p_type != BlockType::DEFAULTHEAD)
     {
@@ -28,56 +28,14 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
     {
         blocks.Add(this);
 
-        SDL_Rect topSize;
-        topSize.x = p_frame.w;
-        topSize.y = 0;
-        topSize.w = 63 - p_frame.w;
-        topSize.h = p_frame.h;
-
-        SDL_Rect topRightSize;
-        topRightSize.x = 64;
-        topRightSize.y = 0;
-        topRightSize.w = 1;
-        topRightSize.h = p_frame.h;
-
-        SDL_Rect leftSize;
-        leftSize.x = 0;
-        leftSize.y = 2;
-        leftSize.w = p_frame.w;
-        leftSize.h = 10;
-
         SDL_Rect centerSize;
-        centerSize.x = p_frame.w;
-        centerSize.y = 2;
-        centerSize.w = 63 - p_frame.w;
-        centerSize.h = 10;
-
-        SDL_Rect rightSize;
-        rightSize.x = 64;
-        rightSize.y = 2;
-        rightSize.w = 1;
-        rightSize.h = 10;
-
-        SDL_Rect bottomLeftSize;
-        bottomLeftSize.x = 0;
-        bottomLeftSize.y = 12;
-        bottomLeftSize.w = p_frame.w;
-        bottomLeftSize.h = 2;
-
-        SDL_Rect bottomSize;
-        bottomSize.x = p_frame.w;
-        bottomSize.y = 12;
-        bottomSize.w = 63 - p_frame.w;
-        bottomSize.h = 2;
-
-        SDL_Rect bottomRightSize;
-        bottomRightSize.x = 64;
-        bottomRightSize.y = 12;
-        bottomRightSize.w = 1;
-        bottomRightSize.h = 2;
+        centerSize.x = 14;
+        centerSize.y = 4;
+        centerSize.w = 48;
+        centerSize.h = 6;
 
         BlockResize::InitBlockScale(
-            p_frame, topSize, topRightSize, leftSize, centerSize, rightSize, bottomLeftSize, bottomSize, bottomRightSize, parts, p_scale, text, p_textOffset, parameters, p_pos, parameterOffsets, p_tex, p_parameters, this
+            centerSize, parts, p_scale, text, p_textOffset, parameters, p_pos, parameterOffsets, p_tex, p_parameters, heightChanger
         );
 
         SDL_FRect mainColFrame;

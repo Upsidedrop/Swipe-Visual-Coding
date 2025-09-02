@@ -12,6 +12,7 @@
 #include "Gap.hpp"
 #include "Resizable.hpp"
 #include "DividedEntity.hpp"
+#include "HeightChanger.hpp"
 
 using std::map;
 using std::unordered_set;
@@ -157,4 +158,5 @@ class Block : public Entity{
     Vector2f textOffset;
     std::vector<std::pair<TextBox*, Gap*>> parameters;
     std::vector<std::pair<Vector2f, Vector2f>> parameterOffsets;
+    HeightChanger heightChanger;
 };

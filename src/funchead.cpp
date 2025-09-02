@@ -10,60 +10,14 @@ FuncHead::FuncHead(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType 
 
     functions[p_name] = this;
 
-    SDL_Rect topSize;
-    topSize.x = p_frame.w;
-    topSize.y = 0;
-    topSize.w = 51 - p_frame.w;
-    topSize.h = p_frame.h;
-
-    SDL_Rect topRightSize;
-    topRightSize.x = topSize.x + topSize.w;
-    topRightSize.y = 0;
-    topRightSize.w = 65 - topRightSize.x;
-    topRightSize.h = p_frame.h;
-
-    SDL_Rect leftSize;
-    leftSize.x = 0;
-    leftSize.y = p_frame.h;
-    leftSize.w = p_frame.w;
-    leftSize.h = 14 - p_frame.h;
-
     SDL_Rect centerSize;
-    centerSize.x = topSize.x;
-    centerSize.y = leftSize.y;
-    centerSize.w = topSize.w;
-    centerSize.h = leftSize.h;
-
-    SDL_Rect rightSize;
-    rightSize.x = topRightSize.x;
-    rightSize.y = leftSize.y;
-    rightSize.w = topRightSize.w;
-    rightSize.h = leftSize.h;
-
-    SDL_Rect bottomLeftSize;
-    bottomLeftSize.x = 0;
-    bottomLeftSize.y = leftSize.y + leftSize.h;
-    bottomLeftSize.w = p_frame.w;
-    bottomLeftSize.h = 17 - bottomLeftSize.y;
-
-    SDL_Rect bottomSize;
-    bottomSize.x = topSize.x;
-    bottomSize.y = bottomLeftSize.y;
-    bottomSize.w = topSize.w;
-    bottomSize.h = bottomLeftSize.h;
-
-    SDL_Rect bottomRightSize;
-    bottomRightSize.x = topRightSize.x;
-    bottomRightSize.y = bottomLeftSize.y;
-    bottomRightSize.w = topRightSize.w;
-    bottomRightSize.h = bottomLeftSize.h;
+    centerSize.x = 27;
+    centerSize.y = 4;
+    centerSize.w = 25;
+    centerSize.h = 11;
 
     BlockResize::InitBlockScale(
-        p_frame, topSize, topRightSize, leftSize, centerSize,
-        rightSize, bottomLeftSize, bottomSize, bottomRightSize,
-        parts, p_scale,
-        text, p_textOffset, parameters, p_pos, parameterOffsets, p_tex,
-        p_parameters, this
+        centerSize, parts, p_scale, text, p_textOffset, parameters, p_pos, parameterOffsets, p_tex, p_parameters, heightChanger
     );
     for(auto pair : parameters){
         pair.first -> getVisual() -> SetLayer(layer + 1);

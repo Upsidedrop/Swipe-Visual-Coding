@@ -73,8 +73,8 @@ int main(int agrv, char* args[]) {
     SDL_Rect blockSize;
     blockSize.x = 0;
     blockSize.y = 0;
-    blockSize.w = 13;
-    blockSize.h = 2;
+    blockSize.w = 14;
+    blockSize.h = 4;
 
     SDL_Rect loopSize;
     loopSize.x = 0;
@@ -85,8 +85,8 @@ int main(int agrv, char* args[]) {
     SDL_Rect headSize;
     headSize.x = 0;
     headSize.y = 0;
-    headSize.w = 25;
-    headSize.h = 5;
+    headSize.w = 27;
+    headSize.h = 4;
 
     SDL_Rect buttonSize;
     buttonSize.x = 0;
@@ -110,7 +110,7 @@ int main(int agrv, char* args[]) {
     new FuncHead(Vector2f(600,300), 4, headTexture, BlockType::DEFAULTHEAD, headSize, "main", Vector2f(10, 20), {});
     Button button(Vector2f(600,600),buttonTexture,buttonSize,Compilation::Compile,buttonFloatSize,Vector2f(4,4));
 
-    Variable var(Vector2f(400, 600), varTexture, "Sensor");
+    Variable var(Vector2f(400, 600), varTexture, "Sensor", Vector2f(3,3));
 
     Variable* heldVar = nullptr;
     Block* heldObject = nullptr;

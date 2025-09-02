@@ -2,32 +2,13 @@
 #include "Utils.hpp"
 #include "Resizable.hpp"
 
-Variable::Variable(Vector2f p_pos, SDL_Texture* p_tex, const char *p_text, float p_scale, int p_layer)
-:Entity(p_pos, p_tex, utils::InitRect(0,0,3,7), Vector2f(p_scale, p_scale), p_layer), parent(nullptr), text(p_text, Vector2f(p_pos.x + currentFrame.w * p_scale, p_pos.y), 0.6){
-
-    SDL_Rect midTexSize = utils::InitRect(3,0,4,7);
-    SDL_Rect endTexSize = utils::InitRect(7,0,3,7);
-
-    //BlockResize::InitBlockScale(currentFrame, midTexSize, endTexSize, p_scale, text, Vector2f(0,0), /*etc*/);
-
-    float a = (currentFrame.x + currentFrame.w) * p_scale;
-    float b = text.getDimensions().x + currentFrame.w * p_scale;
-
-    middle = new Entity(Vector2f(a + p_pos.x, p_pos.y), p_tex, midTexSize, Vector2f((b - a) / midTexSize.w, p_scale));
-    end = new Entity(Vector2f(((a < b) ? b : a) + p_pos.x, p_pos.y), p_tex, endTexSize, Vector2f(p_scale, p_scale));
-
-    SDL_FRect floatBodyFrame;
-    floatBodyFrame.x = 0;
-    floatBodyFrame.y = 0;
-    floatBodyFrame.w = ((a < b) ? b : a) / p_scale + endTexSize.w;
-    floatBodyFrame.h = currentFrame.h;
-
-    collision = new Collider(floatBodyFrame, this, 4);
+Variable::Variable(Vector2f p_pos, SDL_Texture* p_tex, const char *p_text, Vector2f p_textOffset, float p_scale, int p_layer, std::vector<const char*> p_parameters)
+:Entity(p_pos, p_tex, utils::InitRect(0,0,3,3), Vector2f(p_scale, p_scale), p_layer), parent(nullptr), textOffset(p_textOffset), text(p_text, p_pos + p_textOffset, 0.6), heightChanger(parts, 7, nullptr, 7){
+    SDL_Rect centerTexSize = utils::InitRect(3,3,4,1);
+    BlockResize::InitBlockScale(centerTexSize, parts, p_scale, text, p_textOffset, parameters, p_pos, parameterOffsets, p_tex, p_parameters, heightChanger);
 }
 Variable::~Variable(){
     delete collision;
-    delete middle;
-    delete end;
 }
 Collider* Variable::GetCollider(){
     return collision;

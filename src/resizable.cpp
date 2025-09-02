@@ -1,16 +1,29 @@
 #include "Resizable.hpp"
+#include "Utils.hpp"
 
 namespace BlockResize{
-    void InitBlockScale(SDL_Rect& p_frame, SDL_Rect& p_topFrame, SDL_Rect& p_topRightFrame, SDL_Rect& p_leftFrame, 
-                        SDL_Rect& p_centerFrame, SDL_Rect& p_rightFrame, SDL_Rect& p_bottomLeftFrame,
-                        SDL_Rect& p_bottomFrame, SDL_Rect& p_bottomRightFrame, DividedEntity& p_parts, float p_scale, 
+    void InitBlockScale(
+                        SDL_Rect& p_centerFrame, DividedEntity& p_parts, float p_scale, 
                         TextBox& p_text, Vector2f& p_textOffset, std::vector<std::pair<TextBox*, Gap*>>& p_outParameters, 
                         Vector2f& p_pos, std::vector<std::pair<Vector2f, Vector2f>>& p_parameterOffsets, SDL_Texture* p_tex,
-                        std::vector<const char*> p_inParameters, Block* p_identity)
+                        std::vector<const char*> p_inParameters, HeightChanger& p_heightChanger)
     {
-        float a = p_frame.w * p_scale;
+        SDL_Point totalTexSize;
+        SDL_QueryTexture(p_tex, NULL, NULL, &totalTexSize.x, &totalTexSize.y);
+
+        SDL_Rect centerFrame = p_centerFrame;
+
+        SDL_Rect topFrame = utils::InitRect(centerFrame.x, 0, centerFrame.w, centerFrame.y);
+        SDL_Rect leftFrame = utils::InitRect(0, centerFrame.y, centerFrame.x, centerFrame.h);
+        SDL_Rect rightFrame = utils::InitRect(centerFrame.x + centerFrame.w, centerFrame.y, totalTexSize.x - (centerFrame.x + centerFrame.w), centerFrame.h);
+        SDL_Rect bottomFrame = utils::InitRect(centerFrame.x, centerFrame.y + centerFrame.h, centerFrame.w, totalTexSize.y - (centerFrame.y + centerFrame.h));
+        SDL_Rect bottomRightFrame = utils::InitRect(rightFrame.x, bottomFrame.y, rightFrame.w, bottomFrame.h);
+        SDL_Rect topRightFrame = utils::InitRect(rightFrame.x, topFrame.y, rightFrame.w, topFrame.h);
+        SDL_Rect bottomLeftFrame = utils::InitRect(leftFrame.x, bottomFrame.y, leftFrame.w, bottomFrame.h);
+
+        float a = centerFrame.x * p_scale;
         float b = p_text.getDimensions().x + p_textOffset.x * 2;
-        float c = p_topRightFrame.w * p_scale;
+        float c = topRightFrame.w * p_scale;
 
         for(size_t i = 0; i < p_inParameters.size(); ++i){
             p_outParameters.push_back(std::make_pair(nullptr, nullptr));
@@ -22,32 +35,32 @@ namespace BlockResize{
             p_parameterOffsets[i].first = Vector2f(b, p_textOffset.y);
             b += p_outParameters[i].first -> getDimensions().x + p_textOffset.x;
             
-            p_outParameters[i].second = new Gap(Vector2f(b, p_textOffset.y) + p_pos, p_identity);
+            p_outParameters[i].second = new Gap(Vector2f(b, p_textOffset.y) + p_pos, p_heightChanger);
             //Saving offset for later so it doesnt need to be recalculated all the time
             p_parameterOffsets[i].second = Vector2f(b, p_textOffset.y);
             b += p_outParameters[i].second -> GetSize() * p_scale + p_textOffset.x;
         }
 
 
-        p_parts.top = new Entity(Vector2f(a + p_pos.x, p_pos.y), p_tex, p_topFrame,  (a < b - c) ? Vector2f((b - a - c) / p_topFrame.w, p_scale) : Vector2f(0, 0));
+        p_parts.top = new Entity(Vector2f(a + p_pos.x, p_pos.y), p_tex, topFrame,  (a < b - c) ? Vector2f((b - a - c) / topFrame.w, p_scale) : Vector2f(0, 0));
 
-        p_parts.topRight = new Entity(Vector2f(((a < b - c) ? b - c : a) + p_pos.x, p_pos.y), p_tex, p_topRightFrame, Vector2f(p_scale, p_scale));
+        p_parts.topRight = new Entity(Vector2f(((a < b - c) ? b - c : a) + p_pos.x, p_pos.y), p_tex, topRightFrame, Vector2f(p_scale, p_scale));
 
-        Vector2f topMargin(0, p_leftFrame.y * p_scale);
+        Vector2f topMargin(0, leftFrame.y * p_scale);
 
-        p_parts.left = new Entity(p_pos + topMargin, p_tex, p_leftFrame, Vector2f(p_scale, p_scale));
+        p_parts.left = new Entity(p_pos + topMargin, p_tex, leftFrame, Vector2f(p_scale, p_scale));
 
         p_parts.center = new Entity(p_parts.top -> getPos() + topMargin, p_tex, p_centerFrame, p_parts.top -> getScale());
 
-        p_parts.right = new Entity(p_parts.topRight -> getPos() + topMargin, p_tex, p_rightFrame, Vector2f(p_scale, p_scale));
+        p_parts.right = new Entity(p_parts.topRight -> getPos() + topMargin, p_tex, rightFrame, Vector2f(p_scale, p_scale));
 
-        topMargin.y = p_bottomLeftFrame.y * p_scale;
+        topMargin.y = bottomLeftFrame.y * p_scale;
 
-        p_parts.bottomLeft = new Entity(p_pos + topMargin, p_tex, p_bottomLeftFrame, Vector2f(p_scale, p_scale));
+        p_parts.bottomLeft = new Entity(p_pos + topMargin, p_tex, bottomLeftFrame, Vector2f(p_scale, p_scale));
 
-        p_parts.bottom = new Entity(p_parts.top -> getPos() + topMargin, p_tex, p_bottomFrame, p_parts.top -> getScale());
+        p_parts.bottom = new Entity(p_parts.top -> getPos() + topMargin, p_tex, bottomFrame, p_parts.top -> getScale());
 
-        p_parts.bottomRight = new Entity(p_parts.topRight -> getPos() + topMargin, p_tex, p_bottomRightFrame, Vector2f(p_scale, p_scale));
+        p_parts.bottomRight = new Entity(p_parts.topRight -> getPos() + topMargin, p_tex, bottomRightFrame, Vector2f(p_scale, p_scale));
     }
     void UpdateBlockScale(
         SDL_Rect& p_currentFrame, TextBox& p_text, Vector2f& p_scale,
