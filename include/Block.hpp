@@ -70,20 +70,7 @@ class Block : public Entity{
             child-> setPos(p_pos + Vector2f(0, 12 * scale.y));
         }
         
-        parts.top -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, p_pos.y));
-        parts.topRight -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * parts.top->getScale().x, p_pos.y));
-        
-        Vector2f topMargin(0, 2 * scale.y);
-
-        parts.left -> setPos(p_pos + topMargin);
-        parts.center -> setPos(parts.top -> getPos() + topMargin);
-        parts.right -> setPos(parts.topRight -> getPos() + topMargin);
-
-        topMargin.y = 12 * scale.y;
-
-        parts.bottomLeft -> setPos(p_pos + topMargin);
-        parts.bottom -> setPos(parts.top -> getPos() + topMargin);
-        parts.bottomRight -> setPos(parts.topRight -> getPos() + topMargin);
+        parts.SetPos(p_pos);
 
         text.getVisual() -> setPos(p_pos + textOffset);
 

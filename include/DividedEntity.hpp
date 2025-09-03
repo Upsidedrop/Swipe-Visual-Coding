@@ -1,8 +1,10 @@
 #pragma once
 
 #include "Entity.hpp"
+#include "Math.hpp"
 
-struct DividedEntity{
+class DividedEntity{
+    public:
     Entity* top;
     Entity* topRight;
     Entity* left;
@@ -21,4 +23,5 @@ struct DividedEntity{
         delete bottom;
         delete bottomRight;
     }
+    void SetPos(Vector2f& p_pos);
 };
