@@ -5,6 +5,7 @@
 
 class DividedEntity{
     public:
+    DividedEntity(Vector2f p_limits): limits(p_limits){}
     Entity* top;
     Entity* topRight;
     Entity* left;
@@ -24,4 +25,5 @@ class DividedEntity{
         delete bottomRight;
     }
     void SetPos(Vector2f& p_pos);
+    Vector2f limits;
 };

@@ -76,12 +76,6 @@ int main(int agrv, char* args[]) {
     blockSize.w = 14;
     blockSize.h = 4;
 
-    SDL_Rect loopSize;
-    loopSize.x = 0;
-    loopSize.y = 0;
-    loopSize.w = 19;
-    loopSize.h = 2;
-
     SDL_Rect headSize;
     headSize.x = 0;
     headSize.y = 0;
@@ -105,8 +99,8 @@ int main(int agrv, char* args[]) {
     new Block(Vector2f(0,140), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: \"Hello World!\"", Vector2f(10, 11));
     new Block(Vector2f(0,210), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: \"Hello World!\"", Vector2f(10, 11));
 
-    new Loop(Vector2f(300,300), 4, loopTexture, BlockType::DEFAULTLOOP, loopSize, "repeat", Vector2f(10, 9), {" "});
-    new Loop(Vector2f(300,300), 4, loopTexture, BlockType::DEFAULTLOOP, loopSize, "repeat", Vector2f(10, 9), {" "});
+    new Loop(Vector2f(300,300), 4, loopTexture, BlockType::DEFAULTLOOP, blockSize, "repeat", Vector2f(10, 9), {" "});
+    new Loop(Vector2f(300,300), 4, loopTexture, BlockType::DEFAULTLOOP, blockSize, "repeat", Vector2f(10, 9), {" "});
     new FuncHead(Vector2f(600,300), 4, headTexture, BlockType::DEFAULTHEAD, headSize, "main", Vector2f(10, 20), {});
     Button button(Vector2f(600,600),buttonTexture,buttonSize,Compilation::Compile,buttonFloatSize,Vector2f(4,4));
 

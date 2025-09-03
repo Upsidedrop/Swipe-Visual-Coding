@@ -8,15 +8,12 @@ namespace BlockResize{
                         Vector2f& p_pos, std::vector<std::pair<Vector2f, Vector2f>>& p_parameterOffsets, SDL_Texture* p_tex,
                         std::vector<const char*> p_inParameters, HeightChanger& p_heightChanger)
     {
-        SDL_Point totalTexSize;
-        SDL_QueryTexture(p_tex, NULL, NULL, &totalTexSize.x, &totalTexSize.y);
-
         SDL_Rect centerFrame = p_centerFrame;
 
         SDL_Rect topFrame = utils::InitRect(centerFrame.x, 0, centerFrame.w, centerFrame.y);
         SDL_Rect leftFrame = utils::InitRect(0, centerFrame.y, centerFrame.x, centerFrame.h);
-        SDL_Rect rightFrame = utils::InitRect(centerFrame.x + centerFrame.w, centerFrame.y, totalTexSize.x - (centerFrame.x + centerFrame.w), centerFrame.h);
-        SDL_Rect bottomFrame = utils::InitRect(centerFrame.x, centerFrame.y + centerFrame.h, centerFrame.w, totalTexSize.y - (centerFrame.y + centerFrame.h));
+        SDL_Rect rightFrame = utils::InitRect(centerFrame.x + centerFrame.w, centerFrame.y, p_parts.limits.x - (centerFrame.x + centerFrame.w), centerFrame.h);
+        SDL_Rect bottomFrame = utils::InitRect(centerFrame.x, centerFrame.y + centerFrame.h, centerFrame.w, p_parts.limits.y - (centerFrame.y + centerFrame.h));
         SDL_Rect bottomRightFrame = utils::InitRect(rightFrame.x, bottomFrame.y, rightFrame.w, bottomFrame.h);
         SDL_Rect topRightFrame = utils::InitRect(rightFrame.x, topFrame.y, rightFrame.w, topFrame.h);
         SDL_Rect bottomLeftFrame = utils::InitRect(leftFrame.x, bottomFrame.y, leftFrame.w, bottomFrame.h);
