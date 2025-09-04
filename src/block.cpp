@@ -35,6 +35,11 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
         centerSize.y = 4;
         centerSize.w = 48;
         centerSize.h = 6;
+        
+        if(p_type == BlockType::DEFAULTLOOP){
+            centerSize.x = 20;
+            centerSize.w = 42;
+        }
 
         BlockResize::InitBlockScale(
             centerSize, parts, p_scale, text, p_textOffset, parameters, p_pos, parameterOffsets, p_tex, p_parameters, heightChanger

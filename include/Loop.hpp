@@ -5,7 +5,6 @@
 #include "Math.hpp"
 
 class Loop : public Block{
-    const int MIDDLE_TEXTURE_SIZE = 44;
     const int TOTAL_TEXTURE_HEIGHT = 21;
 
     public:
@@ -28,7 +27,7 @@ class Loop : public Block{
         parts.SetPos(p_pos);
 
         footMiddle -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, foot->getPos().y));
-        footEnd -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + MIDDLE_TEXTURE_SIZE * parts.top->getScale().x, foot->getPos().y));
+        footEnd -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x + parts.top -> getCurrentFrame().w * parts.top->getScale().x, foot->getPos().y));
 
         if(child != nullptr)
         {
