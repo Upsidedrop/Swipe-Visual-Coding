@@ -6,7 +6,9 @@ void HeightChanger::UpdateHeight(int height){
     height += baseHeight;
     height = std::max(height, minHeight);
 
-    parent -> UpdateHeight(height);
+    if(parent != nullptr){
+        parent -> UpdateHeight(height);
+    }
 
     height -= parts.top -> getCurrentFrame().h * parts.top -> getScale().y;
     height -= parts.bottom -> getCurrentFrame().h * parts.bottom -> getScale().y;

@@ -141,9 +141,9 @@ class Block : public Entity{
     BlockType type;
     bool contained = false;
     TextBox text;
-    DividedEntity parts;
     Vector2f textOffset;
     std::vector<std::pair<TextBox*, Gap*>> parameters;
     std::vector<std::pair<Vector2f, Vector2f>> parameterOffsets;
     HeightChanger heightChanger;
+    DividedEntity parts;
 };

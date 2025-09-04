@@ -46,10 +46,10 @@ class Variable : public Entity{
     private:
     Collider* collision;
     Gap* parent;
-    DividedEntity parts;
-    TextBox text;
     Vector2f textOffset;
+    TextBox text;
     std::vector<std::pair<TextBox*, Gap*>> parameters;
     std::vector<std::pair<Vector2f, Vector2f>> parameterOffsets;
     HeightChanger heightChanger;
+    DividedEntity parts;
 };

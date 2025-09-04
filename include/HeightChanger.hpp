@@ -4,8 +4,9 @@
 
 class HeightChanger{
     DividedEntity& parts;
-    int baseHeight, minHeight;
+    int baseHeight;
     HeightChanger* parent;
+    int minHeight;
 
     public:
     void UpdateHeight(int height);
