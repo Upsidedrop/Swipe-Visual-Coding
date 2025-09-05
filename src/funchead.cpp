@@ -25,11 +25,5 @@ FuncHead::FuncHead(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType 
         pair.second -> SetLayer(layer + 1);
     }
 
-    SDL_FRect mainColFrame;
-    mainColFrame.x = 0;
-    mainColFrame.y = 0;
-    mainColFrame.w = (parts.topRight->getPos().x - pos.x) / p_scale;
-    mainColFrame.h = (parts.bottomLeft->getPos().y - pos.y) / p_scale;
-
-    mainCollider = new Collider(mainColFrame, this, 2);
+    mainCollider = parts.GenerateGrabbableCollider(this);
 }

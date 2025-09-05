@@ -45,13 +45,7 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
             centerSize, parts, p_scale, text, p_textOffset, parameters, p_pos, parameterOffsets, p_tex, p_parameters, heightChanger
         );
 
-        SDL_FRect mainColFrame;
-        mainColFrame.x = 0;
-        mainColFrame.y = 0;
-        mainColFrame.w = (parts.topRight->getPos().x - pos.x) / p_scale;
-        mainColFrame.h = (parts.bottomLeft->getPos().y - pos.y) / p_scale;
-
-        mainCollider = new Collider(mainColFrame, this, 2);
+        mainCollider = parts.GenerateGrabbableCollider(this);
 
 
         for(auto pair : parameters){

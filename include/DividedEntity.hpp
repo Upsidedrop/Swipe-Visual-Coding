@@ -2,6 +2,7 @@
 
 #include "Entity.hpp"
 #include "Math.hpp"
+#include "Collider.hpp"
 
 class DividedEntity{
     public:
@@ -25,5 +26,6 @@ class DividedEntity{
         delete bottomRight;
     }
     void SetPos(Vector2f& p_pos);
+    Collider* GenerateGrabbableCollider(Entity* p_identity, int layer = 2);
     Vector2f limits;
 };

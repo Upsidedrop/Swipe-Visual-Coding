@@ -10,3 +10,11 @@ void DividedEntity::SetPos(Vector2f& p_pos){
     bottom -> setPos(Vector2f(top -> getPos().x, bottomLeft -> getPos().y));
     bottomRight -> setPos(Vector2f(topRight -> getPos().x, bottomLeft -> getPos().y));
 }
+Collider* DividedEntity::GenerateGrabbableCollider(Entity* p_identity, int layer){
+    SDL_FRect hitbox;
+    hitbox.x = 0;
+    hitbox.y = 0;
+    hitbox.w = (topRight->getPos().x - left -> getPos().x) / topRight -> getScale().x + topRight -> getCurrentFrame().w;
+    hitbox.h = (bottomLeft->getPos().y - top -> getPos().y) / topRight -> getScale().y + bottomLeft -> getCurrentFrame().h;
+    return new Collider(hitbox, p_identity, layer);
+}
