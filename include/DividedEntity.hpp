@@ -27,5 +27,6 @@ class DividedEntity{
     }
     void SetPos(Vector2f& p_pos);
     Collider* GenerateGrabbableCollider(Entity* p_identity, int layer = 2);
+    void SetLayer(int p_layer);
     Vector2f limits;
 };

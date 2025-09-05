@@ -61,16 +61,7 @@ class Loop : public Block{
             pair.second -> SetLayer(p_layer + 1);
         }
 
-        parts.top ->SetLayer(p_layer);
-        parts.topRight -> SetLayer(p_layer);
-
-        parts.left -> SetLayer(p_layer);
-        parts.center -> SetLayer(p_layer);
-        parts.right -> SetLayer(p_layer);
-
-        parts.bottomLeft -> SetLayer(p_layer);
-        parts.bottom -> SetLayer(p_layer);
-        parts.bottomRight ->SetLayer(p_layer);
+        parts.SetLayer(p_layer);
 
         body -> SetLayer(p_layer);
         foot -> SetLayer(p_layer);

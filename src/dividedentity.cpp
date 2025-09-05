@@ -18,3 +18,13 @@ Collider* DividedEntity::GenerateGrabbableCollider(Entity* p_identity, int layer
     hitbox.h = (bottomLeft->getPos().y - top -> getPos().y) / topRight -> getScale().y + bottomLeft -> getCurrentFrame().h;
     return new Collider(hitbox, p_identity, layer);
 }
+void DividedEntity::SetLayer(int p_layer){
+    top -> SetLayer(p_layer);
+    topRight -> SetLayer(p_layer);
+    left -> SetLayer(p_layer);
+    center -> SetLayer(p_layer);
+    right -> SetLayer(p_layer);
+    bottomLeft -> SetLayer(p_layer);
+    bottom -> SetLayer(p_layer);
+    bottomRight -> SetLayer(p_layer);
+}

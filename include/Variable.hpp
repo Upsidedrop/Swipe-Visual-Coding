@@ -19,17 +19,12 @@ class Variable : public Entity{
     void setPos(Vector2f p_pos) override{
         pos = p_pos;
 
-        float a = (currentFrame.x + currentFrame.w) * scale.x;
-        float b = text.getDimensions().x + currentFrame.w * scale.x;
+        parts.SetPos(p_pos);
 
-        parts.top -> setPos(Vector2f(a + p_pos.x, p_pos.y));
-        parts.topRight -> setPos(Vector2f(((a < b) ? b : a) + p_pos.x, p_pos.y));
-
-        text.getVisual() -> setPos(Vector2f(p_pos.x + currentFrame.w * scale.x, pos.y));
+        text.getVisual() -> setPos(p_pos + textOffset);
     }
     void SetLayer(int p_layer) override{
-        parts.top -> SetLayer(p_layer);
-        parts.topRight -> SetLayer(p_layer);
+        parts.SetLayer(p_layer);
 
         text.getVisual() -> SetLayer(p_layer + 1);
 
