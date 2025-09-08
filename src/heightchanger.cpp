@@ -3,8 +3,8 @@
 #include "HeightChanger.hpp"
 
 void HeightChanger::UpdateHeight(int height){
-    height += baseHeight;
-    height = std::max(height, minHeight);
+    height += baseHeight * parts.top -> getScale().y;
+    height = std::max(height, (int)(minHeight * parts.top -> getScale().y));
 
     if(parent != nullptr){
         parent -> UpdateHeight(height);

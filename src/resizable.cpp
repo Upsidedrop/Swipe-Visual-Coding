@@ -6,7 +6,7 @@ namespace BlockResize{
                         SDL_Rect& p_centerFrame, DividedEntity& p_parts, float p_scale, 
                         TextBox& p_text, Vector2f& p_textOffset, std::vector<std::pair<TextBox*, Gap*>>& p_outParameters, 
                         Vector2f& p_pos, std::vector<std::pair<Vector2f, Vector2f>>& p_parameterOffsets, SDL_Texture* p_tex,
-                        std::vector<const char*> p_inParameters, HeightChanger& p_heightChanger)
+                        std::vector<const char*> p_inParameters, HeightChanger& p_heightChanger, void* p_identity, bool p_isBlock)
     {
         SDL_Rect centerFrame = p_centerFrame;
 
@@ -32,7 +32,7 @@ namespace BlockResize{
             p_parameterOffsets[i].first = Vector2f(b, p_textOffset.y);
             b += p_outParameters[i].first -> getDimensions().x + p_textOffset.x;
             
-            p_outParameters[i].second = new Gap(Vector2f(b, p_textOffset.y) + p_pos, p_heightChanger);
+            p_outParameters[i].second = new Gap(Vector2f(b, p_textOffset.y) + p_pos, p_heightChanger, p_identity, p_isBlock);
             //Saving offset for later so it doesnt need to be recalculated all the time
             p_parameterOffsets[i].second = Vector2f(b, p_textOffset.y);
             b += p_outParameters[i].second -> GetSize() * p_scale + p_textOffset.x;
