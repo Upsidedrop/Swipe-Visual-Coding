@@ -37,11 +37,7 @@ class Loop : public Block{
             innerChild -> setPos(p_pos + Vector2f(innerCollider->GetFrame().x * scale.x, innerCollider->GetFrame().y * scale.y));
         }
 
-        for(size_t i = 0; i < parameters.size(); ++i){
-            parameters[i].first -> getVisual() -> setPos(parameterOffsets[i].first + p_pos);
-
-            parameters[i].second -> setPos(parameterOffsets[i].second + p_pos);
-        }
+        MoveParameters(p_pos);
     }
     float GetBottom() override{
         return pos.y + scale.y * (bodySize + TOTAL_TEXTURE_HEIGHT - 1);

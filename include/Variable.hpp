@@ -22,6 +22,7 @@ class Variable : public Entity{
         parts.SetPos(p_pos);
 
         text.getVisual() -> setPos(p_pos + textOffset);
+        MoveParameters(p_pos);
     }
     void SetLayer(int p_layer) override{
         parts.SetLayer(p_layer);
@@ -39,6 +40,8 @@ class Variable : public Entity{
     }
     float GetSize();
     private:
+    void MoveParameters(Vector2f p_pos);
+
     Collider* collision;
     Gap* parent;
     Vector2f textOffset;

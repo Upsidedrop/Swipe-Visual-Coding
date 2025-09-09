@@ -58,6 +58,10 @@ namespace BlockResize{
         p_parts.bottom = new Entity(p_parts.top -> getPos() + topMargin, p_tex, bottomFrame, p_parts.top -> getScale());
 
         p_parts.bottomRight = new Entity(p_parts.topRight -> getPos() + topMargin, p_tex, bottomRightFrame, Vector2f(p_scale, p_scale));
+
+        if(p_inParameters.size() != 0){
+            p_heightChanger.UpdateHeight(20 /*temp*/);
+        }
     }
     void UpdateBlockScale(
         SDL_Rect& p_currentFrame, TextBox& p_text, Vector2f& p_scale,

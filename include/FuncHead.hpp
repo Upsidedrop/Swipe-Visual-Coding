@@ -37,11 +37,7 @@ class FuncHead : public Block{
         parts.bottomLeft -> setPos(p_pos + topMargin);
         parts.bottom -> setPos(parts.top -> getPos() + topMargin);
         parts.bottomRight -> setPos(parts.topRight -> getPos() + topMargin);
-    
-        for(size_t i = 0; i < parameters.size(); ++i){
-            parameters[i].first -> getVisual() -> setPos(parameterOffsets[i].first + p_pos);
-
-            parameters[i].second -> setPos(parameterOffsets[i].second + p_pos);
-        }
+        
+        MoveParameters(p_pos);
     }
 };

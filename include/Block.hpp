@@ -73,12 +73,7 @@ class Block : public Entity{
         parts.SetPos(p_pos);
 
         text.getVisual() -> setPos(p_pos + textOffset);
-
-        for(size_t i = 0; i < parameters.size(); ++i){
-            parameters[i].first -> getVisual() -> setPos(parameterOffsets[i].first + p_pos);
-
-            parameters[i].second -> setPos(parameterOffsets[i].second + p_pos);
-        }
+        MoveParameters(p_pos);
     }
     void SetLayer(int p_layer) override{
         if(child != nullptr){
@@ -123,6 +118,7 @@ class Block : public Entity{
     }
     virtual ~Block();
     protected:
+    void MoveParameters(Vector2f p_pos);
     static LinkedList<Block> blocks;
     Collider* bottomCollider;
     Collider* topCollider;

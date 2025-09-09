@@ -24,3 +24,10 @@ Gap* Variable::GetParent(){
 float Variable::GetSize(){
     return collision->GetFrame().w;
 }
+void Variable::MoveParameters(Vector2f p_pos){
+    for(size_t i = 0; i < parameters.size(); ++i){
+        parameters[i].first -> getVisual() -> setPos(parameterOffsets[i].first + p_pos);
+
+        parameters[i].second -> setPos(parameterOffsets[i].second + p_pos);
+    }
+}

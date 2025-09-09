@@ -111,6 +111,7 @@ int main(int agrv, char* args[]) {
     Button button(Vector2f(600,600),buttonTexture,buttonSize,Compilation::Compile,buttonFloatSize,Vector2f(4,4));
 
     Variable var(Vector2f(400, 600), varTexture, "Sensor", Vector2f(8,1));
+    Variable var2(Vector2f(400, 600), varTexture, "Sensor", Vector2f(8,1), 4, 0, {"first:","second:"});
 
     Variable* heldVar = nullptr;
     Block* heldObject = nullptr;
