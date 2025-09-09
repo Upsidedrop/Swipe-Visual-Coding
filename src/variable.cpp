@@ -22,5 +22,5 @@ Gap* Variable::GetParent(){
     return parent;
 }
 float Variable::GetSize(){
-    return currentFrame.x * 2 + currentFrame.w * 3 + text.getDimensions().x / scale.x;
+    return collision->GetFrame().w;
 }
