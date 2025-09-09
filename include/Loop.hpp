@@ -199,14 +199,14 @@ class Loop : public Block{
         SDL_FRect mainColFrame;
         mainColFrame.x = 0;
         mainColFrame.y = 0;
-        mainColFrame.w = (parts.topRight->getPos().x - pos.x) / scale.x;
-        mainColFrame.h = (parts.bottomLeft->getPos().y - pos.y) / scale.y;
+        mainColFrame.w = (parts.topRight->getPos().x - pos.x) / scale.x + parts.topRight->getCurrentFrame().w;
+        mainColFrame.h = (parts.bottomLeft->getPos().y - pos.y) / scale.y + parts.bottomLeft->getCurrentFrame().h;
 
         mainCollider -> SetFrame(mainColFrame);
 
-        float adjustedMiddleWidth = parts.top -> getScale().x / footMiddle -> getCurrentFrame().w * parts.top -> getCurrentFrame().w;
+        float adjustedMiddleWidth = ((mainColFrame.w - foot->getCurrentFrame().w - footEnd -> getCurrentFrame().w) * scale.x) / footMiddle -> getCurrentFrame().w;
         footMiddle -> setScale(Vector2f(adjustedMiddleWidth, scale.y));
-        footEnd -> setPos(Vector2f(parts.topRight -> getPos().x, footEnd -> getPos().y));
+        footEnd -> setPos(Vector2f(footMiddle -> getPos().x + footMiddle -> getCurrentFrame().w * adjustedMiddleWidth, footMiddle -> getPos().y));
     }
     private:
     Entity* body;
