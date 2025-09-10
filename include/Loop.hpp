@@ -51,11 +51,7 @@ class Loop : public Block{
         }
         text.getVisual() -> SetLayer(p_layer + 1);
 
-        for(auto pair : parameters){
-            pair.first -> getVisual() -> SetLayer(p_layer + 1);
-
-            pair.second -> SetLayer(p_layer + 1);
-        }
+        LayerParameters(p_layer);
 
         parts.SetLayer(p_layer);
 

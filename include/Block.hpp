@@ -81,11 +81,7 @@ class Block : public Entity{
         }
         text.getVisual() -> SetLayer(p_layer + 1);
 
-        for(auto pair : parameters){
-            pair.first -> getVisual() -> SetLayer(p_layer + 1);
-
-            pair.second -> SetLayer(p_layer + 1);
-        }
+        LayerParameters(p_layer);
 
         parts.SetLayer(p_layer);
 
@@ -119,6 +115,7 @@ class Block : public Entity{
     virtual ~Block();
     protected:
     void MoveParameters(Vector2f p_pos);
+    void LayerParameters(int p_layer);
     static LinkedList<Block> blocks;
     Collider* bottomCollider;
     Collider* topCollider;

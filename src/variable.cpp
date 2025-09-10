@@ -31,3 +31,10 @@ void Variable::MoveParameters(Vector2f p_pos){
         parameters[i].second -> setPos(parameterOffsets[i].second + p_pos);
     }
 }
+void Variable::LayerParameters(int p_layer){
+    for(auto pair : parameters){
+        pair.first -> getVisual() -> SetLayer(p_layer + 1);
+
+        pair.second -> SetLayer(p_layer + 1);
+    }
+}

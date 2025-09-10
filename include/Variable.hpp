@@ -29,6 +29,8 @@ class Variable : public Entity{
 
         text.getVisual() -> SetLayer(p_layer + 1);
 
+        LayerParameters(p_layer);
+
         layer = p_layer;
         
         auto it = layers.find(layer);
@@ -43,7 +45,7 @@ class Variable : public Entity{
     std::vector<std::pair<TextBox*, Gap*>> parameters;
     private:
     void MoveParameters(Vector2f p_pos);
-
+    void LayerParameters(int p_layer);
     Collider* collision;
     Gap* parent;
     Vector2f textOffset;
