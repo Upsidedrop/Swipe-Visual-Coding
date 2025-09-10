@@ -2,9 +2,12 @@
 
 #include "Collider.hpp"
 
-Collider* Collider::CheckForCollisions(std::vector<int> masks){
+Collider* Collider::CheckForCollisions(std::vector<int> masks, std::function<bool(Collider*)> p_predicate){
     for(int i : masks){
         for(Collider* other : flags[i]){
+            if(p_predicate(other)){
+                continue;
+            }
             if(other == nullptr){
                 continue;
             }

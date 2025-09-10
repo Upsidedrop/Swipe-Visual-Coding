@@ -86,7 +86,12 @@ namespace General{
 
     void VariableReleased(Variable*& heldVar){
         Collider* neighborCol;
-        neighborCol = heldVar -> GetCollider() -> CheckForCollisions({5});
+        std::unordered_set<void*> myGaps;
+        for(auto pair : heldVar -> parameters){
+            myGaps.insert(pair.second);
+        }
+        auto predicate = [myGaps](Collider* col) -> bool {return (myGaps.find(col -> GetParent()) != myGaps.end());};
+        neighborCol = heldVar -> GetCollider() -> CheckForCollisions({5}, predicate);
         if(neighborCol != nullptr){
             static_cast<Gap*>(neighborCol -> GetParent()) -> SetAttached(heldVar);
         }

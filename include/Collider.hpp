@@ -3,6 +3,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <vector>
+#include <functional>
 
 #include "Entity.hpp"
 
@@ -27,7 +28,7 @@ public:
     Entity* GetParent(){
         return parent;
     }
-    Collider* CheckForCollisions(std::vector<int> masks);
+    Collider* CheckForCollisions(std::vector<int> masks, std::function<bool(Collider*)> p_predicate = [](Collider*) -> bool {return false;});
     Collider* CheckForCollisionsHeightPriority(std::vector<int> masks);
     private:
     SDL_FRect frame;

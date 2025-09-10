@@ -39,6 +39,8 @@ class Variable : public Entity{
         layers.find(layer) -> second.insert(this);
     }
     float GetSize();
+
+    std::vector<std::pair<TextBox*, Gap*>> parameters;
     private:
     void MoveParameters(Vector2f p_pos);
 
@@ -46,7 +48,6 @@ class Variable : public Entity{
     Gap* parent;
     Vector2f textOffset;
     TextBox text;
-    std::vector<std::pair<TextBox*, Gap*>> parameters;
     std::vector<std::pair<Vector2f, Vector2f>> parameterOffsets;
     HeightChanger heightChanger;
     DividedEntity parts;
