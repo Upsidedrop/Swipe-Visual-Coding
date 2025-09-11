@@ -9,7 +9,6 @@ Gap::Gap(Vector2f p_pos, HeightChanger& p_heightChanger, void* p_identity, bool 
 Gap::~Gap(){
     delete col;
 }
-//this may be width and not height
 float Gap::GetSize(){
     return attached == nullptr? 10 : attached -> GetSize();    
 }
@@ -21,12 +20,15 @@ void Gap::SetAttached(Variable* p_attached){
     if(isBlock){
         ((Block*)(identity)) -> UpdateSize();
     }
-    heightChanger.UpdateHeight(GetSize());
+    heightChanger.UpdateHeight();
 }
 void Gap::Detach(){
     attached = nullptr;
     if(isBlock){
         ((Block*)(identity)) -> UpdateSize();
     }
-    heightChanger.UpdateHeight(GetSize());
+    heightChanger.UpdateHeight();
+}
+float Gap::GetHeight(){
+    return (attached != nullptr)? attached -> GetHeight() : 28;
 }

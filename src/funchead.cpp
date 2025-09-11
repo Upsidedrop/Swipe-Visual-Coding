@@ -26,4 +26,9 @@ FuncHead::FuncHead(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType 
     }
 
     mainCollider = parts.GenerateGrabbableCollider(this);
+
+    if (parameters.size() != 0)
+    {
+        heightChanger.UpdateHeight();
+    }
 }

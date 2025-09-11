@@ -29,4 +29,5 @@ class DividedEntity{
     Collider* GenerateGrabbableCollider(Entity* p_identity, int layer = 2);
     void SetLayer(int p_layer);
     Vector2f limits;
+    SDL_FRect GetFullRect();
 };

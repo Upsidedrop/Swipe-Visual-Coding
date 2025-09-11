@@ -11,12 +11,8 @@ void DividedEntity::SetPos(Vector2f& p_pos){
     bottomRight -> setPos(Vector2f(topRight -> getPos().x, bottomLeft -> getPos().y));
 }
 Collider* DividedEntity::GenerateGrabbableCollider(Entity* p_identity, int layer){
-    SDL_FRect hitbox;
-    hitbox.x = 0;
-    hitbox.y = 0;
-    hitbox.w = (topRight->getPos().x - left -> getPos().x) / topRight -> getScale().x + topRight -> getCurrentFrame().w;
-    hitbox.h = (bottomLeft->getPos().y - top -> getPos().y) / topRight -> getScale().y + bottomLeft -> getCurrentFrame().h;
-    return new Collider(hitbox, p_identity, layer);
+    
+    return new Collider(GetFullRect(), p_identity, layer);
 }
 void DividedEntity::SetLayer(int p_layer){
     top -> SetLayer(p_layer);
@@ -27,4 +23,12 @@ void DividedEntity::SetLayer(int p_layer){
     bottomLeft -> SetLayer(p_layer);
     bottom -> SetLayer(p_layer);
     bottomRight -> SetLayer(p_layer);
+}
+SDL_FRect DividedEntity::GetFullRect(){
+    SDL_FRect hitbox;
+    hitbox.x = 0;
+    hitbox.y = 0;
+    hitbox.w = (topRight->getPos().x - left -> getPos().x) / topRight -> getScale().x + topRight -> getCurrentFrame().w;
+    hitbox.h = (bottomLeft->getPos().y - top -> getPos().y) / topRight -> getScale().y + bottomLeft -> getCurrentFrame().h;
+    return hitbox;
 }

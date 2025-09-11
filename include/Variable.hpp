@@ -41,6 +41,7 @@ class Variable : public Entity{
         layers.find(layer) -> second.insert(this);
     }
     float GetSize();
+    float GetHeight();
 
     std::vector<std::pair<TextBox*, Gap*>> parameters;
     private:

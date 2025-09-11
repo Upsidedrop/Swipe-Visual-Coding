@@ -2,8 +2,8 @@
 
 LinkedList<Block> Block::blocks;
 
-Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_type, float p_scale, const char *p_text, Vector2f p_textOffset, std::vector<const char*> p_parameters)
-    : Entity(p_pos, p_tex, p_frame, Vector2f(p_scale, p_scale)), topCollider(nullptr), child(nullptr), parent(nullptr), type(p_type), text(p_text, p_pos + p_textOffset, 0.6), textOffset(p_textOffset), heightChanger(parts, 7, nullptr, 14), parts(Vector2f(65, 14))
+Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_type, float p_scale, const char *p_text, Vector2f p_textOffset, std::vector<const char *> p_parameters)
+    : Entity(p_pos, p_tex, p_frame, Vector2f(p_scale, p_scale)), topCollider(nullptr), child(nullptr), parent(nullptr), type(p_type), text(p_text, p_pos + p_textOffset, 0.6), textOffset(p_textOffset), heightChanger(parts, 7, nullptr, 14, parameters, mainCollider), parts(Vector2f(65, 14))
 {
     std::cout << "Block init" << "\n";
     std::cout << p_type << "\n";
@@ -35,23 +35,28 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
         centerSize.y = 4;
         centerSize.w = 48;
         centerSize.h = 6;
-        
-        if(p_type == BlockType::DEFAULTLOOP){
+
+        if (p_type == BlockType::DEFAULTLOOP)
+        {
             centerSize.x = 20;
             centerSize.w = 42;
         }
 
         BlockResize::InitBlockScale(
-            centerSize, parts, p_scale, text, p_textOffset, parameters, p_pos, parameterOffsets, p_tex, p_parameters, heightChanger, this, true
-        );
+            centerSize, parts, p_scale, text, p_textOffset, parameters, p_pos, parameterOffsets, p_tex, p_parameters, heightChanger, this, true);
 
         mainCollider = parts.GenerateGrabbableCollider(this);
 
+        if (parameters.size() != 0)
+        {
+            heightChanger.UpdateHeight();
+        }
 
-        for(auto pair : parameters){
-            pair.first -> getVisual() -> SetLayer(layer + 1);
+        for (auto pair : parameters)
+        {
+            pair.first->getVisual()->SetLayer(layer + 1);
 
-            pair.second -> SetLayer(layer + 1);
+            pair.second->SetLayer(layer + 1);
         }
     }
 }
@@ -116,17 +121,21 @@ void Block::RemoveChild()
     }
     child = nullptr;
 }
-void Block::MoveParameters(Vector2f p_pos){
-    for(size_t i = 0; i < parameters.size(); ++i){
-        parameters[i].first -> getVisual() -> setPos(parameterOffsets[i].first + p_pos);
+void Block::MoveParameters(Vector2f p_pos)
+{
+    for (size_t i = 0; i < parameters.size(); ++i)
+    {
+        parameters[i].first->getVisual()->setPos(parameterOffsets[i].first + p_pos);
 
-        parameters[i].second -> setPos(parameterOffsets[i].second + p_pos);
+        parameters[i].second->setPos(parameterOffsets[i].second + p_pos);
     }
 }
-void Block::LayerParameters(int p_layer){
-    for(auto pair : parameters){
-        pair.first -> getVisual() -> SetLayer(p_layer + 1);
+void Block::LayerParameters(int p_layer)
+{
+    for (auto pair : parameters)
+    {
+        pair.first->getVisual()->SetLayer(p_layer + 1);
 
-        pair.second -> SetLayer(p_layer + 1);
+        pair.second->SetLayer(p_layer + 1);
     }
 }
