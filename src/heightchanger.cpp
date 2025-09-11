@@ -3,6 +3,8 @@
 #include "HeightChanger.hpp"
 #include "Gap.hpp"
 
+const int TEXT_HEIGHT = 16;
+
 void HeightChanger::UpdateHeight(){
     std::vector<int> argumentHeights = GetArgumentHeights();
 
@@ -27,6 +29,8 @@ void HeightChanger::UpdateHeight(){
     parts.bottomRight -> setPos(Vector2f(parts.bottomRight->getPos().x, parts.bottomLeft -> getPos().y));
 
     col -> SetFrame(parts.GetFullRect());
+
+    textOffsetY = parts.GetFullRect().h * parts.topRight->getScale().y / 2 - TEXT_HEIGHT;
 }
 std::vector<int> HeightChanger::GetArgumentHeights(){
     std::vector<int> res(parameters.size());
