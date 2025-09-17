@@ -34,3 +34,25 @@ void Gap::Detach(){
 float Gap::GetHeight(){
     return (attached != nullptr)? attached -> GetHeight() : 28;
 }
+void Gap::setPos(Vector2f p_pos){
+    pos = p_pos;
+    if(attached != nullptr){
+        attached -> setPos(p_pos);
+    }
+}
+void Gap::SetLayer(int p_layer){
+    layers.find(layer) -> second.erase(this);
+
+    layer = p_layer;
+
+    auto it = layers.find(layer);
+    if(it == layers.end()){
+        layers.insert(std::make_pair(layer, std::unordered_set<Entity*>()));
+        it = layers.find(layer); 
+    }
+    layers.find(layer) -> second.insert(this);
+
+    if(attached != nullptr){
+        attached -> SetLayer(p_layer + 1);
+    }
+}

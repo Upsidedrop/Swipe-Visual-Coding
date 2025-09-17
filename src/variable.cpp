@@ -57,3 +57,27 @@ float Variable::GetHeight()
 {
     return collision->GetFrame().h * parts.topRight -> getScale().y;
 }
+void Variable::setPos(Vector2f p_pos){
+    pos = p_pos;
+
+    parts.SetPos(p_pos);
+
+    text.getVisual() -> setPos(p_pos + textOffset);
+    MoveParameters(p_pos);
+}
+void Variable::SetLayer(int p_layer){
+    parts.SetLayer(p_layer);
+
+    text.getVisual() -> SetLayer(p_layer + 1);
+
+    LayerParameters(p_layer);
+
+    layer = p_layer;
+    
+    auto it = layers.find(layer);
+    if(it == layers.end()){
+        layers.insert(std::make_pair(layer, std::unordered_set<Entity*>()));
+        it = layers.find(layer); 
+    }
+    layers.find(layer) -> second.insert(this);
+}

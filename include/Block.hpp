@@ -62,56 +62,9 @@ class Block : public Entity{
     void setParent(Block* p_parent){
         parent = p_parent;
     }
-    void setPos(Vector2f p_pos) override
-    {
-        pos = p_pos;
-        if(child != nullptr)
-        {
-            child-> setPos(p_pos + Vector2f(0, 12 * scale.y));
-        }
-        
-        parts.SetPos(p_pos);
-
-        text.getVisual() -> setPos(p_pos + textOffset);
-        MoveParameters(p_pos);
-    }
-    void SetLayer(int p_layer) override{
-        if(child != nullptr){
-            child -> SetLayer(p_layer);
-        }
-        text.getVisual() -> SetLayer(p_layer + 1);
-
-        LayerParameters(p_layer);
-
-        parts.SetLayer(p_layer);
-
-        layers.find(layer) -> second.erase(this);
-
-        layer = p_layer;
-    
-        auto it = layers.find(layer);
-        if(it == layers.end()){
-            layers.insert(std::make_pair(layer, std::unordered_set<Entity*>()));
-            it = layers.find(layer); 
-        }
-        layers.find(layer) -> second.insert(this);
-    }
-    virtual void UpdateSize(){
-        BlockResize::UpdateBlockScale(
-            currentFrame, text, scale,
-            textOffset, parameters,
-            parameterOffsets,
-            pos, parts
-        );
-        
-        SDL_FRect mainColFrame;
-        mainColFrame.x = 0;
-        mainColFrame.y = 0;
-        mainColFrame.w = (parts.topRight->getPos().x - pos.x) / scale.x + parts.topRight->getCurrentFrame().w;
-        mainColFrame.h = (parts.bottomLeft->getPos().y - pos.y) / scale.y + parts.bottomLeft->getCurrentFrame().h;
-
-        mainCollider -> SetFrame(mainColFrame);
-    }
+    void setPos(Vector2f p_pos) override;
+    void SetLayer(int p_layer) override;
+    virtual void UpdateSize();
     virtual ~Block();
     protected:
     void MoveParameters(Vector2f p_pos);

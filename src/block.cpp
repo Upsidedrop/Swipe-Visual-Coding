@@ -139,3 +139,52 @@ void Block::LayerParameters(int p_layer)
         pair.second->SetLayer(p_layer + 1);
     }
 }
+void Block::setPos(Vector2f p_pos){
+    pos = p_pos;
+    if(child != nullptr)
+    {
+        child-> setPos(p_pos + Vector2f(0, 12 * scale.y));
+    }
+    
+    parts.SetPos(p_pos);
+
+    text.getVisual() -> setPos(p_pos + textOffset);
+    MoveParameters(p_pos);
+}
+void Block::SetLayer(int p_layer){
+    if(child != nullptr){
+        child -> SetLayer(p_layer);
+    }
+    text.getVisual() -> SetLayer(p_layer + 1);
+
+    LayerParameters(p_layer);
+
+    parts.SetLayer(p_layer);
+
+    layers.find(layer) -> second.erase(this);
+
+    layer = p_layer;
+    
+    auto it = layers.find(layer);
+    if(it == layers.end()){
+        layers.insert(std::make_pair(layer, std::unordered_set<Entity*>()));
+        it = layers.find(layer); 
+    }
+    layers.find(layer) -> second.insert(this);
+}
+void Block::UpdateSize(){
+    BlockResize::UpdateBlockScale(
+        currentFrame, text, scale,
+        textOffset, parameters,
+        parameterOffsets,
+        pos, parts
+    );
+        
+    SDL_FRect mainColFrame;
+    mainColFrame.x = 0;
+    mainColFrame.y = 0;
+    mainColFrame.w = (parts.topRight->getPos().x - pos.x) / scale.x + parts.topRight->getCurrentFrame().w;
+    mainColFrame.h = (parts.bottomLeft->getPos().y - pos.y) / scale.y + parts.bottomLeft->getCurrentFrame().h;
+
+    mainCollider -> SetFrame(mainColFrame);
+}
