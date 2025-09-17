@@ -30,6 +30,7 @@ void HeightChanger::UpdateHeight(){
 
     col -> SetFrame(parts.GetFullRect());
 
+    
     textOffsetY = parts.GetFullRect().h * parts.topRight->getScale().y / 2 - TEXT_HEIGHT;
 }
 std::vector<int> HeightChanger::GetArgumentHeights(){

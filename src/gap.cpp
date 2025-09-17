@@ -17,10 +17,12 @@ void Gap::SetAttached(Variable* p_attached){
     p_attached -> setPos(pos);
     p_attached -> SetLayer(layer + 1);
     p_attached -> SetParent(this);
+    
+    heightChanger.UpdateHeight();
+    
     if(isBlock){
         ((Block*)(identity)) -> UpdateSize();
     }
-    heightChanger.UpdateHeight();
 }
 void Gap::Detach(){
     attached = nullptr;
