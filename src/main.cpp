@@ -1,13 +1,13 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_mixer.h>
+#include <SDL.h>
+#include <SDL_image.h>
+//#include <SDL_mixer.h>
 #include <iostream>
 #include <vector>
 #include <unordered_set>
 #include <map>
 #include <unordered_map>
-#include <SDL2/SDL_filesystem.h>
-#include <SDL2/SDL_ttf.h>
+#include <SDL_filesystem.h>
+#include <SDL_ttf.h>
 
 #include "RenderWindow.hpp"
 #include "Block.hpp"
@@ -50,9 +50,9 @@ int main(int agrv, char* args[]) {
     if(TTF_Init()){
         cout << "TTF_Init HAS FAILED. ERROR:" << TTF_GetError() << "\n";
     }
-    if(Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0){
-        cout << "SDL_MIXER HAS FAILED. ERROR:" << SDL_GetError() << "\n";
-    }
+    // if(Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0){
+    //     cout << "SDL_MIXER HAS FAILED. ERROR:" << SDL_GetError() << "\n";
+    // }
     cout << "Init Passed" << "\n";
 
     window.changeBackground({82,79,61});
@@ -174,7 +174,7 @@ int main(int agrv, char* args[]) {
     SDL_Quit();
     IMG_Quit();
     TTF_Quit();
-    Mix_Quit();
+    //Mix_Quit();
 
     utils::DeconstructFunctionHeads();
 

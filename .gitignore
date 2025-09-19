@@ -1,6 +1,5 @@
 *.o
-/bin/debug/main
-/bin/release/main
+/build/
 .vscode/*
     !/tasks.json
 .Makefile.swp
