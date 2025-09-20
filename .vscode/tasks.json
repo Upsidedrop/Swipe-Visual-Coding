@@ -13,6 +13,18 @@
                 "isDefault": true
             }
         },
+        {
+            "type": "shell",
+            "label": "CMake",
+            "command": "cmake -B build",
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
         // //Used when you want to test a change to an hpp file, or when you need to intitalize all files for the first time.
         // {
         //     "type": "shell",
