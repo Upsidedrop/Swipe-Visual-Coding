@@ -4,7 +4,7 @@
         {
             "type": "shell",
             "label": "Run",
-            "command": "make",
+            "command": "make -C build && ./build/Swipe",
             "problemMatcher": [
                 "$gcc"
             ],
@@ -13,33 +13,33 @@
                 "isDefault": true
             }
         },
-        //Used when you want to test a change to an hpp file, or when you need to intitalize all files for the first time.
-        {
-            "type": "shell",
-            "label": "Update Headers / Init",
-            "command": "find . -maxdepth 1 -name \"*.o\" -type f -delete && g++ -c src/*.cpp -std=c++14 -m64 -g -Wall -I include && g++ *.o -o bin/debug/main -Llib -lSDL2main -lSDL2_ttf -lSDL2 -lSDL2_image -lSDL2_mixer && ./bin/debug/main",
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        },
-        //Used when you want an optimized build and don't care how long it takes
-        {
-            "type": "shell",
-            "label": "Release",
-            // -Wl,-rpath,lib -Wl,--disable-new-dtags -Wl,-dynamic-linker,lib/ld-linux-x86-64.so.2
-            "command": "g++ -c src/*.cpp -std=c++14 -m64 -O2 -Wall -I include && g++ *.o -o bin/release/main -Llib -s -lSDL2main -lSDL2_ttf -lSDL2 -lSDL2_image -lSDL2_mixer && ./bin/release/main",
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
-        }
+        // //Used when you want to test a change to an hpp file, or when you need to intitalize all files for the first time.
+        // {
+        //     "type": "shell",
+        //     "label": "Update Headers / Init",
+        //     "command": "find . -maxdepth 1 -name \"*.o\" -type f -delete && g++ -c src/*.cpp -std=c++14 -m64 -g -Wall -I include && g++ *.o -o bin/debug/main -Llib -lSDL2main -lSDL2_ttf -lSDL2 -lSDL2_image -lSDL2_mixer && ./bin/debug/main",
+        //     "problemMatcher": [
+        //         "$gcc"
+        //     ],
+        //     "group": {
+        //         "kind": "build",
+        //         "isDefault": true
+        //     }
+        // },
+        // //Used when you want an optimized build and don't care how long it takes
+        // {
+        //     "type": "shell",
+        //     "label": "Release",
+        //     // -Wl,-rpath,lib -Wl,--disable-new-dtags -Wl,-dynamic-linker,lib/ld-linux-x86-64.so.2
+        //     "command": "g++ -c src/*.cpp -std=c++14 -m64 -O2 -Wall -I include && g++ *.o -o bin/release/main -Llib -s -lSDL2main -lSDL2_ttf -lSDL2 -lSDL2_image -lSDL2_mixer && ./bin/release/main",
+        //     "problemMatcher": [
+        //         "$gcc"
+        //     ],
+        //     "group": {
+        //         "kind": "build",
+        //         "isDefault": true
+        //     }
+        // }
     ],
     "version": "2.0.0"
 }

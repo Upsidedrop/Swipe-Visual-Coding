@@ -1,2 +1,0 @@
-This folder is where you would place all the dynamic libraries needed to export the project to a zip file.
-If you decide to do this, it is important that you reenable the commented tags for the g++ compiler
