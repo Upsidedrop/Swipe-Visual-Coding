@@ -1,8 +1,8 @@
-###DEPENDENCIES:
+### DEPENDENCIES:
 - SDL2
 - SDL2_Image
 - SDL2_TTF
-###BUILD:
+### BUILD:
 
 ------------
 
