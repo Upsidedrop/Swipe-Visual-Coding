@@ -6,6 +6,7 @@
 const int TEXT_HEIGHT = 16;
 
 void HeightChanger::UpdateHeight(){
+    std::cout << "updating height\n";
     std::vector<int> argumentHeights = GetArgumentHeights();
 
     int height = *std::max_element(argumentHeights.begin(), argumentHeights.end());
@@ -32,6 +33,15 @@ void HeightChanger::UpdateHeight(){
 
     
     textOffsetY = parts.GetFullRect().h * parts.topRight->getScale().y / 2 - TEXT_HEIGHT;
+    std::cout << "Offsets pos: " << &parameterOffsets << "\n";
+
+    std::cout << parameterOffsets.size() << "\n";
+    for(int i = 0; i < parameterOffsets.size(); ++i){
+        std::cout << &parameterOffsets[i].first << "\n";
+        std::cout << &parameterOffsets[i].second << "\n";
+        parameterOffsets[i].first.print();
+        parameterOffsets[i].second.print();
+    }
 }
 std::vector<int> HeightChanger::GetArgumentHeights(){
     std::vector<int> res(parameters.size());

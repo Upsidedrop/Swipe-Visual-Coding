@@ -3,7 +3,7 @@
 LinkedList<Block> Block::blocks;
 
 Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_type, float p_scale, const char *p_text, Vector2f p_textOffset, std::vector<const char *> p_parameters)
-    : Entity(p_pos, p_tex, p_frame, Vector2f(p_scale, p_scale)), topCollider(nullptr), child(nullptr), parent(nullptr), type(p_type), text(p_text, p_pos + p_textOffset, 0.6), textOffset(p_textOffset), heightChanger(parts, 7, nullptr, 14, parameters, mainCollider, textOffset.y), parts(Vector2f(65, 14))
+    : Entity(p_pos, p_tex, p_frame, Vector2f(p_scale, p_scale)), topCollider(nullptr), child(nullptr), parent(nullptr), type(p_type), text(p_text, p_pos + p_textOffset, 0.6), textOffset(p_textOffset), heightChanger(parts, 7, nullptr, 14, parameters, mainCollider, textOffset.y, parameterOffsets), parts(Vector2f(65, 14))
 {
     std::cout << "Block init" << "\n";
     std::cout << p_type << "\n";
@@ -41,12 +41,15 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
             centerSize.x = 20;
             centerSize.w = 42;
         }
-
+        // These reserves are more efficient, prevent bugs, and stop pointer (reference) invalidation
+        parameters.reserve(p_parameters.size());
+        parameterOffsets.reserve(p_parameters.size());
         BlockResize::InitBlockScale(
             centerSize, parts, p_scale, text, p_textOffset, parameters, p_pos, parameterOffsets, p_tex, p_parameters, heightChanger, this, true);
 
         mainCollider = parts.GenerateGrabbableCollider(this);
 
+        std::cout << "Offsets pos: " << &parameterOffsets << "\n";
         if (parameters.size() != 0)
         {
             heightChanger.UpdateHeight();
