@@ -26,8 +26,8 @@ namespace BlockResize{
     
 
         for(size_t i = 0; i < p_inParameters.size(); ++i){
-            p_outParameters[i] = std::make_pair(nullptr, nullptr);
-            p_parameterOffsets[i] = std::make_pair(Vector2f(0,0), Vector2f(0,0));
+            p_outParameters.push_back(std::make_pair(nullptr, nullptr));
+            p_parameterOffsets.push_back(std::make_pair(Vector2f(0,0), Vector2f(0,0)));
             std::cout << &p_parameterOffsets[i].first << "\n";
             p_parameterOffsets[i].first.print();
             

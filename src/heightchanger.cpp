@@ -35,12 +35,12 @@ void HeightChanger::UpdateHeight(){
     textOffsetY = parts.GetFullRect().h * parts.topRight->getScale().y / 2 - TEXT_HEIGHT;
     std::cout << "Offsets pos: " << &parameterOffsets << "\n";
 
-    std::cout << parameterOffsets.size() << "\n";
-    for(int i = 0; i < parameterOffsets.size(); ++i){
-        std::cout << &parameterOffsets[i].first << "\n";
-        std::cout << &parameterOffsets[i].second << "\n";
-        parameterOffsets[i].first.print();
-        parameterOffsets[i].second.print();
+    std::cout << "offsets size: " << parameterOffsets -> size() << "\n";
+    for(int i = 0; i < parameterOffsets -> size(); ++i){
+        std::cout << "text: " << &(*parameterOffsets)[i].first << "\n";
+        std::cout << "gaps: " << &(*parameterOffsets)[i].second << "\n";
+        (*parameterOffsets)[i].first.print();
+        (*parameterOffsets)[i].second.print();
     }
 }
 std::vector<int> HeightChanger::GetArgumentHeights(){
