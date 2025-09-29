@@ -68,6 +68,7 @@ void Variable::setPos(Vector2f p_pos){
 
     text.getVisual() -> setPos(p_pos + textOffset);
     MoveParameters(p_pos);
+    p_pos.print();
 }
 void Variable::SetLayer(int p_layer){
     parts.SetLayer(p_layer);
@@ -84,4 +85,7 @@ void Variable::SetLayer(int p_layer){
         it = layers.find(layer); 
     }
     layers.find(layer) -> second.insert(this);
+}
+DividedEntity& Variable::GetParts(){
+    return parts;
 }
