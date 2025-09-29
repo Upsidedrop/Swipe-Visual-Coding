@@ -24,11 +24,17 @@ void Gap::SetAttached(Variable* p_attached){
     if(isBlock){
         ((Block*)(identity)) -> UpdateSize();
     }
+    else{
+        ((Variable*)(identity)) -> UpdateSize();
+    }
 }
 void Gap::Detach(){
     attached = nullptr;
     if(isBlock){
         ((Block*)(identity)) -> UpdateSize();
+    }
+    else{
+        ((Variable*)(identity)) -> UpdateSize();
     }
     heightChanger.UpdateHeight();
 }

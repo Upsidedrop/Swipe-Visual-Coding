@@ -20,6 +20,7 @@ class Variable : public Entity{
     void SetLayer(int p_layer) override;
     float GetSize();
     float GetHeight();
+    void UpdateSize();
     DividedEntity& GetParts();
     std::vector<std::pair<TextBox*, Gap*>> parameters;
     private:

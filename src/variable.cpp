@@ -89,3 +89,12 @@ void Variable::SetLayer(int p_layer){
 DividedEntity& Variable::GetParts(){
     return parts;
 }
+void Variable::UpdateSize(){
+    BlockResize::UpdateBlockScale(
+        currentFrame, text, scale,
+        textOffset, parameters,
+        parameterOffsets,
+        pos, parts
+    );
+    collision -> SetFrame(parts.GetFullRect());
+}
