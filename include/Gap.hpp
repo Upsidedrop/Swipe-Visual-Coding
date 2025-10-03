@@ -19,6 +19,7 @@ class Gap : public Entity{
     void setPos(Vector2f p_pos) override;
     void SetLayer(int p_layer) override;
     void Detach();
+    void UpdateSize();
     private:
     Variable* attached;
     Collider* col;

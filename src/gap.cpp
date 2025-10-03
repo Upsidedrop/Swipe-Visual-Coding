@@ -19,24 +19,12 @@ void Gap::SetAttached(Variable* p_attached){
     p_attached -> SetLayer(layer + 1);
     p_attached -> SetParent(this);
     
-    heightChanger.UpdateHeight();
-    
-    if(isBlock){
-        ((Block*)(identity)) -> UpdateSize();
-    }
-    else{
-        ((Variable*)(identity)) -> UpdateSize();
-    }
+    UpdateSize();
 }
 void Gap::Detach(){
     attached = nullptr;
-    if(isBlock){
-        ((Block*)(identity)) -> UpdateSize();
-    }
-    else{
-        ((Variable*)(identity)) -> UpdateSize();
-    }
-    heightChanger.UpdateHeight();
+    
+    UpdateSize();
 }
 float Gap::GetHeight(){
     return (attached != nullptr)? attached -> GetHeight() : 28;
@@ -62,4 +50,13 @@ void Gap::SetLayer(int p_layer){
     if(attached != nullptr){
         attached -> SetLayer(p_layer + 1);
     }
+}
+void Gap::UpdateSize(){
+    if(isBlock){
+        ((Block*)(identity)) -> UpdateSize();
+    }
+    else{
+        ((Variable*)(identity)) -> UpdateSize();
+    }
+    heightChanger.UpdateHeight();
 }

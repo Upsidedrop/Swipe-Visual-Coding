@@ -97,4 +97,7 @@ void Variable::UpdateSize(){
         pos, parts
     );
     collision -> SetFrame(parts.GetFullRect());
+    if(parent != nullptr){
+    	parent -> UpdateSize();
+    }
 }

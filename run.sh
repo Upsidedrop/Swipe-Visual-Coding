@@ -1,1 +1,1 @@
-./bin/release/main
+./build/Swipe
