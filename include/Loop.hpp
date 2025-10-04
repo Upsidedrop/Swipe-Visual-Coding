@@ -25,6 +25,7 @@ class Loop : public Block{
     void setBodySize(float p_size) override;
     void RemoveChild(Block* p_child) override;
     void UpdateSize() override;
+    void UpdateBodyPos();
     private:
     Entity* body;
     Entity* foot;

@@ -64,21 +64,15 @@ Loop::~Loop(){
    delete footMiddle;
    delete footEnd;
 }
-void Loop::setPos(Vector2f p_pos){
-    float mainHeight = (parts.bottomLeft->getPos().y - pos.y) / scale.y + parts.bottomLeft -> getCurrentFrame().h;
-    
+void Loop::setPos(Vector2f p_pos){    
     pos = p_pos;
 
     text.getVisual() -> setPos(p_pos + textOffset);
     
-    body -> setPos(p_pos + Vector2f(0, (mainHeight- 1) * scale.y));
-    foot -> setPos(Vector2f(p_pos.x, p_pos.y + scale.y * (bodySize + mainHeight - 1)));
-
     parts.SetPos(p_pos);
 
-    footMiddle -> setPos(Vector2f(p_pos.x + foot -> getCurrentFrame().w * scale.x, foot->getPos().y));
-    footEnd -> setPos(Vector2f(footMiddle -> getPos().x + footMiddle -> getCurrentFrame().w * footMiddle -> getScale().x, foot->getPos().y));
-
+    UpdateBodyPos();
+    
     if(child != nullptr)
     {
         child -> setPos(p_pos + Vector2f(bottomCollider->GetFrame().x * scale.x, bottomCollider->GetFrame().y * scale.y));
@@ -88,6 +82,18 @@ void Loop::setPos(Vector2f p_pos){
     }
 
     MoveParameters(p_pos);
+}
+void Loop::UpdateBodyPos(){
+    float mainHeight = (parts.bottomLeft->getPos().y - pos.y) / scale.y + parts.bottomLeft -> getCurrentFrame().h;
+
+
+    body -> setPos(pos + Vector2f(0, (mainHeight- 1) * scale.y));
+    foot -> setPos(Vector2f(pos.x, pos.y + scale.y * (bodySize + mainHeight - 1)));
+
+
+    footMiddle -> setPos(Vector2f(pos.x + foot -> getCurrentFrame().w * scale.x, foot->getPos().y));
+    footEnd -> setPos(Vector2f(footMiddle -> getPos().x + footMiddle -> getCurrentFrame().w * footMiddle -> getScale().x, foot->getPos().y));
+
 }
 void Loop::SetLayer(int p_layer){
     if(child != nullptr){
@@ -243,4 +249,6 @@ void Loop::UpdateSize(){
     float adjustedMiddleWidth = ((mainColFrame.w - foot->getCurrentFrame().w - footEnd -> getCurrentFrame().w) * scale.x) / footMiddle -> getCurrentFrame().w;
     footMiddle -> setScale(Vector2f(adjustedMiddleWidth, scale.y));
     footEnd -> setPos(Vector2f(footMiddle -> getPos().x + footMiddle -> getCurrentFrame().w * adjustedMiddleWidth, footMiddle -> getPos().y));
+
+    UpdateBodyPos();
 }
