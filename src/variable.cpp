@@ -18,6 +18,7 @@ Variable::Variable(Vector2f p_pos, SDL_Texture *p_tex, const char *p_text, Vecto
     {
         heightChanger.UpdateHeight();
     }
+    setPos(pos);
 }
 Variable::~Variable()
 {

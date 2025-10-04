@@ -88,7 +88,7 @@ namespace BlockResize{
             p_parameterOffsets[i].second = Vector2f(b, p_textOffset.y);
             b += p_parameters[i].second -> GetSize() * p_scale.x + p_textOffset.x;
         }
-
+        p_text.getVisual() -> setPos(p_pos + p_textOffset);
         p_parts.top -> setPos(Vector2f(a + p_pos.x, p_pos.y)); 
         p_parts.top -> setScale(Vector2f((b - a - c) / p_parts.top -> getCurrentFrame().w, p_parts.top -> getScale().y));
 

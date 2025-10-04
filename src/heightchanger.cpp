@@ -37,10 +37,8 @@ void HeightChanger::UpdateHeight(){
 
     std::cout << "offsets size: " << parameterOffsets -> size() << "\n";
     for(int i = 0; i < parameterOffsets -> size(); ++i){
-        std::cout << "text: " << &(*parameterOffsets)[i].first << "\n";
-        std::cout << "gaps: " << &(*parameterOffsets)[i].second << "\n";
-        (*parameterOffsets)[i].first.print();
-        (*parameterOffsets)[i].second.print();
+        (*parameterOffsets)[i].first.y = textOffsetY;
+        (*parameterOffsets)[i].second.y = textOffsetY;
     }
 }
 std::vector<int> HeightChanger::GetArgumentHeights(){
