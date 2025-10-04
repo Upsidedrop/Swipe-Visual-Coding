@@ -52,11 +52,11 @@ void Gap::SetLayer(int p_layer){
     }
 }
 void Gap::UpdateSize(){
+    heightChanger.UpdateHeight();
     if(isBlock){
         ((Block*)(identity)) -> UpdateSize();
     }
     else{
         ((Variable*)(identity)) -> UpdateSize();
     }
-    heightChanger.UpdateHeight();
 }
