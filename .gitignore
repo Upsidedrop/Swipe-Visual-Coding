@@ -3,3 +3,5 @@
 .vscode/*
     !/tasks.json
 .Makefile.swp
+.cache
+tags
