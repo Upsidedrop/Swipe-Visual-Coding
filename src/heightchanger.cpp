@@ -40,6 +40,7 @@ void HeightChanger::UpdateHeight(){
         (*parameterOffsets)[i].first.y = textOffsetY;
         (*parameterOffsets)[i].second.y = textOffsetY;
     }
+
 }
 std::vector<int> HeightChanger::GetArgumentHeights(){
     std::vector<int> res(parameters.size());

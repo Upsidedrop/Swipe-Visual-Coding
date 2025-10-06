@@ -55,6 +55,7 @@ void Gap::UpdateSize(){
     heightChanger.UpdateHeight();
     if(isBlock){
         ((Block*)(identity)) -> UpdateSize();
+        ((Block*)(identity)) -> UpdateCollider();
     }
     else{
         ((Variable*)(identity)) -> UpdateSize();

@@ -1,4 +1,6 @@
 #include "Block.hpp"
+#include "Utils.hpp"
+#include <iostream>
 
 LinkedList<Block> Block::blocks;
 
@@ -192,4 +194,9 @@ void Block::UpdateSize(){
     mainColFrame.h = (parts.bottomLeft->getPos().y - pos.y) / scale.y + parts.bottomLeft->getCurrentFrame().h;
 
     mainCollider -> SetFrame(mainColFrame);
+}
+void Block::UpdateCollider(){
+    SDL_FRect oldFrame = bottomCollider -> GetFrame();
+    SDL_Rect updatedFrame = utils::InitRect(oldFrame.x, (GetBottom() - pos.y) / scale.y, oldFrame.w, oldFrame.h);
+    bottomCollider -> SetFrame(utils::RectToFrect(updatedFrame));
 }

@@ -62,6 +62,7 @@ class Block : public Entity{
     void setParent(Block* p_parent){
         parent = p_parent;
     }
+    void UpdateCollider();
     void setPos(Vector2f p_pos) override;
     void SetLayer(int p_layer) override;
     virtual void UpdateSize();
