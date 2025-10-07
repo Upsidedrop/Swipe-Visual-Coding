@@ -69,7 +69,6 @@ void Variable::setPos(Vector2f p_pos){
 
     text.getVisual() -> setPos(p_pos + textOffset);
     MoveParameters(p_pos);
-    p_pos.print();
 }
 void Variable::SetLayer(int p_layer){
     parts.SetLayer(p_layer);

@@ -150,7 +150,7 @@ void Block::setPos(Vector2f p_pos){
     pos = p_pos;
     if(child != nullptr)
     {
-        child-> setPos(p_pos + Vector2f(0, 12 * scale.y));
+        child-> setPos(p_pos + Vector2f(0, (mainCollider -> GetFrame().h - 2) * scale.y));
     }
     
     parts.SetPos(p_pos);
@@ -197,6 +197,6 @@ void Block::UpdateSize(){
 }
 void Block::UpdateCollider(){
     SDL_FRect oldFrame = bottomCollider -> GetFrame();
-    SDL_Rect updatedFrame = utils::InitRect(oldFrame.x, (GetBottom() - pos.y) / scale.y, oldFrame.w, oldFrame.h);
+    SDL_Rect updatedFrame = utils::InitRect(oldFrame.x, (GetBottom() - pos.y - 1) / scale.y, oldFrame.w, oldFrame.h);
     bottomCollider -> SetFrame(utils::RectToFrect(updatedFrame));
 }
