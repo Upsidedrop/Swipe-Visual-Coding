@@ -199,4 +199,7 @@ void Block::UpdateCollider(){
     SDL_FRect oldFrame = bottomCollider -> GetFrame();
     SDL_Rect updatedFrame = utils::InitRect(oldFrame.x, (GetBottom() - pos.y - 1) / scale.y, oldFrame.w, oldFrame.h);
     bottomCollider -> SetFrame(utils::RectToFrect(updatedFrame));
+    if(child != nullptr){
+        child -> setPos(Vector2f(pos.x, GetBottom() - scale.y));
+    }
 }
