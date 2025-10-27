@@ -75,7 +75,7 @@ Block::~Block()
 }
 float Block::GetBottom()
 {
-    return parts.bottom->getPos().y + (parts.bottom->getCurrentFrame().h - 1) * scale.y;
+    return GetHeadHeight();
 }
 void Block::ToggleIsContained(bool p_contained)
 {
@@ -195,11 +195,17 @@ void Block::UpdateSize(){
 
     mainCollider -> SetFrame(mainColFrame);
 }
+// Add virtual function for loop that moves the bottom AND middle collider 
 void Block::UpdateCollider(){
     SDL_FRect oldFrame = bottomCollider -> GetFrame();
-    SDL_Rect updatedFrame = utils::InitRect(oldFrame.x, (GetBottom() - pos.y - 1) / scale.y, oldFrame.w, oldFrame.h);
+    SDL_Rect updatedFrame = utils::InitRect(oldFrame.x, (GetHeadHeight() - pos.y - 1) / scale.y, oldFrame.w, oldFrame.h);
     bottomCollider -> SetFrame(utils::RectToFrect(updatedFrame));
     if(child != nullptr){
-        child -> setPos(Vector2f(pos.x, GetBottom() - scale.y));
+        child -> getPos().print();
+        Vector2f(pos.x, GetHeadHeight() - scale.y).print();
+        child -> setPos(Vector2f(pos.x, GetHeadHeight() - scale.y));
     }
+}
+float Block::GetHeadHeight(){
+    return parts.bottom->getPos().y + (parts.bottom->getCurrentFrame().h - 1) * scale.y;
 }

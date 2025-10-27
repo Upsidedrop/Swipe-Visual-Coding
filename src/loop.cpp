@@ -252,3 +252,18 @@ void Loop::UpdateSize(){
 
     UpdateBodyPos();
 }
+
+//GET RID OF MAGIC CONSTANTS YOU FOOL
+float Loop::GetBottom(){
+    return pos.y + scale.y * (bodySize + TOTAL_TEXTURE_HEIGHT - 1);
+}
+void Loop::UpdateCollider(){
+    SDL_FRect oldFrame = innerCollider -> GetFrame();
+    SDL_Rect updatedFrame = utils::InitRect(oldFrame.x, (GetHeadHeight() - pos.y - 1) / scale.y, oldFrame.w, oldFrame.h);
+    innerCollider -> SetFrame(utils::RectToFrect(updatedFrame));
+    if(innerChild != nullptr){
+        innerChild -> getPos().print();
+        Vector2f(pos.x, GetHeadHeight() - scale.y).print();
+        innerChild -> setPos(Vector2f(pos.x, GetHeadHeight() - scale.y));
+    }
+}

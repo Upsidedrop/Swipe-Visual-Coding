@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Utils.hpp"
 #include "Entity.hpp"
 #include "Block.hpp"
 #include "Math.hpp"
@@ -14,9 +15,7 @@ class Loop : public Block{
         return innerCollider;
     }
     void setPos(Vector2f p_pos) override;
-    float GetBottom() override{
-        return pos.y + scale.y * (bodySize + TOTAL_TEXTURE_HEIGHT - 1);
-    }
+    float GetBottom() override;
     void SetLayer(int p_layer) override;
     Block* GetInnerChild(){
         return innerChild;
@@ -26,6 +25,7 @@ class Loop : public Block{
     void RemoveChild(Block* p_child) override;
     void UpdateSize() override;
     void UpdateBodyPos();
+    void UpdateCollider() override;
     private:
     Entity* body;
     Entity* foot;
