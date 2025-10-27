@@ -122,7 +122,7 @@ void Block::RemoveChild()
                 std::cout << "something wicked this way comes" << "\n";
             }
         }
-        it->getParent()->setBodySize((GetBottom() - it->getParent()->getPos().y) / scale.y - currentFrame.h);
+        it->getParent()->setBodySize((GetBottom() - it -> getPos().y) / scale.y - 2);
 
         child->ToggleIsContained(false);
     }

@@ -1,10 +1,11 @@
 #include "Loop.hpp"
 
-const int DEFAULT_LOOP_SIZE = 24;
+const int DEFAULT_INNER_LOOP_SIZE = 11;
 
 Loop::Loop(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType p_type, SDL_Rect p_frame, const char* p_text, Vector2f textOffset, std::vector<const char*> p_parameters)
 :Block(p_pos, p_tex, p_frame, p_type, p_scale, p_text, textOffset, p_parameters), innerChild(nullptr), bodySize(10) {
 
+    const int DEFAULT_LOOP_SIZE = 24;
     float mainHeight = (parts.bottomLeft->getPos().y - pos.y) / p_scale + parts.bottomLeft -> getCurrentFrame().h;;
 
     SDL_Rect bodyFrame;
@@ -225,7 +226,7 @@ void Loop::RemoveChild(Block* p_child){
         child = nullptr;
     }
     else{
-        setBodySize((/*total head height*/ (parts.bottom->getPos().y - pos.y) / scale.y + parts.bottom->getCurrentFrame().h) - 3);
+        setBodySize(DEFAULT_INNER_LOOP_SIZE);
         innerChild = nullptr;
     }
     p_child -> ToggleIsContained(false);
@@ -262,8 +263,6 @@ void Loop::UpdateCollider(){
     SDL_Rect updatedFrame = utils::InitRect(oldFrame.x, (GetHeadHeight() - pos.y - 1) / scale.y, oldFrame.w, oldFrame.h);
     innerCollider -> SetFrame(utils::RectToFrect(updatedFrame));
     if(innerChild != nullptr){
-        innerChild -> getPos().print();
-        Vector2f(pos.x, GetHeadHeight() - scale.y).print();
-        innerChild -> setPos(Vector2f(pos.x, GetHeadHeight() - scale.y));
+        innerChild -> setPos(Vector2f(pos.x + oldFrame.x * scale.x, GetHeadHeight() - scale.y));
     }
 }
