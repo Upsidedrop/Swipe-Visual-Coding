@@ -254,9 +254,8 @@ void Loop::UpdateSize(){
     UpdateBodyPos();
 }
 
-//GET RID OF MAGIC CONSTANTS YOU FOOL
 float Loop::GetBottom(){
-    return pos.y + scale.y * (bodySize + TOTAL_TEXTURE_HEIGHT - 1);
+    return foot -> getPos().y + (foot -> getCurrentFrame().h - 1) * scale.y;
 }
 void Loop::UpdateCollider(){
     SDL_FRect oldFrame = innerCollider -> GetFrame();
