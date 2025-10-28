@@ -106,7 +106,7 @@ void Block::setChild(Block *p_child)
             std::cout << childIt->getChild() << "\n";
             childIt = childIt->getChild();
         }
-        loopIt->getParent()->setBodySize((childIt->GetBottom() - loopIt->getParent()->getPos().y) / scale.y - (/*total head height*/ (parts.bottom->getPos().y - pos.y) / scale.y + parts.bottom->getCurrentFrame().h));
+        loopIt -> getParent() -> setBodySize((childIt -> GetBottom() - loopIt -> getPos().y) / scale.y - 2);
     }
 }
 void Block::RemoveChild()
