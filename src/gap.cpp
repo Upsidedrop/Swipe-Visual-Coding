@@ -15,6 +15,9 @@ float Gap::GetSize(){
     return attached == nullptr? 10 : attached -> GetSize();    
 }
 void Gap::SetAttached(Variable* p_attached){
+    if(attached != nullptr){
+        Detach();
+    }
     attached = p_attached;
     p_attached -> SetLayer(layer + 1);
     p_attached -> SetParent(this);
@@ -22,6 +25,7 @@ void Gap::SetAttached(Variable* p_attached){
     UpdateSize();
 }
 void Gap::Detach(){
+    attached -> parent = nullptr;
     attached = nullptr;
     
     UpdateSize();

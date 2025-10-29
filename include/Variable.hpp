@@ -23,11 +23,11 @@ class Variable : public Entity{
     void UpdateSize();
     DividedEntity& GetParts();
     std::vector<std::pair<TextBox*, Gap*>> parameters;
+    Gap* parent;
     private:
     void MoveParameters(Vector2f p_pos);
     void LayerParameters(int p_layer);
     Collider* collision;
-    Gap* parent;
     Vector2f textOffset;
     TextBox text;
     std::vector<std::pair<Vector2f, Vector2f>> parameterOffsets;
