@@ -174,6 +174,7 @@ void Block::UpdateCollider(){
         Vector2f(pos.x, GetHeadHeight() - scale.y).print();
         child -> setPos(Vector2f(pos.x, GetHeadHeight() - scale.y));
     }
+    UpdateParentLoop();
 }
 float Block::GetHeadHeight(){
     return parts.bottom->getPos().y + (parts.bottom->getCurrentFrame().h - 1) * scale.y;
