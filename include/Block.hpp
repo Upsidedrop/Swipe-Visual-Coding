@@ -45,6 +45,9 @@ class Block : public Entity{
     virtual void setBodySize(float p_size){
         std::cout << "ERROR: DEFAULT BLOCKS DON'T HAVE BODY" << "\n";
     }
+    virtual void UpdateBodySize(){
+        std::cout << "ERROR: DEFAULT BLOCKS DON'T HAVE BODY" << "\n";   
+    }
     virtual void setChild(Block* p_child, Collider* p_col){
         std::cout << "ERROR: DEFAULT BLOCKS ONLY HAVE ONE COLLIDER" << "\n";
     }
@@ -62,6 +65,7 @@ class Block : public Entity{
     void setParent(Block* p_parent){
         parent = p_parent;
     }
+    void UpdateParentLoop();
     
     virtual void UpdateCollider();
     void setPos(Vector2f p_pos) override;

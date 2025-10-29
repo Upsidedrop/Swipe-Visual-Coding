@@ -130,21 +130,7 @@ void Loop::setChild(Block* p_child, Collider* p_col){
     if(p_col == bottomCollider){
         child = p_child;
         child -> ToggleIsContained(contained);
-        if(contained){
-            Block* loopIt = this;
-            while(loopIt -> getParent() -> getChild() == loopIt){
-                loopIt = loopIt -> getParent();
-                if(loopIt == nullptr){
-                    std::cout << "something wicked this way comes" << "\n";
-                }
-            }
-            Block* childIt = this;
-            while(childIt -> getChild() != nullptr){
-                std::cout<< childIt -> getChild() << "\n";
-                childIt = childIt -> getChild();
-            }
-            loopIt -> getParent() -> setBodySize((childIt -> GetBottom() - loopIt -> getParent() -> getPos().y) / scale.y - (/*total head height*/ (parts.bottom->getPos().y - pos.y) / scale.y + parts.bottom->getCurrentFrame().h));
-        }
+        UpdateParentLoop();
     }
     else
     {
@@ -162,12 +148,7 @@ void Loop::setChild(Block* p_child, Collider* p_col){
 
         innerChild = p_child;
         
-        childIt = innerChild;
-
-        while(childIt -> getChild() != nullptr){
-            childIt = childIt -> getChild();
-        }
-        setBodySize((childIt -> GetBottom() - pos.y) / scale.y - (/*total head height*/ (parts.bottom->getPos().y - pos.y) / scale.y + parts.bottom->getCurrentFrame().h));
+        UpdateBodySize();
         innerChild -> ToggleIsContained(true);
     }
 }
@@ -193,37 +174,12 @@ void Loop::setBodySize(float p_size){
 
     bottomCollider -> SetFrame(bottomColFrame);
 
-    if(contained){
-        Block* it = this;
-        while(it -> getParent() -> getChild() == it){
-            it = it -> getParent();
-            if(it == nullptr){
-                std::cout << "something wicked this way comes" << "\n";
-            }
-        }
-        Block* childIt = this;
-
-        while(childIt -> getChild() != nullptr){
-            childIt = childIt -> getChild();
-        }
-
-        it -> getParent() -> setBodySize((childIt -> GetBottom() - it -> getParent() -> getPos().y) / scale.y - (/*total head height*/ (parts.bottom->getPos().y - pos.y) / scale.y + parts.bottom->getCurrentFrame().h));
-    }
+    UpdateParentLoop();
 }
 void Loop::RemoveChild(Block* p_child){
     if(p_child == child){
-        if(contained){
-            Block* it = this;
-            while(it -> getParent() -> getChild() == it){
-                it = it -> getParent();
-                if(it == nullptr){
-                    std::cout << "something wicked this way comes" << "\n";
-                }
-            }
-            it -> getParent() -> setBodySize((GetBottom() - it -> getParent() -> getPos().y) / scale.y - (/*total head height*/ (parts.bottom->getPos().y - pos.y) / scale.y + parts.bottom->getCurrentFrame().h));
-        }
-
         child = nullptr;
+        UpdateParentLoop();
     }
     else{
         setBodySize(DEFAULT_INNER_LOOP_SIZE);
@@ -257,6 +213,15 @@ void Loop::UpdateSize(){
 float Loop::GetBottom(){
     return foot -> getPos().y + (foot -> getCurrentFrame().h - 1) * scale.y;
 }
+void Loop::UpdateBodySize(){
+    Block *childIt = innerChild;
+    while (childIt->getChild() != nullptr)
+    {
+        std::cout << childIt->getChild() << "\n";
+        childIt = childIt->getChild();
+    }
+    setBodySize((childIt -> GetBottom() - innerChild -> getPos().y) / scale.y - 2);
+}
 void Loop::UpdateCollider(){
     SDL_FRect oldFrame = innerCollider -> GetFrame();
     SDL_Rect updatedFrame = utils::InitRect(oldFrame.x, (GetHeadHeight() - pos.y - 1) / scale.y, oldFrame.w, oldFrame.h);
@@ -264,4 +229,13 @@ void Loop::UpdateCollider(){
     if(innerChild != nullptr){
         innerChild -> setPos(Vector2f(pos.x + oldFrame.x * scale.x, GetHeadHeight() - scale.y));
     }
+
+    oldFrame = bottomCollider -> GetFrame();
+    updatedFrame = utils::InitRect(oldFrame.x,  (GetBottom() - pos.y)/ scale.y - 1, oldFrame.w, oldFrame.h);
+    bottomCollider -> SetFrame(utils::RectToFrect(updatedFrame));
+    if(child != nullptr){
+        child -> setPos(Vector2f(pos.x + oldFrame.x * scale.x, GetBottom() - scale.y));
+    }
+
+    UpdateParentLoop();
 }

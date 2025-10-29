@@ -26,6 +26,7 @@ class Loop : public Block{
     void UpdateSize() override;
     void UpdateBodyPos();
     void UpdateCollider() override;
+    void UpdateBodySize();
     private:
     Entity* body;
     Entity* foot;
