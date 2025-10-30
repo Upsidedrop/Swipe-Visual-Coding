@@ -85,6 +85,7 @@ namespace General{
     }
 
     void VariableReleased(Variable*& heldVar){
+        heldVar -> SetLayer(0);
         Collider* neighborCol;
         std::unordered_set<void*> myGaps;
         for(auto pair : heldVar -> parameters){
