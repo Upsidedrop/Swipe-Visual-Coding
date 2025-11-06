@@ -3,7 +3,6 @@
 //#include <SDL_mixer.h>
 #include <iostream>
 #include <vector>
-#include <unordered_set>
 #include <map>
 #include <unordered_map>
 #include <SDL_filesystem.h>
@@ -21,6 +20,7 @@
 #include "General.hpp"
 #include "Gap.hpp"
 #include "Variable.hpp"
+#include "RandomDeletionStack.hpp"
 
 using std::cout;
 
@@ -28,7 +28,7 @@ std::unordered_map<std::string, FuncHead*> functions;
 
 std::vector<std::vector<Collider*>> flags = std::vector<std::vector<Collider*>>(6);
 
-std::map<int, std::unordered_set<Entity*>> layers;
+std::map<int, RandomDeletionStack<Entity*>*> layers;
 
 RenderWindow window("hi", 1280, 720);
 
@@ -153,8 +153,10 @@ int main(int agrv, char* args[]) {
         window.clear();
 
         for(auto layer : layers){
-            for(Entity* entity : layer.second){
-                window.render(*entity);
+            auto node = layer.second -> GetChild();
+            while(node != nullptr){
+                window.render(*node -> GetValue());
+                node = node -> GetChild();
             }
         }
 
@@ -177,6 +179,7 @@ int main(int agrv, char* args[]) {
     //Mix_Quit();
 
     utils::DeconstructFunctionHeads();
+    utils::DeconstructLayers();
 
     return 0;
 }

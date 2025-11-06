@@ -60,7 +60,9 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
 
         for (auto pair : parameters)
         {
+            std::cout << "update parameter layers\n";
             pair.first->getVisual()->SetLayer(layer + 1);
+            std::cout << "update other parameter\n";
 
             pair.second->SetLayer(layer + 1);
         }
@@ -137,16 +139,7 @@ void Block::SetLayer(int p_layer){
 
     parts.SetLayer(p_layer);
 
-    layers.find(layer) -> second.erase(this);
-
-    layer = p_layer;
-    
-    auto it = layers.find(layer);
-    if(it == layers.end()){
-        layers.insert(std::make_pair(layer, std::unordered_set<Entity*>()));
-        it = layers.find(layer); 
-    }
-    layers.find(layer) -> second.insert(this);
+    SetSelfLayer(p_layer); 
 }
 void Block::UpdateSize(){
     BlockResize::UpdateBlockScale(

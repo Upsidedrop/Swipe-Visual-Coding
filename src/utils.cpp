@@ -25,6 +25,11 @@ void utils::DeconstructFunctionHeads(){
         delete functionHeadPair.second;
     }
 }
+void utils::DeconstructLayers(){
+    for(auto layerPair : layers){
+        layerPair.second -> FullKill();
+    }
+}
 SDL_FRect utils::RectToFrect(SDL_Rect& p_rect){
     SDL_FRect res;
     res.x = p_rect.x;

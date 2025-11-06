@@ -2,13 +2,13 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <map>
-#include <unordered_set>
 
 #include "Math.hpp"
+#include "RandomDeletionStack.hpp"
 
 class Entity;
 
-extern std::map<int, std::unordered_set<Entity*>> layers;
+extern std::map<int, RandomDeletionStack<Entity*>*> layers;
 
 class Entity{
     public:
@@ -30,6 +30,7 @@ class Entity{
     SDL_Texture* getTex();
     SDL_Rect getCurrentFrame();
     virtual ~Entity(){}
+    void SetSelfLayer(int p_layer);
     protected:
     int layer = 0;
     Vector2f pos;

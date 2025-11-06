@@ -1,3 +1,5 @@
+#include <unordered_set>
+
 #include "General.hpp"
 
 namespace General{

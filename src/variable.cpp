@@ -73,20 +73,11 @@ void Variable::setPos(Vector2f p_pos){
 void Variable::SetLayer(int p_layer){
     parts.SetLayer(p_layer);
 
-    layers.find(layer) -> second.erase(this);
-
     text.getVisual() -> SetLayer(p_layer + 1);
 
     LayerParameters(p_layer);
 
-    layer = p_layer;
-
-    auto it = layers.find(layer);
-    if(it == layers.end()){
-        layers.insert(std::make_pair(layer, std::unordered_set<Entity*>()));
-        it = layers.find(layer); 
-    }
-    it -> second.insert(this);
+    SetSelfLayer(p_layer);
 }
 DividedEntity& Variable::GetParts(){
     return parts;

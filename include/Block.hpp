@@ -15,7 +15,6 @@
 #include "HeightChanger.hpp"
 
 using std::map;
-using std::unordered_set;
 using std::vector;
 
 enum BlockType{
