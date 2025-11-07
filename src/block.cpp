@@ -51,6 +51,8 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
 
         mainCollider = parts.GenerateGrabbableCollider(this);
 
+        text.getVisual() -> SetLayer(layer);
+
         std::cout << "Offsets pos: " << &parameterOffsets << "\n";
         std::cout << "parameters size: " << parameters.size() << "\n";
         if (parameters.size() != 0)
@@ -61,10 +63,10 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
         for (auto pair : parameters)
         {
             std::cout << "update parameter layers\n";
-            pair.first->getVisual()->SetLayer(layer + 1);
+            pair.first->getVisual()->SetLayer(layer);
             std::cout << "update other parameter\n";
 
-            pair.second->SetLayer(layer + 1);
+            pair.second->SetLayer(layer);
         }
     }
 }
@@ -112,9 +114,9 @@ void Block::LayerParameters(int p_layer)
 {
     for (auto pair : parameters)
     {
-        pair.first->getVisual()->SetLayer(p_layer + 1);
+        pair.first->getVisual()->SetLayer(p_layer);
 
-        pair.second->SetLayer(p_layer + 1);
+        pair.second->SetLayer(p_layer);
     }
 }
 void Block::setPos(Vector2f p_pos){
@@ -130,16 +132,15 @@ void Block::setPos(Vector2f p_pos){
     MoveParameters(p_pos);
 }
 void Block::SetLayer(int p_layer){
+    SetSelfLayer(p_layer); 
+    parts.SetLayer(p_layer);
+
     if(child != nullptr){
         child -> SetLayer(p_layer);
     }
-    text.getVisual() -> SetLayer(p_layer + 1);
+    text.getVisual() -> SetLayer(p_layer);
 
     LayerParameters(p_layer);
-
-    parts.SetLayer(p_layer);
-
-    SetSelfLayer(p_layer); 
 }
 void Block::UpdateSize(){
     BlockResize::UpdateBlockScale(

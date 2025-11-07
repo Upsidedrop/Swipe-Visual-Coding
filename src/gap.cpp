@@ -42,7 +42,7 @@ void Gap::setPos(Vector2f p_pos){
 void Gap::SetLayer(int p_layer){
     SetSelfLayer(p_layer);
     if(attached != nullptr){
-        attached -> SetLayer(p_layer + 1);
+        attached -> SetLayer(p_layer);
     }
 }
 void Gap::UpdateSize(){

@@ -97,25 +97,24 @@ void Loop::UpdateBodyPos(){
 
 }
 void Loop::SetLayer(int p_layer){
+    SetSelfLayer(p_layer);
+    parts.SetLayer(p_layer);
+
     if(child != nullptr){
         child -> SetLayer(p_layer);
     }
     if(innerChild != nullptr){
         innerChild -> SetLayer(p_layer);
     }
-    text.getVisual() -> SetLayer(p_layer + 1);
+    text.getVisual() -> SetLayer(p_layer);
 
     LayerParameters(p_layer);
-
-    parts.SetLayer(p_layer);
 
     body -> SetLayer(p_layer);
     foot -> SetLayer(p_layer);
 
     footMiddle -> SetLayer(p_layer);
     footEnd -> SetLayer(p_layer);
-
-    SetSelfLayer(p_layer);
 }
 void Loop::setChild(Block* p_child, Collider* p_col){
     if(p_col == bottomCollider){

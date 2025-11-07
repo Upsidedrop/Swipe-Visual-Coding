@@ -20,6 +20,9 @@ FuncHead::FuncHead(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType 
     BlockResize::InitBlockScale(
         centerSize, parts, p_scale, text, p_textOffset, parameters, p_pos, parameterOffsets, p_tex, p_parameters, heightChanger, this, true
     );
+    
+    text.getVisual() -> SetLayer(layer);
+
     for(auto pair : parameters){
         pair.first -> getVisual() -> SetLayer(layer + 1);
         pair.second -> SetLayer(layer + 1);

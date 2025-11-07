@@ -12,12 +12,24 @@ Variable::Variable(Vector2f p_pos, SDL_Texture *p_tex, const char *p_text, Vecto
     heightChanger.parameterOffsets = &parameterOffsets;
     BlockResize::InitBlockScale(centerTexSize, parts, p_scale, text, p_textOffset, parameters, p_pos, parameterOffsets, p_tex, p_parameters, heightChanger, this, false);
 
+    text.getVisual() -> SetLayer(layer);
+
     collision = parts.GenerateGrabbableCollider(this, 4);
 
     if (parameters.size() != 0)
     {
         heightChanger.UpdateHeight();
     }
+
+    for (auto pair : parameters)
+    {
+        std::cout << "update parameter layers\n";
+        pair.first->getVisual()->SetLayer(layer);
+        std::cout << "update other parameter\n";
+
+        pair.second->SetLayer(layer);
+    }
+
     setPos(pos);
 }
 Variable::~Variable()
@@ -53,9 +65,9 @@ void Variable::LayerParameters(int p_layer)
 {
     for (auto pair : parameters)
     {
-        pair.first->getVisual()->SetLayer(p_layer + 1);
+        pair.first->getVisual()->SetLayer(p_layer);
 
-        pair.second->SetLayer(p_layer + 1);
+        pair.second->SetLayer(p_layer);
     }
 }
 float Variable::GetHeight()
@@ -71,13 +83,13 @@ void Variable::setPos(Vector2f p_pos){
     MoveParameters(p_pos);
 }
 void Variable::SetLayer(int p_layer){
+    SetSelfLayer(p_layer);
+
     parts.SetLayer(p_layer);
 
-    text.getVisual() -> SetLayer(p_layer + 1);
+    text.getVisual() -> SetLayer(p_layer);
 
     LayerParameters(p_layer);
-
-    SetSelfLayer(p_layer);
 }
 DividedEntity& Variable::GetParts(){
     return parts;
