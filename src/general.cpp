@@ -90,9 +90,7 @@ namespace General{
         heldVar -> SetLayer(0);
         Collider* neighborCol;
         std::unordered_set<void*> myGaps;
-        for(auto pair : heldVar -> parameters){
-            myGaps.insert(pair.second);
-        }
+        heldVar -> trackOwnParameters(myGaps);
         auto predicate = [myGaps](Collider* col) -> bool {return (myGaps.find(col -> GetParent()) != myGaps.end());};
         neighborCol = heldVar -> GetCollider() -> CheckForCollisions({5}, predicate);
         if(neighborCol != nullptr){

@@ -21,7 +21,7 @@ void HeightChanger::UpdateHeight(){
     height -= parts.top -> getCurrentFrame().h * parts.top -> getScale().y;
     height -= parts.bottom -> getCurrentFrame().h * parts.bottom -> getScale().y;
 
-    parts.left -> setScale(Vector2f(parts.left -> getScale().x, height / parts.left -> getCurrentFrame().h));
+    parts.left -> setScale(Vector2f(parts.left -> getScale().x, height / (float)parts.left -> getCurrentFrame().h));
     parts.center -> setScale(Vector2f(parts.center -> getScale().x, parts.left -> getScale().y));
     parts.right -> setScale(parts.left -> getScale());
     

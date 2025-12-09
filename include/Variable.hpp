@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL_image.h>
+#include <unordered_set>
 
 #include "Collider.hpp"
 #include "TextBox.hpp"
@@ -24,6 +25,7 @@ class Variable : public Entity{
     DividedEntity& GetParts();
     std::vector<std::pair<TextBox*, Gap*>> parameters;
     Gap* parent;
+    void trackOwnParameters(std::unordered_set<void*>& p_set);
     private:
     void MoveParameters(Vector2f p_pos);
     void LayerParameters(int p_layer);

@@ -19,7 +19,7 @@ void Gap::SetAttached(Variable* p_attached){
         Detach();
     }
     attached = p_attached;
-    p_attached -> SetLayer(layer + 1);
+    p_attached -> SetLayer(layer);
     p_attached -> SetParent(this);
     
     UpdateSize();
@@ -54,4 +54,7 @@ void Gap::UpdateSize(){
     else{
         ((Variable*)(identity)) -> UpdateSize();
     }
+}
+Variable* Gap::getAttached(){
+    return attached;
 }

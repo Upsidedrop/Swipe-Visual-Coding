@@ -1,7 +1,7 @@
 #include "DividedEntity.hpp"
 
 void DividedEntity::SetPos(Vector2f& p_pos){
-    top->setPos(Vector2f(p_pos.x + top->getCurrentFrame().x * left -> getScale().x, p_pos.y));
+    top -> setPos(Vector2f(p_pos.x + left -> getCurrentFrame().w * left -> getScale().x, p_pos.y));
     topRight -> setPos(top -> getPos() + Vector2f(top -> getCurrentFrame().w * top -> getScale().x, 0));
     left -> setPos(p_pos + Vector2f(0, left -> getCurrentFrame().y * top -> getScale().y));
     center -> setPos(Vector2f(top -> getPos().x, left -> getPos().y));

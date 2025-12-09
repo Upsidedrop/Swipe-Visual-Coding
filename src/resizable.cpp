@@ -23,7 +23,8 @@ namespace BlockResize{
         float c = topRightFrame.w * p_scale;
 
         std::cout << "Offsets pos: " << &p_parameterOffsets << "\n";
-    
+ 
+        std::cout << "a: " << a << " b: " << b << " c: " << c << "\n";   
 
         for(size_t i = 0; i < p_inParameters.size(); ++i){
             p_outParameters.push_back(std::make_pair(nullptr, nullptr));
@@ -76,6 +77,8 @@ namespace BlockResize{
         float a = p_currentFrame.w * p_scale.x;
         float b = p_text.getDimensions().x + p_textOffset.x * 2;
         float c = p_parts.topRight -> getCurrentFrame().w * p_scale.x;
+
+        std::cout << "a: " << a << " b: " << b << " c: " << c << "\n";
 
         for(size_t i = 0; i < p_parameters.size(); ++i){        
             p_parameters[i].first -> getVisual() -> setPos(Vector2f(b, p_textOffset.y) + p_pos);

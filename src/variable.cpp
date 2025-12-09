@@ -106,3 +106,12 @@ void Variable::UpdateSize(){
     	parent -> UpdateSize();
     }
 }
+void Variable::trackOwnParameters(std::unordered_set<void*>& p_set){
+    for(auto pair : parameters){
+        p_set.insert(pair.second);
+        if(pair.second -> getAttached() == nullptr){
+            continue;
+        }
+        pair.second -> getAttached() -> trackOwnParameters(p_set);;
+    }
+}

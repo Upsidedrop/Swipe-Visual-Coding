@@ -16,6 +16,7 @@ class Gap : public Entity{
     float GetSize();
     float GetHeight();
     void SetAttached(Variable* p_attached);
+    Variable* getAttached();
     void setPos(Vector2f p_pos) override;
     void SetLayer(int p_layer) override;
     void Detach();
