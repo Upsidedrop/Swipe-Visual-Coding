@@ -30,6 +30,7 @@ public:
     }
     Collider* CheckForCollisions(std::vector<int> masks, std::function<bool(Collider*)> p_predicate = [](Collider*) -> bool {return false;});
     Collider* CheckForCollisionsHeightPriority(std::vector<int> masks);
+    float getArea();
     private:
     SDL_FRect frame;
     Entity* parent;

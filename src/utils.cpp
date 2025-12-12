@@ -1,6 +1,8 @@
 #include "Utils.hpp"
 
 Collider* utils::CheckMouseCollisions(Vector2f p_mousePos, vector<int> p_masks){
+    Collider* smallest = nullptr;
+    float smallestVal = -1;
     for(int i : p_masks){
         for(Collider* other : flags[i]){
             if((other -> GetParent() -> getPos().x + (other -> GetFrame().w + other -> GetFrame().x) * other->GetParent()->getScale().x) < p_mousePos.x){
@@ -15,10 +17,14 @@ Collider* utils::CheckMouseCollisions(Vector2f p_mousePos, vector<int> p_masks){
             if(p_mousePos.y < (other -> GetParent() -> getPos().y) + other -> GetFrame().y){
                 continue;
             }
-            return other;
+            float area = other -> getArea();
+            if(area < smallestVal || smallest == nullptr){
+                smallest = other;
+                smallestVal = area;
+            }
         }
     }
-    return nullptr;
+    return smallest;
 }
 void utils::DeconstructFunctionHeads(){
     for(auto functionHeadPair : functions){

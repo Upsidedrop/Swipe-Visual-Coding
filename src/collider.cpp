@@ -68,3 +68,6 @@ Collider* Collider::CheckForCollisionsHeightPriority(std::vector<int> masks){
     }
     return lowest;
 }
+float Collider::getArea(){
+    return frame.w * frame.h;
+}
