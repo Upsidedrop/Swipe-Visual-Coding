@@ -156,14 +156,8 @@ void Loop::setBodySize(float p_size){
         child -> setPos(Vector2f(pos.x, GetBottom() - child -> getScale().y));
     }
     
-    SDL_FRect bottomColFrame;
-    bottomColFrame.x = 0;
-    bottomColFrame.y = 19 + p_size;
-    bottomColFrame.w = 32;
-    bottomColFrame.h = 8;
-
-    bottomCollider -> SetFrame(bottomColFrame);
-
+    UpdateCollider();  
+   
     UpdateParentLoop();
 }
 void Loop::RemoveChild(Block* p_child){
