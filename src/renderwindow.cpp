@@ -5,6 +5,8 @@
 #include "RenderWindow.hpp"
 #include "Entity.hpp"
 
+extern Vector2f cameraPos;
+
 RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h) :window(nullptr), renderer(nullptr) {
     window = SDL_CreateWindow(p_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, p_w, p_h, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if(window == nullptr){
@@ -42,8 +44,8 @@ void RenderWindow::render(Entity& p_entity){
     src.h = p_entity.getCurrentFrame().h;
 
     SDL_Rect dst;
-    dst.x = p_entity.getPos().x;
-    dst.y = p_entity.getPos().y;
+    dst.x = p_entity.getPos().x - cameraPos.x;
+    dst.y = p_entity.getPos().y - cameraPos.y;
     dst.w = p_entity.getCurrentFrame().w * p_entity.getScale().x;
     dst.h = p_entity.getCurrentFrame().h * p_entity.getScale().y;
     SDL_RenderCopy(renderer, p_entity.getTex(), &src, &dst);

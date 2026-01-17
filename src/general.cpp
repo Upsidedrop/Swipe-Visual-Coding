@@ -2,6 +2,8 @@
 
 #include "General.hpp"
 
+extern Vector2f cameraPos;
+
 namespace General{
     void GrabbedBlock(Block*& heldObject, SDL_Event& event, Collider*& collision, Vector2f& clickedPos){
         heldObject = static_cast<Block*>(collision->GetParent());
@@ -30,17 +32,17 @@ namespace General{
     }
 
     void OnClick(SDL_Event& event, Block*& heldObject, Vector2f& clickedPos, Variable*& heldVar){
-        Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), {4});
+        Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) + cameraPos, {4});
         if(collision != nullptr){
             GrabbedVariable(heldVar, event, collision, clickedPos);
             return;
         }
-        collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), {2});
+        collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) + cameraPos, {2});
         if(collision != nullptr){
             GrabbedBlock(heldObject, event, collision, clickedPos);
         }
         else{
-            collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y), {3});
+            collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) + cameraPos, {3});
             if(collision != nullptr){
                 static_cast<Button*>(collision -> GetParent())->CallFunc();
             }

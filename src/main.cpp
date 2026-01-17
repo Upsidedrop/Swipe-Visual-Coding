@@ -38,6 +38,8 @@ SDL_Texture* gapTexture = window.loadTexture("res/gfx/Gap.png");
 
 SDL_Texture* varTexture = window.loadTexture("res/gfx/Variable.png");
 
+Vector2f cameraPos(0, 0);
+
 int main(int agrv, char* args[]) {
     cout << "Program Start" << "\n";
     
@@ -121,6 +123,8 @@ int main(int agrv, char* args[]) {
     bool gameRunning = true;
     SDL_Event event;
 
+    Vector2f lastCamPos;
+
     cout << "Game Start" << "\n";
     while(gameRunning){
         while(SDL_PollEvent(&event)){
@@ -128,16 +132,26 @@ int main(int agrv, char* args[]) {
                 gameRunning = false;
             }
             if(event.type == SDL_MOUSEMOTION){
-                if(heldObject != nullptr){
-                    heldObject -> setPos(Vector2f(event.motion.x, event.motion.y) - clickedPos);
+                if(event.button.button == SDL_BUTTON_LEFT){
+                    if(heldObject != nullptr){
+                        heldObject -> setPos(Vector2f(event.motion.x, event.motion.y) - clickedPos);
+                    }
+                    if(heldVar != nullptr){
+                        heldVar -> setPos(Vector2f(event.motion.x, event.motion.y) - clickedPos);
+                    } 
                 }
-                if(heldVar != nullptr){
-                    heldVar -> setPos(Vector2f(event.motion.x, event.motion.y) - clickedPos);
+
+                if(event.button.button == SDL_BUTTON_MIDDLE){
+                    cameraPos = Vector2f(clickedPos.x - event.button.x + lastCamPos.x, clickedPos.y - event.button.y + lastCamPos.y);
                 }
             }
             if(event.type == SDL_MOUSEBUTTONDOWN){
                 if(event.button.button == SDL_BUTTON_LEFT){
                     General::OnClick(event, heldObject, clickedPos, heldVar);
+                }
+                if(event.button.button == SDL_BUTTON_MIDDLE){
+                    lastCamPos = cameraPos;
+                    clickedPos = Vector2f(event.button.x, event.button.y);
                 }
             }
             if(event.type == SDL_MOUSEBUTTONUP){
