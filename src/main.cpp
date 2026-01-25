@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <SDL_filesystem.h>
 #include <SDL_ttf.h>
+#include <SDL_keyboard.h>
 
 #include "RenderWindow.hpp"
 #include "Block.hpp"
@@ -125,6 +126,8 @@ int main(int agrv, char* args[]) {
 
     Vector2f lastCamPos;
 
+    SDL_StartTextInput();
+
     cout << "Game Start" << "\n";
     while(gameRunning){
         while(SDL_PollEvent(&event)){
@@ -164,6 +167,13 @@ int main(int agrv, char* args[]) {
                     }
                 }
             }
+            if(event.type == SDL_TEXTINPUT){
+                if (!(SDL_GetModState() & KMOD_CTRL && (event.text.text[0] == 'c' || event.text.text[0] == 'C' || event.text.text[0] == 'v' || event.text.text[0] == 'V'))){
+                    auto text = var2.text.getText();
+                    text += event.text.text;
+                    var2.text.setText(text.c_str());
+                }
+            }
         }
         window.clear();
 
@@ -177,6 +187,9 @@ int main(int agrv, char* args[]) {
 
         window.display();
     }
+
+    SDL_StopTextInput();
+
     std::cout << "exit" << "\n";
     window.cleanUp();
 

@@ -23,8 +23,9 @@ class TextBox{
     }
     void setText(const char* p_text);
     float getScale();
+    std::string getText();
     private:
-    void updateTextures(const char* p_text);
+    void updateTextures();
     void deleteTextures();
     SDL_Rect getFrame();
     Entity* visual;
@@ -32,4 +33,5 @@ class TextBox{
     SDL_Texture* tex;
     float scale;
     SDL_Color color;
+    std::string text;
 };
