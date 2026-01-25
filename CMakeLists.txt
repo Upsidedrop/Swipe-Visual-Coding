@@ -19,4 +19,4 @@ include_directories(${SDL2TTF_INCLUDE_DIR})
 
 target_include_directories(Swipe PUBLIC include)
 
-target_link_libraries(Swipe ${SDL2_MIXER_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES}) # ${SDL2TTF_LIBRARY})
+target_link_libraries(Swipe ${SDL2_MIXER_LIBRARIES} ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES}  ${SDL2TTF_LIBRARY})
