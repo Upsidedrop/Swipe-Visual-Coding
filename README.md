@@ -26,3 +26,22 @@ CMake:
 5. `cd build && cmake ..`
 
 6. `make && cd .. && ./build/Swipe`
+
+------------
+
+#### Common package names:
+
+Apt:
+- apt-get install libsdl2-dev
+- apt-get install libsdl2-image-dev
+- apt-get install libsdl2-ttf-dev
+
+Pacman:
+- sudo pacman -S sdl2-compat
+- sudo pacman -S sdl2_image
+- sudo pacman -S sdl2_ttf
+
+Yum:
+- yum install SDL2-devel
+- yum install SDL2_image-devel
+- yum install SDL2_ttf-devel
