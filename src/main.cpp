@@ -40,6 +40,8 @@ SDL_Texture* gapTexture = window.loadTexture("res/gfx/Gap.png");
 SDL_Texture* varTexture = window.loadTexture("res/gfx/Variable.png");
 
 Vector2f cameraPos(0, 0);
+Vector2f lastCamPos;
+bool isDragging = false;
 
 int main(int agrv, char* args[]) {
     cout << "Program Start" << "\n";
@@ -124,8 +126,6 @@ int main(int agrv, char* args[]) {
     bool gameRunning = true;
     SDL_Event event;
 
-    Vector2f lastCamPos;
-
     SDL_StartTextInput();
 
     cout << "Game Start" << "\n";
@@ -144,7 +144,7 @@ int main(int agrv, char* args[]) {
                     } 
                 }
 
-                if(event.button.button == SDL_BUTTON_MIDDLE){
+                if(isDragging){
                     cameraPos = Vector2f(clickedPos.x - event.button.x + lastCamPos.x, clickedPos.y - event.button.y + lastCamPos.y);
                 }
             }
@@ -153,8 +153,7 @@ int main(int agrv, char* args[]) {
                     General::OnClick(event, heldObject, clickedPos, heldVar);
                 }
                 if(event.button.button == SDL_BUTTON_MIDDLE){
-                    lastCamPos = cameraPos;
-                    clickedPos = Vector2f(event.button.x, event.button.y);
+                    General::beginDragging(clickedPos, event);
                 }
             }
             if(event.type == SDL_MOUSEBUTTONUP){
@@ -165,6 +164,9 @@ int main(int agrv, char* args[]) {
                     if(heldVar != nullptr){
                         General::VariableReleased(heldVar);
                     }
+                }
+                if(isDragging){
+                    isDragging = false;
                 }
             }
             if(event.type == SDL_KEYDOWN){

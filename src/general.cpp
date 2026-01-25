@@ -3,6 +3,8 @@
 #include "General.hpp"
 
 extern Vector2f cameraPos;
+extern Vector2f lastCamPos;
+extern bool isDragging;
 
 namespace General{
     void GrabbedBlock(Block*& heldObject, SDL_Event& event, Collider*& collision, Vector2f& clickedPos){
@@ -40,15 +42,22 @@ namespace General{
         collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) + cameraPos, {2});
         if(collision != nullptr){
             GrabbedBlock(heldObject, event, collision, clickedPos);
+            return;
         }
         else{
             collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) + cameraPos, {3});
             if(collision != nullptr){
                 static_cast<Button*>(collision -> GetParent())->CallFunc();
+                return;
             }
         }
+        beginDragging(clickedPos, event);
     }
-
+    void beginDragging(Vector2f& clickedPos, SDL_Event& event){
+        lastCamPos = cameraPos;
+        clickedPos = Vector2f(event.button.x, event.button.y);
+        isDragging = true;
+    }
     void InsertBlock(Block*& heldObject, Block*& neighbor){
         Block* iterator = heldObject;
         while(iterator -> getChild() != nullptr){

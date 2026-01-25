@@ -15,4 +15,5 @@ namespace General{
     void AttachBlock(Collider*& neighborCol, Block*& heldObject);
     void BlockReleased(Block*& heldObject);
     void VariableReleased(Variable*& heldVar);
+    void beginDragging(Vector2f& clickedPos, SDL_Event& event);
 }
