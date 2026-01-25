@@ -15,6 +15,12 @@ Entity::Entity(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, Vector2f p_
 SDL_Texture* Entity::getTex(){
     return tex;
 }
+void Entity::setTex(SDL_Texture* p_tex){
+    tex = p_tex;
+}
+void Entity::setFrame(SDL_Rect p_frame){
+    currentFrame = p_frame;
+}
 SDL_Rect Entity::getCurrentFrame(){
     return currentFrame;
 }

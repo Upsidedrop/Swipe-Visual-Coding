@@ -21,10 +21,15 @@ class TextBox{
     Vector2f getDimensions(){
         return Vector2f(visual -> getCurrentFrame().w, visual -> getCurrentFrame().h) * scale;
     }
+    void setText(const char* p_text);
     float getScale();
     private:
+    void updateTextures(const char* p_text);
+    void deleteTextures();
+    SDL_Rect getFrame();
     Entity* visual;
     SDL_Surface* surface;
     SDL_Texture* tex;
     float scale;
+    SDL_Color color;
 };

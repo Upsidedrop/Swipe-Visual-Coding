@@ -26,6 +26,8 @@ class Entity{
     Vector2f& getScale(){
         return scale;
     }
+    void setTex(SDL_Texture* p_tex);
+    void setFrame(SDL_Rect p_frame);
     virtual void SetLayer(int p_layer);
     SDL_Texture* getTex();
     SDL_Rect getCurrentFrame();
