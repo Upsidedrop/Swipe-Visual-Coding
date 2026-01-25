@@ -167,6 +167,20 @@ int main(int agrv, char* args[]) {
                     }
                 }
             }
+            if(event.type == SDL_KEYDOWN){
+                if(event.key.keysym.sym == SDLK_BACKSPACE && var2.text.getText().length() > 0){
+                    auto text = var2.text.getText();
+                    text.pop_back();
+                    var2.text.setText(text.c_str());
+                }
+                else if(event.key.keysym.sym == SDLK_v && SDL_GetModState() & KMOD_CTRL){
+                    char* tempText = SDL_GetClipboardText();
+                    auto text = var2.text.getText();
+                    text += tempText;
+                    var2.text.setText(text.c_str());
+                    SDL_free(tempText);
+                }
+            }
             if(event.type == SDL_TEXTINPUT){
                 if (!(SDL_GetModState() & KMOD_CTRL && (event.text.text[0] == 'c' || event.text.text[0] == 'C' || event.text.text[0] == 'v' || event.text.text[0] == 'V'))){
                     auto text = var2.text.getText();
