@@ -33,6 +33,7 @@ class Entity{
     SDL_Rect getCurrentFrame();
     virtual ~Entity(){}
     void SetSelfLayer(int p_layer);
+    bool enabled;
     protected:
     int layer = 0;
     Vector2f pos;

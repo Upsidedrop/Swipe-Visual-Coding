@@ -1,7 +1,7 @@
 #include "Entity.hpp"
 
 Entity::Entity(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, Vector2f p_scale, int p_layer)
-:pos(p_pos), scale(p_scale), currentFrame(p_frame), tex(p_tex)
+:pos(p_pos), scale(p_scale), currentFrame(p_frame), tex(p_tex), enabled(true)
 {
     layer = p_layer;
 

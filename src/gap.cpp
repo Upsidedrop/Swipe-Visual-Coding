@@ -18,6 +18,9 @@ void Gap::SetAttached(Variable* p_attached){
     if(attached != nullptr){
         Detach();
     }
+    else{
+        enabled = false;
+    }
     attached = p_attached;
     p_attached -> SetLayer(layer);
     p_attached -> SetParent(this);
@@ -25,6 +28,8 @@ void Gap::SetAttached(Variable* p_attached){
     UpdateSize();
 }
 void Gap::Detach(){
+    enabled = true;
+    
     attached -> parent = nullptr;
     attached = nullptr;
     
