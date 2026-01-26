@@ -95,7 +95,7 @@ namespace BlockResize{
         p_parts.top -> setPos(Vector2f(a + p_pos.x, p_pos.y)); 
         p_parts.top -> setScale(Vector2f((b - a - c) / p_parts.top -> getCurrentFrame().w, p_parts.top -> getScale().y));
 
-        p_parts.topRight -> setPos(Vector2f(((a < b - c) ? b - c : a) + p_pos.x, p_pos.y));
+        p_parts.topRight -> setPos(Vector2f((int)((a < b - c) ? b - c : a) + p_pos.x, p_pos.y));
 
         p_parts.center -> setPos(Vector2f(p_parts.top -> getPos().x, p_parts.center -> getPos().y));
         p_parts.center -> setScale(Vector2f(p_parts.top -> getScale().x, p_parts.center -> getScale().y));

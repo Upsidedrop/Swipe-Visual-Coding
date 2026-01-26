@@ -22,6 +22,8 @@ void TextArea::setText(const char* p_text){
             text.setText(p_text);
             break;
     }
+    auto frame = text.getFrame();
+    textCol -> SetFrame(utils::RectToFrect(frame));
     UpdateSize();
 }
 std::string TextArea::getText(){
