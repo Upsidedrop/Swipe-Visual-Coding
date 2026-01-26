@@ -14,7 +14,7 @@ Variable::Variable(Vector2f p_pos, SDL_Texture *p_tex, const char *p_text, Vecto
 
     text.getVisual() -> SetLayer(layer);
 
-    collision = parts.GenerateGrabbableCollider(this, 4);
+    collision = parts.GenerateGrabbableCollider(this, Collider::GRABBABLE_VAR);
 
     if (parameters.size() != 0)
     {

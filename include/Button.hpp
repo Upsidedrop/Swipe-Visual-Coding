@@ -11,7 +11,7 @@ class Button : public Entity{
     :Entity(p_pos, p_tex, p_frame, p_scale, p_layer), func(p_func)
     {
         std::cout << "initislized Button\n";
-        collider = new Collider(p_colliderRect, this, 3);
+        collider = new Collider(p_colliderRect, this, Collider::BUTTON);
         std::cout << "initislized Collider\n";
     }
     void CallFunc(){

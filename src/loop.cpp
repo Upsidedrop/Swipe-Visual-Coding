@@ -56,7 +56,7 @@ Loop::Loop(Vector2f p_pos, float p_scale, SDL_Texture* p_tex, BlockType p_type, 
     innerColliderFrame.w = 32;
     innerColliderFrame.h = 8;
 
-    innerCollider = new Collider(innerColliderFrame, this, 1);
+    innerCollider = new Collider(innerColliderFrame, this, Collider::BOTTOM_BLOCK);
 }
 Loop::~Loop(){
    delete body;

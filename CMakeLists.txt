@@ -3,7 +3,7 @@ project(Swipe)
 
 add_executable(Swipe src/main.cpp src/block.cpp src/dividedentity.cpp src/gap.cpp src/loop.cpp src/renderwindow.cpp src/utils.cpp
 src/collider.cpp src/entity.cpp src/general.cpp src/main.cpp src/resizable.cpp src/variable.cpp
-src/compiler.cpp src/funchead.cpp src/heightchanger.cpp src/math.cpp src/textbox.cpp)
+src/compiler.cpp src/funchead.cpp src/heightchanger.cpp src/math.cpp src/textbox.cpp src/textarea.cpp)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 

@@ -10,7 +10,7 @@ void DividedEntity::SetPos(Vector2f& p_pos){
     bottom -> setPos(Vector2f(top -> getPos().x, bottomLeft -> getPos().y));
     bottomRight -> setPos(Vector2f(topRight -> getPos().x, bottomLeft -> getPos().y));
 }
-Collider* DividedEntity::GenerateGrabbableCollider(Entity* p_identity, int layer){
+Collider* DividedEntity::GenerateGrabbableCollider(Entity* p_identity, Collider::FLAG layer){
     
     return new Collider(GetFullRect(), p_identity, layer);
 }

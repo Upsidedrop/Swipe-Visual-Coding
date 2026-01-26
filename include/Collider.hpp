@@ -13,9 +13,18 @@ extern std::vector<std::vector<Collider*>> flags;
 
 class Collider{
 public:
+    enum FLAG{
+        TOP_BLOCK,
+        BOTTOM_BLOCK,
+        GRABBABLE,
+        BUTTON,
+        GRABBABLE_VAR,
+        GAP,
+        TEXT_AREA
+    };
     Collider()
     :frame(SDL_FRect()), parent(nullptr){}
-    Collider(SDL_FRect p_frame, Entity* p_parent, int p_layer) 
+    Collider(SDL_FRect p_frame, Entity* p_parent, FLAG p_layer) 
     :frame(p_frame),  parent(p_parent){
         flags[p_layer].push_back(this);
     }

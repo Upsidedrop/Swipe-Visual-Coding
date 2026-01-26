@@ -24,10 +24,10 @@ class TextBox{
     void setText(const char* p_text);
     float getScale();
     std::string getText();
+    SDL_Rect getFrame();
     private:
     void updateTextures();
     void deleteTextures();
-    SDL_Rect getFrame();
     Entity* visual;
     SDL_Surface* surface;
     SDL_Texture* tex;

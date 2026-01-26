@@ -26,7 +26,7 @@ class DividedEntity{
         delete bottomRight;
     }
     void SetPos(Vector2f& p_pos);
-    Collider* GenerateGrabbableCollider(Entity* p_identity, int layer = 2);
+    Collider* GenerateGrabbableCollider(Entity* p_identity, Collider::FLAG layer = Collider::GRABBABLE);
     void SetLayer(int p_layer);
     Vector2f limits;
     SDL_FRect GetFullRect();

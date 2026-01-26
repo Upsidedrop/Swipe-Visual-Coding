@@ -22,12 +22,13 @@
 #include "Gap.hpp"
 #include "Variable.hpp"
 #include "RandomDeletionStack.hpp"
+#include "TextArea.hpp"
 
 using std::cout;
 
 std::unordered_map<std::string, FuncHead*> functions;
 
-std::vector<std::vector<Collider*>> flags = std::vector<std::vector<Collider*>>(6);
+std::vector<std::vector<Collider*>> flags = std::vector<std::vector<Collider*>>(7);
 
 std::map<int, RandomDeletionStack<Entity*>*> layers;
 
@@ -68,6 +69,7 @@ int main(int agrv, char* args[]) {
     SDL_Texture* headTexture = window.loadTexture("res/gfx/DefaultHead.png");
     SDL_Texture* loopTexture = window.loadTexture("res/gfx/Loop.png");
     SDL_Texture* buttonTexture = window.loadTexture("res/gfx/Button.png");
+    SDL_Texture* textAreaTexture = window.loadTexture("res/gfx/TextArea.png");
     
     //Mix_Music* gMusic = Mix_LoadMUS("res/dev/death-odyssey.mp3"); UNCOMMENT MEMORY CLEANUP
 
@@ -119,8 +121,11 @@ int main(int agrv, char* args[]) {
     Variable var2(Vector2f(400, 600), varTexture, "Sensor", Vector2f(8,1), 4, 0, {"first:","second:"});
     Variable var3(Vector2f(400, 600), varTexture, "Sensor", Vector2f(8,1), 4, 0, {"first:","second:"});
 
+    TextArea foo(Vector2f(400, 600), textAreaTexture, Vector2f(8,0.8), 4, 0);
+
     Variable* heldVar = nullptr;
     Block* heldObject = nullptr;
+    TextArea* selectedTextBox = nullptr;
 
     Vector2f clickedPos;
     bool gameRunning = true;
@@ -150,7 +155,7 @@ int main(int agrv, char* args[]) {
             }
             if(event.type == SDL_MOUSEBUTTONDOWN){
                 if(event.button.button == SDL_BUTTON_LEFT){
-                    General::OnClick(event, heldObject, clickedPos, heldVar);
+                    General::OnClick(event, heldObject, clickedPos, heldVar, selectedTextBox);
                 }
                 if(event.button.button == SDL_BUTTON_MIDDLE){
                     General::beginDragging(clickedPos, event);
@@ -170,24 +175,29 @@ int main(int agrv, char* args[]) {
                 }
             }
             if(event.type == SDL_KEYDOWN){
-                if(event.key.keysym.sym == SDLK_BACKSPACE && var2.text.getText().length() > 0){
-                    auto text = var2.text.getText();
-                    text.pop_back();
-                    var2.text.setText(text.c_str());
-                }
-                else if(event.key.keysym.sym == SDLK_v && SDL_GetModState() & KMOD_CTRL){
-                    char* tempText = SDL_GetClipboardText();
-                    auto text = var2.text.getText();
-                    text += tempText;
-                    var2.text.setText(text.c_str());
-                    SDL_free(tempText);
+                if(selectedTextBox != nullptr){
+                    if(event.key.keysym.sym == SDLK_BACKSPACE && selectedTextBox -> getText().length() > 0){
+                        auto text = selectedTextBox -> getText();
+                        text.pop_back();
+                        selectedTextBox -> setText(text.c_str());
+                    }
+                    else if(event.key.keysym.sym == SDLK_v && SDL_GetModState() & KMOD_CTRL){
+                        char* tempText = SDL_GetClipboardText();
+                        auto text = selectedTextBox -> getText();
+                        text += tempText;
+                        selectedTextBox -> setText(text.c_str());
+                        SDL_free(tempText);
+                    }
                 }
             }
             if(event.type == SDL_TEXTINPUT){
+                if(selectedTextBox == nullptr){
+                    continue;
+                }
                 if (!(SDL_GetModState() & KMOD_CTRL && (event.text.text[0] == 'c' || event.text.text[0] == 'C' || event.text.text[0] == 'v' || event.text.text[0] == 'V'))){
-                    auto text = var2.text.getText();
+                    auto text = selectedTextBox -> getText();
                     text += event.text.text;
-                    var2.text.setText(text.c_str());
+                    selectedTextBox -> setText(text.c_str());
                 }
             }
         }

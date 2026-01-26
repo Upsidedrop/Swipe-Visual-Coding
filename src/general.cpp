@@ -33,25 +33,30 @@ namespace General{
         }
     }
 
-    void OnClick(SDL_Event& event, Block*& heldObject, Vector2f& clickedPos, Variable*& heldVar){
-        Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) + cameraPos, {4});
+    void OnClick(SDL_Event& event, Block*& heldObject, Vector2f& clickedPos, Variable*& heldVar, TextArea*& selectedTextBox){
+        Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) + cameraPos, {Collider::GRABBABLE_VAR});
         if(collision != nullptr){
             GrabbedVariable(heldVar, event, collision, clickedPos);
+            collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) + cameraPos, {Collider::TEXT_AREA});
+            if(collision != nullptr){
+                selectedTextBox = (TextArea*)collision->GetParent();
+            }
             return;
         }
-        collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) + cameraPos, {2});
+        collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) + cameraPos, {Collider::GRABBABLE});
         if(collision != nullptr){
             GrabbedBlock(heldObject, event, collision, clickedPos);
             return;
         }
         else{
-            collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) + cameraPos, {3});
+            collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) + cameraPos, {Collider::BUTTON});
             if(collision != nullptr){
                 static_cast<Button*>(collision -> GetParent())->CallFunc();
                 return;
             }
         }
         beginDragging(clickedPos, event);
+        selectedTextBox = nullptr;
     }
     void beginDragging(Vector2f& clickedPos, SDL_Event& event){
         lastCamPos = cameraPos;

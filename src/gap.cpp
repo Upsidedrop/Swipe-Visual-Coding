@@ -6,7 +6,7 @@ constexpr int HALF_GAP = 12;
 
 Gap::Gap(Vector2f p_pos, HeightChanger& p_heightChanger, void* p_identity, bool p_isBlock, Vector2f p_scale, int p_layer)
 :Entity(p_pos, gapTexture, utils::InitRect(0,0,10,7), p_scale, p_layer), attached(nullptr), heightChanger(p_heightChanger), identity(p_identity), isBlock(p_isBlock){
-    col = new Collider(utils::RectToFrect(currentFrame), this, 5);
+    col = new Collider(utils::RectToFrect(currentFrame), this, Collider::GAP);
 }
 Gap::~Gap(){
     delete col;

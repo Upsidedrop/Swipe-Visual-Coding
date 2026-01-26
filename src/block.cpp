@@ -20,7 +20,7 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
         topColFrame.w = 32;
         topColFrame.h = 0;
 
-        topCollider = new Collider(topColFrame, this, 0);
+        topCollider = new Collider(topColFrame, this, Collider::TOP_BLOCK);
     }
 
     SDL_FRect bottomColFrame;
@@ -29,7 +29,7 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
     bottomColFrame.w = 32;
     bottomColFrame.h = 8;
 
-    bottomCollider = new Collider(bottomColFrame, this, 1);
+    bottomCollider = new Collider(bottomColFrame, this, Collider::BOTTOM_BLOCK);
 
     if (p_type != BlockType::DEFAULTHEAD)
     {
