@@ -11,12 +11,6 @@ extern std::unordered_map<std::string, FuncHead*> functions;
 extern std::map<int, RandomDeletionStack<Entity*>*> layers;
 
 namespace utils{
-    inline float hireTimeInSeconds(){
-        float t = SDL_GetTicks64();
-        t *= 0.001f;
-
-        return t;
-    }
     Collider* CheckMouseCollisions(Vector2f p_mousePos, vector<int> p_masks);
     void DeconstructFunctionHeads();
     void DeconstructLayers();
