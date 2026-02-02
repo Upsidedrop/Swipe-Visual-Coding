@@ -8,20 +8,7 @@ TextArea::TextArea(Vector2f p_pos, SDL_Texture* p_tex, Vector2f p_textOffset, fl
     textCol = new Collider(utils::RectToFrect(frame), this, Collider::TEXT_AREA);
 }
 void TextArea::setText(const char* p_text){
-    switch(strlen(p_text)){
-        case 0:
-            text.setText(" ");
-            break;
-        case 2:
-            if(p_text[0] == ' '){
-                std::cout << p_text[1] + "" << "\n";
-                text.setText(&p_text[1]);
-                break;
-            }
-        default:
-            text.setText(p_text);
-            break;
-    }
+    text.setText(p_text);
     auto frame = text.getFrame();
     textCol -> SetFrame(utils::RectToFrect(frame));
     UpdateSize();

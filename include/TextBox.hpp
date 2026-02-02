@@ -26,6 +26,7 @@ class TextBox{
     std::string getText();
     SDL_Rect getFrame();
     private:
+    void setRawText(const char* p_text);
     void updateTextures();
     void deleteTextures();
     Entity* visual;

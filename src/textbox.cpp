@@ -7,6 +7,22 @@ TextBox::TextBox(const char* p_text, Vector2f p_pos, float p_scale, int p_layer,
     visual = new Entity(p_pos, tex, getFrame(), Vector2f(scale, scale), p_layer);
 }
 void TextBox::setText(const char* p_text){
+    switch(strlen(p_text)){
+        case 0:
+            setRawText(" ");
+            break;
+        case 2:
+            if(p_text[0] == ' '){
+                std::cout << p_text[1] + "" << "\n";
+                setRawText(&p_text[1]);
+                break;
+            }
+        default:
+            setRawText(p_text);
+            break;
+    }
+}
+void TextBox::setRawText(const char* p_text){
     text = p_text;
     deleteTextures();
     updateTextures();
