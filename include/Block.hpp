@@ -22,12 +22,16 @@ enum BlockType{
     DEFAULTLOOP = 2,
     DEFAULTHEAD = 3
 };
+enum CodeSnippet{
+    NONE,
+    PRINT
+};
 
 class Block : public Entity{
     const int MIDDLE_TEXTURE_SIZE = 50;
     
     public:
-    Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_type, float p_scale = 1, const char* p_text = "Hello World!", Vector2f p_textOffset = Vector2f(10, 8), std::vector<const char*> p_parameters = {});
+    Block(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, BlockType p_type, float p_scale = 1, const char* p_text = "Hello World!", Vector2f p_textOffset = Vector2f(10, 8), std::vector<const char*> p_parameters = {}, CodeSnippet p_snippet = CodeSnippet::NONE);
     Collider& getBottomCollider(){
         return *bottomCollider;
     }
@@ -65,12 +69,14 @@ class Block : public Entity{
         parent = p_parent;
     }
     void UpdateParentLoop();
+    CodeSnippet getSnippet();
     
     virtual void UpdateCollider();
     void setPos(Vector2f p_pos) override;
     void SetLayer(int p_layer) override;
     virtual void UpdateSize();
     virtual ~Block();
+    Gap* getParam(int index);
     protected:
     void MoveParameters(Vector2f p_pos);
     void LayerParameters(int p_layer);
@@ -88,4 +94,5 @@ class Block : public Entity{
     std::vector<std::pair<Vector2f, Vector2f>> parameterOffsets;
     HeightChanger heightChanger;
     DividedEntity parts;
+    CodeSnippet snippet;
 };

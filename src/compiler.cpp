@@ -9,8 +9,10 @@ namespace Compilation{
         if(it == nullptr){
             return;
         }
-        if(it -> GetType() == BlockType::DEFAULT){
-            program << "std::cout << \"Hello World!\\n\";\n";
+        if(it -> getSnippet() == CodeSnippet::PRINT){
+            auto message = it -> getParam(0) -> getAttached() -> getText();
+            program << "std::cout << \""<< message << "\\n\";\n";
+            
         }
         if(it -> GetType() == BlockType::DEFAULTLOOP){
             program << "for(int " << foo << " =0;" << foo << "<3;++" << foo <<"){\n";

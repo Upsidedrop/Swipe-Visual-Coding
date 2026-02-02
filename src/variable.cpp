@@ -115,3 +115,9 @@ void Variable::trackOwnParameters(std::unordered_set<void*>& p_set){
         pair.second -> getAttached() -> trackOwnParameters(p_set);;
     }
 }
+bool Variable::hasText() {
+    return false;
+}
+std::string Variable::getText(){
+    return text.getText();
+}

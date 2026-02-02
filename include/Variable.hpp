@@ -26,6 +26,8 @@ class Variable : public Entity{
     std::vector<std::pair<TextBox*, Gap*>> parameters;
     Gap* parent;
     void trackOwnParameters(std::unordered_set<void*>& p_set);
+    std::string getText();
+    virtual bool hasText();
     protected:
     void MoveParameters(Vector2f p_pos);
     void LayerParameters(int p_layer);

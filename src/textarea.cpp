@@ -29,3 +29,6 @@ void TextArea::setText(const char* p_text){
 std::string TextArea::getText(){
     return text.getText();
 }
+bool TextArea::hasText(){
+    return true;
+}
