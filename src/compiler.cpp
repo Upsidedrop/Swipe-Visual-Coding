@@ -10,9 +10,17 @@ namespace Compilation{
             return;
         }
         if(it -> getSnippet() == CodeSnippet::PRINT){
-            auto message = it -> getParam(0) -> getAttached() -> getText();
-            program << "std::cout << \""<< message << "\\n\";\n";
-            
+            bool isString = it -> getParam(0) -> getAttached() -> hasText();
+
+            std::string thisLine = "std::cout << ";
+            if(isString){
+                thisLine.push_back('\"');
+            }
+            GetVarVal(it -> getParam(0) -> getAttached(), thisLine);
+            if(isString){
+                thisLine.push_back('\"');
+            }
+            program << thisLine << " << \"\\n\";\n";
         }
         if(it -> GetType() == BlockType::DEFAULTLOOP){
             program << "for(int " << foo << " =0;" << foo << "<3;++" << foo <<"){\n";
@@ -36,5 +44,19 @@ namespace Compilation{
         std::string command = "cd " + prefPath + " && g++ program.cpp -Wall && ./a.out";
 
         system(command.c_str());
+    }
+    void GetVarVal(Variable* p_var, std::string& p_line){
+        if(p_var -> hasText()){
+            p_line += p_var -> getText();
+            return;
+        }
+        if(p_var -> getCommand() == VarCommand::ADD){
+            p_line += "(";
+            GetVarVal(p_var -> getParam(0) -> getAttached(), p_line);
+            p_line += " + ";
+            GetVarVal(p_var -> getParam(1) -> getAttached(), p_line);
+            p_line += ")";
+            return;
+        }
     }
 }

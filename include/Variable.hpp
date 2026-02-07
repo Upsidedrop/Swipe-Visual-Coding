@@ -10,9 +10,12 @@
 
 class Gap;
 
+enum VarCommand{
+    ADD
+};
 class Variable : public Entity{
     public:
-    Variable(Vector2f p_pos, SDL_Texture* p_tex, const char *p_text, Vector2f p_textOffset, float p_scale = 4, int p_layer = 0, std::vector<const char*> p_parameters = {});
+    Variable(Vector2f p_pos, SDL_Texture* p_tex, const char *p_text, Vector2f p_textOffset, float p_scale = 4, int p_layer = 0, std::vector<const char*> p_parameters = {}, VarCommand p_command = ADD);
     ~Variable();
     Collider* GetCollider();
     void SetParent(Gap* p_parent);
@@ -28,6 +31,8 @@ class Variable : public Entity{
     void trackOwnParameters(std::unordered_set<void*>& p_set);
     std::string getText();
     virtual bool hasText();
+    VarCommand getCommand();
+    Gap* getParam(int index);
     protected:
     void MoveParameters(Vector2f p_pos);
     void LayerParameters(int p_layer);
@@ -37,4 +42,5 @@ class Variable : public Entity{
     std::vector<std::pair<Vector2f, Vector2f>> parameterOffsets;
     HeightChanger heightChanger;
     DividedEntity parts;
+    VarCommand command;
 };

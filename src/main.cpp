@@ -120,8 +120,10 @@ int main(int agrv, char* args[]) {
     Variable var(Vector2f(400, 600), varTexture, "Sensor", Vector2f(8,1));
     Variable var2(Vector2f(400, 600), varTexture, "Sensor", Vector2f(8,1), 4, 0, {"first:","second:"});
     Variable var3(Vector2f(400, 600), varTexture, "Sensor", Vector2f(8,1), 4, 0, {"first:","second:"});
+    Variable var4(Vector2f(400, 400), varTexture, "Add:", Vector2f(8,1), 4, 0, {" ","+"});
 
     TextArea foo(Vector2f(400, 600), textAreaTexture, Vector2f(8,0.8), 4, 0);
+    TextArea foo2(Vector2f(400, 600), textAreaTexture, Vector2f(8,0.8), 4, 0);
 
     Variable* heldVar = nullptr;
     Block* heldObject = nullptr;
