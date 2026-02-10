@@ -3,6 +3,7 @@
 #include <SDL_image.h>
 #include <unordered_set>
 
+#include "LinkedList.hpp"
 #include "Collider.hpp"
 #include "TextBox.hpp"
 #include "DividedEntity.hpp"
@@ -43,4 +44,5 @@ class Variable : public Entity{
     HeightChanger heightChanger;
     DividedEntity parts;
     VarCommand command;
+    static LinkedList<Variable> vars;
 };
