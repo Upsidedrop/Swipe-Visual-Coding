@@ -135,6 +135,8 @@ int main(int agrv, char* args[]) {
     bool gameRunning = true;
     SDL_Event event;
 
+    Vector2f lastMousePos(0,0);
+
     SDL_StartTextInput();
 
     cout << "Game Start" << "\n";
@@ -144,6 +146,7 @@ int main(int agrv, char* args[]) {
                 gameRunning = false;
             }
             if(event.type == SDL_MOUSEMOTION){
+                lastMousePos = Vector2f(event.button.x, event.button.y);
                 if(event.button.button == SDL_BUTTON_LEFT){
                     if(heldObject != nullptr){
                         heldObject -> setPos((Vector2f(event.motion.x, event.motion.y) - clickedPos) * (1/ cameraZoom));
@@ -166,6 +169,7 @@ int main(int agrv, char* args[]) {
                 }
             }
             if(event.type == SDL_MOUSEWHEEL){
+                float oldZoom = cameraZoom;
                 cameraZoom *= event.wheel.y > 0? 1 / 0.5 : 0.5;
                 if(cameraZoom > 32){
                     cameraZoom = 32;
@@ -173,6 +177,8 @@ int main(int agrv, char* args[]) {
                 if(cameraZoom < 0.0625){
                     cameraZoom = 0.0625;
                 }
+                Vector2f dstMousePos = (lastMousePos * (1 / oldZoom)) * cameraZoom;
+                cameraPos += (dstMousePos - lastMousePos) * (1 / cameraZoom);
             }
             if(event.type == SDL_MOUSEBUTTONUP){
                 if(event.button.button == SDL_BUTTON_LEFT){
