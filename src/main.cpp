@@ -42,6 +42,8 @@ SDL_Texture* varTexture = window.loadTexture("res/gfx/Variable.png");
 
 Vector2f cameraPos(0, 0);
 Vector2f lastCamPos;
+float cameraZoom = 0.75;
+
 bool isDragging = false;
 
 int main(int agrv, char* args[]) {
@@ -144,7 +146,7 @@ int main(int agrv, char* args[]) {
             if(event.type == SDL_MOUSEMOTION){
                 if(event.button.button == SDL_BUTTON_LEFT){
                     if(heldObject != nullptr){
-                        heldObject -> setPos(Vector2f(event.motion.x, event.motion.y) - clickedPos);
+                        heldObject -> setPos((Vector2f(event.motion.x, event.motion.y) - clickedPos) * (1/ cameraZoom));
                     }
                     if(heldVar != nullptr){
                         heldVar -> setPos(Vector2f(event.motion.x, event.motion.y) - clickedPos);

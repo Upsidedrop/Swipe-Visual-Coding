@@ -4,12 +4,13 @@
 
 extern Vector2f cameraPos;
 extern Vector2f lastCamPos;
+extern float cameraZoom;
 extern bool isDragging;
 
 namespace General{
     void GrabbedBlock(Block*& heldObject, SDL_Event& event, Collider*& collision, Vector2f& clickedPos){
         heldObject = static_cast<Block*>(collision->GetParent());
-        clickedPos = Vector2f(event.button.x - heldObject -> getPos().x, event.button.y - heldObject -> getPos().y);
+        clickedPos = Vector2f(event.button.x - heldObject -> getPos().x * cameraZoom, event.button.y - heldObject -> getPos().y * cameraZoom);
         if(heldObject -> getParent() != nullptr){
             if(heldObject -> getParent() -> GetType() == BlockType::DEFAULTLOOP){
                 heldObject -> getParent() -> RemoveChild(heldObject);
@@ -34,22 +35,22 @@ namespace General{
     }
 
     void OnClick(SDL_Event& event, Block*& heldObject, Vector2f& clickedPos, Variable*& heldVar, TextArea*& selectedTextBox){
-        Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) + cameraPos, {Collider::GRABBABLE_VAR});
+        Collider* collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) * (1 / cameraZoom) + cameraPos, {Collider::GRABBABLE_VAR});
         if(collision != nullptr){
             GrabbedVariable(heldVar, event, collision, clickedPos);
-            collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) + cameraPos, {Collider::TEXT_AREA});
+            collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) * (1 / cameraZoom) + cameraPos, {Collider::TEXT_AREA});
             if(collision != nullptr){
                 selectedTextBox = (TextArea*)collision->GetParent();
             }
             return;
         }
-        collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) + cameraPos, {Collider::GRABBABLE});
+        collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) * (1 / cameraZoom) + cameraPos, {Collider::GRABBABLE});
         if(collision != nullptr){
             GrabbedBlock(heldObject, event, collision, clickedPos);
             return;
         }
         else{
-            collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) + cameraPos, {Collider::BUTTON});
+            collision = utils::CheckMouseCollisions(Vector2f(event.button.x, event.button.y) * (1 / cameraZoom) + cameraPos, {Collider::BUTTON});
             if(collision != nullptr){
                 static_cast<Button*>(collision -> GetParent())->CallFunc();
                 return;
