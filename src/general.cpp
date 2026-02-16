@@ -26,7 +26,7 @@ namespace General{
     void GrabbedVariable(Variable*& heldVar, SDL_Event& event, Collider*& collision, Vector2f& clickedPos)
     {
         heldVar = static_cast<Variable*>(collision->GetParent());
-        clickedPos = Vector2f(event.button.x - heldVar -> getPos().x, event.button.y - heldVar -> getPos().y);
+        clickedPos = Vector2f(event.button.x - heldVar -> getPos().x * cameraZoom, event.button.y - heldVar -> getPos().y * cameraZoom);
         heldVar -> SetLayer(2);
         if(heldVar -> GetParent() != nullptr){
             heldVar -> GetParent() -> Detach();

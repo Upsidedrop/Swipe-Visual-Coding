@@ -149,12 +149,12 @@ int main(int agrv, char* args[]) {
                         heldObject -> setPos((Vector2f(event.motion.x, event.motion.y) - clickedPos) * (1/ cameraZoom));
                     }
                     if(heldVar != nullptr){
-                        heldVar -> setPos(Vector2f(event.motion.x, event.motion.y) - clickedPos);
+                        heldVar -> setPos((Vector2f(event.motion.x, event.motion.y) - clickedPos) * (1/ cameraZoom));
                     } 
                 }
 
                 if(isDragging){
-                    cameraPos = Vector2f(clickedPos.x - event.button.x + lastCamPos.x, clickedPos.y - event.button.y + lastCamPos.y);
+                    cameraPos = Vector2f((clickedPos.x - event.button.x)* (1/ cameraZoom) + lastCamPos.x, (clickedPos.y - event.button.y)* (1/ cameraZoom) + lastCamPos.y);
                 }
             }
             if(event.type == SDL_MOUSEBUTTONDOWN){
