@@ -42,7 +42,7 @@ SDL_Texture* varTexture = window.loadTexture("res/gfx/Variable.png");
 
 Vector2f cameraPos(0, 0);
 Vector2f lastCamPos;
-float cameraZoom = 0.75;
+float cameraZoom = 1;
 
 bool isDragging = false;
 
@@ -163,6 +163,15 @@ int main(int agrv, char* args[]) {
                 }
                 if(event.button.button == SDL_BUTTON_MIDDLE){
                     General::beginDragging(clickedPos, event);
+                }
+            }
+            if(event.type == SDL_MOUSEWHEEL){
+                cameraZoom *= event.wheel.y > 0? 1 / 0.5 : 0.5;
+                if(cameraZoom > 32){
+                    cameraZoom = 32;
+                }
+                if(cameraZoom < 0.0625){
+                    cameraZoom = 0.0625;
                 }
             }
             if(event.type == SDL_MOUSEBUTTONUP){
