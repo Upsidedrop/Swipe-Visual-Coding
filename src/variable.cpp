@@ -27,9 +27,7 @@ Variable::Variable(Vector2f p_pos, SDL_Texture *p_tex, const char *p_text, Vecto
 
     for (auto pair : parameters)
     {
-        std::cout << "update parameter layers\n";
         pair.first->getVisual()->SetLayer(layer);
-        std::cout << "update other parameter\n";
 
         pair.second->SetLayer(layer);
     }

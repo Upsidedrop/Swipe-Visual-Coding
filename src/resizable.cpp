@@ -21,23 +21,15 @@ namespace BlockResize{
         float a = centerFrame.x * p_scale;
         float b = p_text.getDimensions().x + p_textOffset.x * 2;
         float c = topRightFrame.w * p_scale;
-
-        std::cout << "Offsets pos: " << &p_parameterOffsets << "\n";
  
-        std::cout << "a: " << a << " b: " << b << " c: " << c << "\n";   
-
         for(size_t i = 0; i < p_inParameters.size(); ++i){
             p_outParameters.push_back(std::make_pair(nullptr, nullptr));
             p_parameterOffsets.push_back(std::make_pair(Vector2f(0,0), Vector2f(0,0)));
-            std::cout << &p_parameterOffsets[i].first << "\n";
-            p_parameterOffsets[i].first.print();
             
             p_outParameters[i].first = new TextBox(p_inParameters[i], Vector2f(b, p_textOffset.y) + p_pos, p_text.getScale());
 
             //Saving offset for later so it doesnt need to be recalculated all the time
             p_parameterOffsets[i].first = Vector2f(b, p_textOffset.y);
-            std::cout << &p_parameterOffsets[i].first << "\n";
-            p_parameterOffsets[i].first.print();
             b += p_outParameters[i].first -> getDimensions().x + p_textOffset.x;
             
             p_outParameters[i].second = new Gap(Vector2f(b, p_textOffset.y) + p_pos, p_heightChanger, p_identity, p_isBlock);
@@ -77,8 +69,6 @@ namespace BlockResize{
         float a = p_currentFrame.w * p_scale.x;
         float b = p_text.getDimensions().x + p_textOffset.x * 2;
         float c = p_parts.topRight -> getCurrentFrame().w * p_scale.x;
-
-        std::cout << "a: " << a << " b: " << b << " c: " << c << "\n";
 
         for(size_t i = 0; i < p_parameters.size(); ++i){        
             p_parameters[i].first -> getVisual() -> setPos(Vector2f(b, p_textOffset.y) + p_pos);

@@ -28,28 +28,21 @@ void Entity::SetLayer(int p_layer){
     SetSelfLayer(p_layer);
 }
 void Entity::SetSelfLayer(int p_layer){
-    std::cout << "deleting element\n";
-
     {
         auto oldLayer = layers.find(layer); 
         auto newLast = oldLayer -> second -> DeleteElement(this);
         if(newLast != nullptr){
-            std::cout << "newLast: " << newLast -> GetChild()<< "\n";
             oldLayer -> second -> SetLast(newLast); 
         }
     }
     
-    std::cout << "setting layer\n";
-
     layer = p_layer;
 
-    std::cout << "inserting layer\n";
     auto it = layers.find(layer);
     if(it == layers.end()){
         layers.insert(std::make_pair(layer, new RandomDeletionStack<Entity*>(nullptr)));
         it = layers.find(layer); 
     }
-    std::cout << "adding element to layer\n";
     it -> second -> Push(this);
 
 }

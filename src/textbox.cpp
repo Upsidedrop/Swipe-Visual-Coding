@@ -13,7 +13,6 @@ void TextBox::setText(const char* p_text){
             break;
         case 2:
             if(p_text[0] == ' '){
-                std::cout << p_text[1] + "" << "\n";
                 setRawText(&p_text[1]);
                 break;
             }

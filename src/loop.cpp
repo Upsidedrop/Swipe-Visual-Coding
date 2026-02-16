@@ -201,7 +201,6 @@ void Loop::UpdateBodySize(){
     Block *childIt = innerChild;
     while (childIt->getChild() != nullptr)
     {
-        std::cout << childIt->getChild() << "\n";
         childIt = childIt->getChild();
     }
     setBodySize((childIt -> GetBottom() - innerChild -> getPos().y) / scale.y - 2);

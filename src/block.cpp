@@ -9,8 +9,6 @@ LinkedList<Block> Block::blocks;
 Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_type, float p_scale, const char *p_text, Vector2f p_textOffset, std::vector<const char *> p_parameters, CodeSnippet p_snippet)
     : Entity(p_pos, p_tex, p_frame, Vector2f(p_scale, p_scale)), topCollider(nullptr), child(nullptr), parent(nullptr), type(p_type), text(p_text, p_pos + p_textOffset, 0.6), textOffset(p_textOffset), heightChanger(parts, 7, nullptr, 14, parameters, mainCollider, textOffset.y), parts(Vector2f(65, 14)), snippet(p_snippet)
 {
-    std::cout << "Block init" << "\n";
-    std::cout << p_type << "\n";
     parameters.reserve(p_parameters.size());
     parameterOffsets.reserve(p_parameters.size());
     heightChanger.parameterOffsets = &parameterOffsets;
@@ -55,8 +53,6 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
 
         text.getVisual() -> SetLayer(layer);
 
-        std::cout << "Offsets pos: " << &parameterOffsets << "\n";
-        std::cout << "parameters size: " << parameters.size() << "\n";
         if (parameters.size() != 0)
         {
             heightChanger.UpdateHeight();
@@ -64,9 +60,7 @@ Block::Block(Vector2f p_pos, SDL_Texture *p_tex, SDL_Rect p_frame, BlockType p_t
 
         for (auto pair : parameters)
         {
-            std::cout << "update parameter layers\n";
             pair.first->getVisual()->SetLayer(layer);
-            std::cout << "update other parameter\n";
 
             pair.second->SetLayer(layer);
         }
@@ -166,8 +160,6 @@ void Block::UpdateCollider(){
     SDL_Rect updatedFrame = utils::InitRect(oldFrame.x, (GetHeadHeight() - pos.y - 1) / scale.y, oldFrame.w, oldFrame.h);
     bottomCollider -> SetFrame(utils::RectToFrect(updatedFrame));
     if(child != nullptr){
-        child -> getPos().print();
-        Vector2f(pos.x, GetHeadHeight() - scale.y).print();
         child -> setPos(Vector2f(pos.x, GetHeadHeight() - scale.y));
     }
     UpdateParentLoop();
