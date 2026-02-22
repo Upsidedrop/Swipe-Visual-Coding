@@ -49,11 +49,35 @@ void RenderWindow::render(Entity& p_entity){
     src.h = p_entity.getCurrentFrame().h;
 
     SDL_Rect dst;
+    
+    switch(p_entity.getRenderType()){
+        case OBJECT:
+            dst = frameObject(p_entity);
+            break;
+        case UI:
+            dst = frameUI(p_entity);
+            break;
+    }
+
+    SDL_RenderCopy(renderer, p_entity.getTex(), &src, &dst);
+}
+SDL_Rect RenderWindow::frameObject(Entity& p_entity){
+    SDL_Rect dst;
     dst.x = floor((p_entity.getPos().x - cameraPos.x) * cameraZoom);
     dst.y = floor((p_entity.getPos().y - cameraPos.y) * cameraZoom);
     dst.w = ceil((p_entity.getCurrentFrame().w * p_entity.getScale().x) * cameraZoom);
     dst.h = ceil((p_entity.getCurrentFrame().h * p_entity.getScale().y) * cameraZoom);
-    SDL_RenderCopy(renderer, p_entity.getTex(), &src, &dst);
+
+    return dst;
+}
+SDL_Rect RenderWindow::frameUI(Entity& p_entity){
+    SDL_Rect dst;
+    dst.x = floor(p_entity.getPos().x);
+    dst.y = floor(p_entity.getPos().y);
+    dst.w = ceil((p_entity.getCurrentFrame().w * p_entity.getScale().x));
+    dst.h = ceil((p_entity.getCurrentFrame().h * p_entity.getScale().y));
+
+    return dst;
 }
 void RenderWindow::display(){
     SDL_RenderPresent(renderer);

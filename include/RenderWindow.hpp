@@ -15,6 +15,8 @@ class RenderWindow{
         void display();
         void changeBackground(SDL_Color p_color);
     private:
+        SDL_Rect frameObject(Entity& p_entity);
+        SDL_Rect frameUI(Entity& p_entity);
         SDL_Window* window;
         SDL_Renderer* renderer;
 };

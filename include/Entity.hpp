@@ -10,9 +10,14 @@ class Entity;
 
 extern std::map<int, RandomDeletionStack<Entity*>*> layers;
 
+enum RenderType{
+    OBJECT,
+    UI
+};
+
 class Entity{
     public:
-    Entity(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, Vector2f p_scale = Vector2f(1,1), int p_layer = 0);
+    Entity(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, Vector2f p_scale = Vector2f(1,1), int p_layer = 0, RenderType p_renderType = OBJECT);
     Vector2f& getPos()
     {
         return pos;
@@ -34,10 +39,12 @@ class Entity{
     virtual ~Entity(){}
     void SetSelfLayer(int p_layer);
     bool enabled;
+    RenderType getRenderType();
     protected:
     int layer = 0;
     Vector2f pos;
     Vector2f scale;
     SDL_Rect currentFrame;
     SDL_Texture* tex;
+    RenderType renderType;
 };
