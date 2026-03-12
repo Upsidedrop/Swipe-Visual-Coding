@@ -142,82 +142,105 @@ int main(int agrv, char* args[]) {
     cout << "Game Start" << "\n";
     while(gameRunning){
         while(SDL_PollEvent(&event)){
-            if(event.type == SDL_QUIT){
-                gameRunning = false;
-            }
-            if(event.type == SDL_MOUSEMOTION){
-                lastMousePos = Vector2f(event.button.x, event.button.y);
-                if(event.button.button == SDL_BUTTON_LEFT){
-                    if(heldObject != nullptr){
-                        heldObject -> setPos((Vector2f(event.motion.x, event.motion.y) - clickedPos) * (1/ cameraZoom));
-                    }
-                    if(heldVar != nullptr){
-                        heldVar -> setPos((Vector2f(event.motion.x, event.motion.y) - clickedPos) * (1/ cameraZoom));
-                    } 
+            switch (event.type){
+                case SDL_QUIT:
+                {                
+                    gameRunning = false;
                 }
+                break;
+                case SDL_MOUSEMOTION:
+                {
+                    lastMousePos = Vector2f(event.button.x, event.button.y);
+                    if(event.button.button == SDL_BUTTON_LEFT){
+                        if(heldObject != nullptr){
+                            heldObject -> setPos((Vector2f(event.motion.x, event.motion.y) - clickedPos) * (1/ cameraZoom));
+                        }
+                        if(heldVar != nullptr){
+                            heldVar -> setPos((Vector2f(event.motion.x, event.motion.y) - clickedPos) * (1/ cameraZoom));
+                        } 
+                    }
 
-                if(isDragging){
-                    cameraPos = Vector2f((clickedPos.x - event.button.x)* (1/ cameraZoom) + lastCamPos.x, (clickedPos.y - event.button.y)* (1/ cameraZoom) + lastCamPos.y);
-                }
-            }
-            if(event.type == SDL_MOUSEBUTTONDOWN){
-                if(event.button.button == SDL_BUTTON_LEFT){
-                    General::OnClick(event, heldObject, clickedPos, heldVar, selectedTextBox);
-                }
-                if(event.button.button == SDL_BUTTON_MIDDLE){
-                    General::beginDragging(clickedPos, event);
-                }
-            }
-            if(event.type == SDL_MOUSEWHEEL){
-                float oldZoom = cameraZoom;
-                cameraZoom *= event.wheel.y > 0? 1 / 0.5 : 0.5;
-                if(cameraZoom > 32){
-                    cameraZoom = 32;
-                }
-                if(cameraZoom < 0.0625){
-                    cameraZoom = 0.0625;
-                }
-                Vector2f dstMousePos = (lastMousePos * (1 / oldZoom)) * cameraZoom;
-                cameraPos += (dstMousePos - lastMousePos) * (1 / cameraZoom);
-            }
-            if(event.type == SDL_MOUSEBUTTONUP){
-                if(event.button.button == SDL_BUTTON_LEFT){
-                    if(heldObject != nullptr){
-                        General::BlockReleased(heldObject);
-                    }
-                    if(heldVar != nullptr){
-                        General::VariableReleased(heldVar);
+                    if(isDragging){
+                        cameraPos = Vector2f((clickedPos.x - event.button.x)* (1/ cameraZoom) + lastCamPos.x, (clickedPos.y - event.button.y)* (1/ cameraZoom) + lastCamPos.y);
                     }
                 }
-                if(isDragging){
-                    isDragging = false;
+                break;
+                case SDL_MOUSEBUTTONDOWN:
+                {
+                    if(event.button.button == SDL_BUTTON_LEFT){
+                        General::OnClick(event, heldObject, clickedPos, heldVar, selectedTextBox);
+                    }
+                    if(event.button.button == SDL_BUTTON_MIDDLE){
+                        General::beginDragging(clickedPos, event);
+                    }
                 }
-            }
-            if(event.type == SDL_KEYDOWN){
-                if(selectedTextBox != nullptr){
-                    if(event.key.keysym.sym == SDLK_BACKSPACE && selectedTextBox -> getText().length() > 0){
+                break;
+                case SDL_MOUSEWHEEL:
+                {
+                    float oldZoom = cameraZoom;
+                    cameraZoom *= event.wheel.y > 0? 1 / 0.5 : 0.5;
+                    if(cameraZoom > 32){
+                        cameraZoom = 32;
+                    }
+                    if(cameraZoom < 0.0625){
+                        cameraZoom = 0.0625;
+                    }
+                    Vector2f dstMousePos = (lastMousePos * (1 / oldZoom)) * cameraZoom;
+                    cameraPos += (dstMousePos - lastMousePos) * (1 / cameraZoom);
+                }
+                break;
+                case SDL_MOUSEBUTTONUP:
+                {
+                    if(event.button.button == SDL_BUTTON_LEFT){
+                        if(heldObject != nullptr){
+                            General::BlockReleased(heldObject);
+                        }
+                        if(heldVar != nullptr){
+                            General::VariableReleased(heldVar);
+                        }
+                    }
+                    if(isDragging){
+                        isDragging = false;
+                    }
+                } 
+                break;
+                case SDL_KEYDOWN:
+                {
+                    if(selectedTextBox != nullptr){
+                        if(event.key.keysym.sym == SDLK_BACKSPACE && selectedTextBox -> getText().length() > 0){
+                            auto text = selectedTextBox -> getText();
+                            text.pop_back();
+                            selectedTextBox -> setText(text.c_str());
+                        }
+                        else if(event.key.keysym.sym == SDLK_v && SDL_GetModState() & KMOD_CTRL){
+                            char* tempText = SDL_GetClipboardText();
+                            auto text = selectedTextBox -> getText();
+                            text += tempText;
+                            selectedTextBox -> setText(text.c_str());
+                            SDL_free(tempText);
+                        }
+                    }
+                }
+                break;
+                case SDL_TEXTINPUT:
+                {
+                    if(selectedTextBox == nullptr){
+                        continue;
+                    }
+                    if (!(SDL_GetModState() & KMOD_CTRL && (event.text.text[0] == 'c' || event.text.text[0] == 'C' || event.text.text[0] == 'v' || event.text.text[0] == 'V'))){
                         auto text = selectedTextBox -> getText();
-                        text.pop_back();
+                        text += event.text.text;
                         selectedTextBox -> setText(text.c_str());
                     }
-                    else if(event.key.keysym.sym == SDLK_v && SDL_GetModState() & KMOD_CTRL){
-                        char* tempText = SDL_GetClipboardText();
-                        auto text = selectedTextBox -> getText();
-                        text += tempText;
-                        selectedTextBox -> setText(text.c_str());
-                        SDL_free(tempText);
+                }
+                break;
+                case SDL_WINDOWEVENT:
+                {
+                    if(event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+                        window.windowResized(event.window.data1,event.window.data2);
                     }
                 }
-            }
-            if(event.type == SDL_TEXTINPUT){
-                if(selectedTextBox == nullptr){
-                    continue;
-                }
-                if (!(SDL_GetModState() & KMOD_CTRL && (event.text.text[0] == 'c' || event.text.text[0] == 'C' || event.text.text[0] == 'v' || event.text.text[0] == 'V'))){
-                    auto text = selectedTextBox -> getText();
-                    text += event.text.text;
-                    selectedTextBox -> setText(text.c_str());
-                }
+                break;
             }
         }
         window.clear();

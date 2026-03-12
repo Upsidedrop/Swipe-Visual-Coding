@@ -85,3 +85,8 @@ void RenderWindow::display(){
 void RenderWindow::changeBackground(SDL_Color p_color){
     SDL_SetRenderDrawColor(renderer, p_color.r, p_color.g, p_color.b, p_color.a);
 }
+void RenderWindow::windowResized(int p_width, int p_height){
+    width = p_width;
+    height = p_height;
+    std::cout << "Width: " << width << ", Height: " << height << "\n";
+}

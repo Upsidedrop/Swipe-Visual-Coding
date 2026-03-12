@@ -14,9 +14,11 @@ class RenderWindow{
         void render(Entity& p_entity);
         void display();
         void changeBackground(SDL_Color p_color);
+        void windowResized(int p_width, int p_height);
     private:
         SDL_Rect frameObject(Entity& p_entity);
         SDL_Rect frameUI(Entity& p_entity);
         SDL_Window* window;
         SDL_Renderer* renderer;
+        int width, height;
 };
