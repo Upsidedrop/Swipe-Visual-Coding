@@ -14,6 +14,7 @@ RenderWindow::RenderWindow(const char* p_title, int p_w, int p_h) :window(nullpt
         std::cout << "WINDOW FAILED TO INIT. ERROR: " << SDL_GetError() << std::endl; 
     }
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 }
 SDL_Texture* RenderWindow::loadTexture(const char* p_filePath){
     SDL_Texture* texture = nullptr;
@@ -89,4 +90,9 @@ void RenderWindow::windowResized(int p_width, int p_height){
     width = p_width;
     height = p_height;
     std::cout << "Width: " << width << ", Height: " << height << "\n";
+}
+void RenderWindow::renderSideBar(){
+    SDL_Rect dimensions = {0, 0, width / 5, height};
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 50);
+    SDL_RenderFillRect(renderer, &dimensions);
 }

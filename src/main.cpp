@@ -62,9 +62,7 @@ int main(int agrv, char* args[]) {
     //     cout << "SDL_MIXER HAS FAILED. ERROR:" << SDL_GetError() << "\n";
     // }
     cout << "Init Passed" << "\n";
-
-    window.changeBackground({82,79,61});
-
+    
     comic = TTF_OpenFont("res/gfx/ComicNeueBold.ttf", 43);
 
     SDL_Texture* blockTexture = window.loadTexture("res/gfx/DefaultBlock.png");
@@ -243,7 +241,11 @@ int main(int agrv, char* args[]) {
                 break;
             }
         }
+
+        window.changeBackground({82,79,61});
+
         window.clear();
+
 
         for(auto layer : layers){
             auto node = layer.second -> GetChild();
@@ -252,6 +254,8 @@ int main(int agrv, char* args[]) {
                 node = node -> GetChild();
             }
         }
+
+        window.renderSideBar();
 
         window.display();
     }
