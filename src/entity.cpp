@@ -1,8 +1,15 @@
 #include "Entity.hpp"
 
+extern RandomDeletionStack<Entity*> uiElements;
+
 Entity::Entity(Vector2f p_pos, SDL_Texture* p_tex, SDL_Rect p_frame, Vector2f p_scale, int p_layer, RenderType p_renderType)
-:pos(p_pos), scale(p_scale), currentFrame(p_frame), tex(p_tex), enabled(true), renderType(p_renderType)
+:pos(p_pos), scale(p_scale), currentFrame(p_frame), tex(p_tex), enabled(true)
 {
+    if(p_renderType == UI){
+        uiElements.Push(this);
+        return;
+    }
+
     layer = p_layer;
 
     auto it = layers.find(layer);
@@ -26,9 +33,6 @@ SDL_Rect Entity::getCurrentFrame(){
 }
 void Entity::SetLayer(int p_layer){
     SetSelfLayer(p_layer);
-}
-RenderType Entity::getRenderType(){
-    return renderType;
 }
 void Entity::SetSelfLayer(int p_layer){
     {

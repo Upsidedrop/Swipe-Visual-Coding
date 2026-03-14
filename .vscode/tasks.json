@@ -16,7 +16,7 @@
         {
             "type": "shell",
             "label": "CMake",
-            "command": "cmake -B build",
+            "command": "rm -rf build && mkdir build && cmake -B build",
             "problemMatcher": [
                 "$gcc"
             ],

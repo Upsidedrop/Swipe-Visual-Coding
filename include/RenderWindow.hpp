@@ -11,7 +11,7 @@ class RenderWindow{
         SDL_Texture* loadSurface(SDL_Surface* surface);
         void cleanUp();
         void clear();
-        void render(Entity& p_entity);
+        void render(Entity& p_entity, RenderType p_renderType);
         void display();
         void changeBackground(SDL_Color p_color);
         void windowResized(int p_width, int p_height);

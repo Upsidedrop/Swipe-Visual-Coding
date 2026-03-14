@@ -39,12 +39,10 @@ class Entity{
     virtual ~Entity(){}
     void SetSelfLayer(int p_layer);
     bool enabled;
-    RenderType getRenderType();
     protected:
     int layer = 0;
     Vector2f pos;
     Vector2f scale;
     SDL_Rect currentFrame;
     SDL_Texture* tex;
-    RenderType renderType;
 };

@@ -38,7 +38,7 @@ void RenderWindow::cleanUp(){
 void RenderWindow::clear(){
     SDL_RenderClear(renderer);
 }
-void RenderWindow::render(Entity& p_entity){
+void RenderWindow::render(Entity& p_entity, RenderType p_renderType){
     if(!p_entity.enabled){
         return;
     }
@@ -51,7 +51,7 @@ void RenderWindow::render(Entity& p_entity){
 
     SDL_Rect dst;
     
-    switch(p_entity.getRenderType()){
+    switch(p_renderType){
         case OBJECT:
             dst = frameObject(p_entity);
             break;

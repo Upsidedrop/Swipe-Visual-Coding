@@ -31,6 +31,7 @@ std::unordered_map<std::string, FuncHead*> functions;
 std::vector<std::vector<Collider*>> flags = std::vector<std::vector<Collider*>>(7);
 
 std::map<int, RandomDeletionStack<Entity*>*> layers;
+RandomDeletionStack<Entity*> uiElements(nullptr);
 
 RenderWindow window("hi", 1280, 720);
 
@@ -107,6 +108,7 @@ int main(int agrv, char* args[]) {
     buttonFloatSize.w = 37;
     buttonFloatSize.h = 15;
 
+    Entity foo(Vector2f(10,600), buttonTexture, buttonSize, Vector2f(4,4), 0, UI);
 
     new Block(Vector2f(0,70), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: \"Hello World!\"",  Vector2f(10, 11), {"x:", "y:", "z:"});
     new Block(Vector2f(0,140), blockTexture, blockSize, BlockType::DEFAULT, 4, "Say: ", Vector2f(10, 11), {"Message:"}, CodeSnippet::PRINT);
@@ -250,12 +252,18 @@ int main(int agrv, char* args[]) {
         for(auto layer : layers){
             auto node = layer.second -> GetChild();
             while(node != nullptr){
-                window.render(*node -> GetValue());
+                window.render(*node -> GetValue(), OBJECT);
                 node = node -> GetChild();
             }
         }
 
         window.renderSideBar();
+
+        auto node = uiElements.GetChild();
+        while(node != nullptr){
+            window.render(*node -> GetValue(), UI);
+            node = node -> GetChild();
+        }
 
         window.display();
     }
